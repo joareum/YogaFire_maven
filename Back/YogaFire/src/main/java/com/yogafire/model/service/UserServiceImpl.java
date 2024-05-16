@@ -25,6 +25,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void signup(User user) {
+		System.out.println(user);
+		System.out.println(user.getUserId());
 		userDao.insertUser(user);
 	}
 
