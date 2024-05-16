@@ -3,6 +3,7 @@ package com.yogafire.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +22,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(value = "*")
 @Tag(name = "UserRestController", description = "유저 관련")
 public class UserRestController {
 	private UserService userService;
@@ -31,14 +33,15 @@ public class UserRestController {
 	}
 	
 	@PostMapping("/signup")
-	public ResponseEntity<?> regist(@ModelAttribute User user){
+	public ResponseEntity<?> regist(@RequestBody User user){
+		System.out.println(user);
 		userService.signup(user);
 		
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/signin")
-	public ResponseEntity<User> login(@ModelAttribute User user) {
+	public ResponseEntity<User> login(@RequestBody User user) {
 		User tmp = userService.login(user.getUserId(), user.getPassword());
 
 		return new ResponseEntity<User>(tmp, HttpStatus.OK);
@@ -46,14 +49,14 @@ public class UserRestController {
 	
 	// 아이디 찾기
 	@GetMapping("/find-account")
-	public ResponseEntity<?> returnId(@ModelAttribute User user){
+	public ResponseEntity<?> returnId(@RequestBody User user){
 		String id = userService.findId(user);
 		return new ResponseEntity<String>(id, HttpStatus.OK);
 	}
 	
 	// 비밀번호 찾기
 	@GetMapping("/find-password")
-	public ResponseEntity<?> returnPw(@ModelAttribute User user){
+	public ResponseEntity<?> returnPw(@RequestBody User user){
 		String pw = userService.findPw(user);
 		return new ResponseEntity<String>(pw, HttpStatus.OK);
 	}
@@ -83,7 +86,7 @@ public class UserRestController {
 	
 	// 정보 수정
 	@PatchMapping("/myInfo/modify-profile/{user_id}")
-	public ResponseEntity<Void> modifyProfile(@PathVariable("user_id") String id, @ModelAttribute User user){
+	public ResponseEntity<Void> modifyProfile(@PathVariable("user_id") String id, @RequestBody User user){
 		user.setUserId(id);
 		userService.modifyUser(user);
 		
