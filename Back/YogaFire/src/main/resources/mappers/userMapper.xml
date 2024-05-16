@@ -5,8 +5,8 @@
 <mapper namespace="com.yogafire.model.dao.UserDao">
 	<!-- 회원 가입(등록) -->
 	<insert id="insertUser" parameterType="user">
-		INSERT INTO user (user_id, password, name, birthday, email, phone, nickname, delete_yn, weight, sex, age)
-		VALUES (#{userId}, #{password}, #{name}, #{birthday}, #{email}, #{phone}, #{nickname}, #{deleteYn}, #{weight}, #{sex}, #{age});
+		INSERT INTO user (user_id, password, name, birthday, email, phone, nickname, height, weight, sex, age)
+		VALUES (#{userId}, #{password}, #{name}, #{birthday}, #{email}, #{phone}, #{nickname}, #{height}, #{weight}, #{sex}, #{age});
 	</insert>
 	
 	<!-- 회원 정보 수정 -->
