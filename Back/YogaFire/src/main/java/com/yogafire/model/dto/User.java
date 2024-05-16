@@ -18,6 +18,26 @@ public class User {
 	private int age;
 	
 	
+	public User() {
+	}
+	
+	public User(String userId, String password, String name, String birthday, String email, String phone,
+			String nickname, Timestamp createTime, String deleteYn, int height, int weight, int sex, int age) {
+		super();
+		this.userId = userId;
+		this.password = password;
+		this.name = name;
+		this.birthday = birthday;
+		this.email = email;
+		this.phone = phone;
+		this.nickname = nickname;
+		this.createTime = createTime;
+		this.deleteYn = deleteYn;
+		this.height = height;
+		this.weight = weight;
+		this.sex = sex;
+		this.age = age;
+	}
 	public int getHeight() {
 		return height;
 	}
@@ -96,6 +116,13 @@ public class User {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", birthday=" + birthday
+				+ ", email=" + email + ", phone=" + phone + ", nickname=" + nickname + ", createTime=" + createTime
+				+ ", deleteYn=" + deleteYn + ", height=" + height + ", weight=" + weight + ", sex=" + sex + ", age="
+				+ age + "]";
 	}
 	
 	
