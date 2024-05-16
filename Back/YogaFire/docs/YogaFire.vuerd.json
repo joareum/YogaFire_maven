@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -808.3466708333344,
-    "scrollLeft": -298.1167907137394,
+    "scrollTop": -302.02290000000016,
+    "scrollLeft": -853.7984379540587,
     "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
@@ -299,13 +299,59 @@
               "widthDataType": 60,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "87cfed51-c3c7-4345-a2f7-69cc27b0c4fd",
+            "name": "age",
+            "comment": "나이",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "id": "cf3bfeb8-b993-4f0d-a3d4-cb79f23315df",
+            "name": "height",
+            "comment": "키",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
           "left": 925.6666,
           "top": 23.3337,
-          "zIndex": 2,
+          "zIndex": 26,
           "widthName": 60,
           "widthComment": 70.61181640625
         },
@@ -319,7 +365,7 @@
           {
             "id": "230ba80d-0adc-4671-b4b1-b243a3373957",
             "name": "video_key",
-            "comment": "영상 고유 번",
+            "comment": "영상 고유 번호",
             "dataType": "INT",
             "default": "",
             "option": {
@@ -334,7 +380,7 @@
               "fk": false,
               "pfk": false,
               "widthName": 60.5380859375,
-              "widthComment": 74.2236328125,
+              "widthComment": 87.2236328125,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -371,7 +417,7 @@
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
-              "unique": true,
+              "unique": false,
               "notNull": true
             },
             "ui": {
@@ -461,7 +507,7 @@
             "dataType": "INT",
             "default": "",
             "option": {
-              "autoIncrement": true,
+              "autoIncrement": false,
               "primaryKey": false,
               "unique": true,
               "notNull": true
@@ -482,7 +528,7 @@
           "active": false,
           "left": 160.1484,
           "top": 357.7411,
-          "zIndex": 4,
+          "zIndex": 29,
           "widthName": 60,
           "widthComment": 70.61181640625
         },
@@ -587,14 +633,14 @@
           },
           {
             "id": "1ff757c5-bd9a-4bf0-90ff-c87ff4bb16cd",
-            "name": "id",
+            "name": "user_id",
             "comment": "회원 아이디",
             "dataType": "VARCHAR(30)",
             "default": "",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
-              "unique": true,
+              "unique": false,
               "notNull": true
             },
             "ui": {
@@ -611,7 +657,7 @@
           {
             "id": "b3371e26-d501-4b28-a84d-de14a60d43d6",
             "name": "video_key",
-            "comment": "영상 고유 번",
+            "comment": "영상 고유 번호",
             "dataType": "INT",
             "default": "",
             "option": {
@@ -626,7 +672,7 @@
               "fk": true,
               "pfk": false,
               "widthName": 60.5380859375,
-              "widthComment": 74.2236328125,
+              "widthComment": 87.2236328125,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -636,7 +682,7 @@
           "active": false,
           "left": 163.6576,
           "top": 763.8797,
-          "zIndex": 9,
+          "zIndex": 31,
           "widthName": 93.76806640625,
           "widthComment": 100.2236328125
         },
@@ -644,7 +690,7 @@
       },
       {
         "id": "80a26871-781f-41e2-82b9-f8eab75bec0f",
-        "name": "like",
+        "name": "video_like",
         "comment": "찜 테이블",
         "columns": [
           {
@@ -694,29 +740,6 @@
             }
           },
           {
-            "id": "6a178c7e-b0ef-4861-8a36-5243a14fdc84",
-            "name": "video_key",
-            "comment": "영상 고유 번호",
-            "dataType": "INT",
-            "default": "",
-            "option": {
-              "autoIncrement": true,
-              "primaryKey": false,
-              "unique": true,
-              "notNull": true
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 60.5380859375,
-              "widthComment": 87.2236328125,
-              "widthDataType": 60,
-              "widthDefault": 60
-            }
-          },
-          {
             "id": "f67705b2-4dda-447d-9f9c-4f4a8a954957",
             "name": "user_id",
             "comment": "회원 아이디",
@@ -742,7 +765,7 @@
           {
             "id": "d5da7a6f-200e-4f26-b77b-bf1f4c398da0",
             "name": "video_key",
-            "comment": "영상 고유 번",
+            "comment": "영상 고유 번호",
             "dataType": "INT",
             "default": "",
             "option": {
@@ -757,7 +780,7 @@
               "fk": true,
               "pfk": false,
               "widthName": 60.5380859375,
-              "widthComment": 74.2236328125,
+              "widthComment": 87.2236328125,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -767,7 +790,7 @@
           "active": false,
           "left": 1247.3996,
           "top": 544.6907,
-          "zIndex": 7,
+          "zIndex": 6,
           "widthName": 60,
           "widthComment": 60
         },
@@ -896,7 +919,7 @@
           {
             "id": "6538c992-8f02-4305-9463-3cbcc43b909b",
             "name": "video_key",
-            "comment": "영상 고유 번",
+            "comment": "영상 고유 번호",
             "dataType": "INT",
             "default": "",
             "option": {
@@ -911,7 +934,7 @@
               "fk": true,
               "pfk": false,
               "widthName": 60.5380859375,
-              "widthComment": 74.2236328125,
+              "widthComment": 87.2236328125,
               "widthDataType": 60,
               "widthDefault": 60
             }
@@ -921,7 +944,7 @@
           "active": false,
           "left": 942.4005,
           "top": 755.3746,
-          "zIndex": 6,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 120
         },
@@ -1029,7 +1052,7 @@
           "active": false,
           "left": 941.2024,
           "top": 985.0835,
-          "zIndex": 5,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 120
         },
@@ -1183,7 +1206,7 @@
           "active": false,
           "left": 1685.8336,
           "top": 32.2856,
-          "zIndex": 3,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 70.61181640625
         },
@@ -1291,7 +1314,7 @@
           "active": false,
           "left": 1728.284,
           "top": 355.9626,
-          "zIndex": 8,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 120
         },
@@ -1316,7 +1339,7 @@
             "818c41b0-2cf9-45f4-a6de-51889adefd03"
           ],
           "x": 1197.4898421875,
-          "y": 317.8337,
+          "y": 358.8337,
           "direction": "bottom"
         },
         "end": {
@@ -1325,7 +1348,7 @@
             "f67705b2-4dda-447d-9f9c-4f4a8a954957"
           ],
           "x": 1247.3996,
-          "y": 587.5657,
+          "y": 582.4407,
           "direction": "left"
         },
         "constraintName": "fk_user_to_like",
@@ -1342,7 +1365,7 @@
             "818c41b0-2cf9-45f4-a6de-51889adefd03"
           ],
           "x": 1469.313084375,
-          "y": 170.5837,
+          "y": 191.0837,
           "direction": "right"
         },
         "end": {
@@ -1455,7 +1478,7 @@
             "d5da7a6f-200e-4f26-b77b-bf1f4c398da0"
           ],
           "x": 1247.3996,
-          "y": 673.3157,
+          "y": 657.9407,
           "direction": "left"
         },
         "constraintName": "fk_video_to_like",
