@@ -1,3 +1,7 @@
+-- drop database yogafire;
+-- create database yogafire;
+        
+        
 CREATE TABLE diet
 (
   diet_id   INT          NOT NULL AUTO_INCREMENT COMMENT '식단 테이블 고유 번호',
@@ -51,6 +55,8 @@ CREATE TABLE user
   delete_yn   VARCHAR(1)  NOT NULL DEFAULT 'N' COMMENT '탈퇴여부',
   weight      INT         NOT NULL COMMENT '체중',
   sex         INT         NOT NULL COMMENT '성별',
+  age         INT         NULL     COMMENT '나이',
+  height      INT         NULL     COMMENT '키',
   PRIMARY KEY (user_id)
 ) COMMENT '회원 테이블';
 
@@ -79,9 +85,6 @@ ALTER TABLE video
   ADD CONSTRAINT UQ_video_key UNIQUE (video_key);
 
 ALTER TABLE video
-  ADD CONSTRAINT UQ_area UNIQUE (area(255));
-
-ALTER TABLE video
   ADD CONSTRAINT UQ_v_comment_id UNIQUE (v_comment_id);
 
 CREATE TABLE video_comment
@@ -97,9 +100,6 @@ CREATE TABLE video_comment
 
 ALTER TABLE video_comment
   ADD CONSTRAINT UQ_v_comment_id UNIQUE (v_comment_id);
-
-ALTER TABLE video_comment
-  ADD CONSTRAINT UQ_user_id UNIQUE (user_id);
 
 CREATE TABLE video_like
 (
@@ -138,7 +138,8 @@ ALTER TABLE diet
 ALTER TABLE video_comment
   ADD CONSTRAINT FK_video_TO_video_comment
     FOREIGN KEY (video_key)
-    REFERENCES video (video_key);
+    REFERENCES video (video_key)
+    ON DELETE CASCADE;
 
 ALTER TABLE profile
   ADD CONSTRAINT FK_video_TO_profile
@@ -153,4 +154,7 @@ ALTER TABLE diet
 ALTER TABLE video_like
   ADD CONSTRAINT FK_video_TO_video_like
     FOREIGN KEY (video_key)
-    REFERENCES video (video_key);
+    REFERENCES video (video_key)
+    ON DELETE CASCADE;
+
+     
