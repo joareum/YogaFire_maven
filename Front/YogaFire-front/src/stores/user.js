@@ -29,23 +29,21 @@ export const useUserStore = defineStore('user', () => {
     const loginUser = ref('');
 
     const login = function (credentials) {
-
         console.log(credentials.userId)
         axios({
             url: `http://localhost:8080/user/signin`,
             method: 'POST',
             data: credentials,
-            // params: {
-            //     userId: credentials.userId,
-            //     password: credentials.password
-            // }
         })
         .then((response) => {
             console.log(response.data)
             if (response.data) {
                 console.log('로그인 성공');
-                loginUser.value = credentials.id
-                    router.push({ name: 'home' })
+                loginUser.value = credentials.userId
+                console.log(credentials.userId)
+                sessionStorage.setItem("loggedInUser", JSON.stringify(loginUser.value))
+                console.log(sessionStorage.getItem("loggedInUser"))
+                router.push({ name: 'home' })
                 } else {
                     console.error('로그인 실패');
                 }
@@ -66,6 +64,7 @@ export const useUserStore = defineStore('user', () => {
             
         })
             .then(() => {
+                sessionStorage.removeItem('loggedInUser')
                 router.push({ name: 'home' })
             })
             .catch((err) => {
@@ -75,4 +74,4 @@ export const useUserStore = defineStore('user', () => {
 
     const user = ref({})
     return { createAccount, user, login, logout, loginUser }
-})
+},{persist:true});

@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +17,9 @@ import com.yogafire.model.dto.User;
 import com.yogafire.model.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -41,10 +43,16 @@ public class UserRestController {
 	}
 	
 	@PostMapping("/signin")
-	public ResponseEntity<User> login(@RequestBody User user) {
+	public ResponseEntity<User> login(@RequestBody User user, HttpServletRequest request) {
 		User tmp = userService.login(user.getUserId(), user.getPassword());
 
-		return new ResponseEntity<User>(tmp, HttpStatus.OK);
+		if(tmp != null) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("loggedInUser", tmp);
+			return new ResponseEntity<User>(tmp, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 	// 아이디 찾기
@@ -76,9 +84,23 @@ public class UserRestController {
 	
 	// 로그아웃
 	@GetMapping("/signout")
-	public ResponseEntity<Void> logout(HttpSession session) {
-		session.invalidate();
+	public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			session.invalidate();
+		}
 
+		// 클라이언트에게 쿠키 삭제 요청
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            cookie.setMaxAge(0);
+	            cookie.setValue(null);
+	            cookie.setPath("/");
+	            response.addCookie(cookie);
+	        }
+	    }
+	    
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	

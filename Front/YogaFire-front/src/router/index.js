@@ -8,7 +8,10 @@ import VideoView from '../views/VideoView.vue'
 import SearchView from '../views/SearchView.vue'
 import SearchList from '@/components/video/searchListVideo.vue'
 import FindId from '@/components/user/FindId.vue'
-
+import CenterView from '../views/CenterView.vue'
+import CenterList from '@/components/center/CenterList.vue'
+import DietView from '../views/DietView.vue'
+import DietDetail from '@/components/diet/DietDetail.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,8 +49,8 @@ const router = createRouter({
             path: '/video',
             name: 'video',
             component: VideoView
-          },
-          {
+        },
+        {
             path: '/search',
             // path: '/search/:keyword',
             name: 'search',
@@ -59,11 +62,35 @@ const router = createRouter({
                 component: SearchList,
               },
             ]
-          },
-          {
+        },
+        {
             path: "/findid",
             name: "findid",
-            component: FindId
+            component: FindId,
+        },
+        {
+          path: "/centerView",
+          name: "centerView",
+          component: CenterView,
+          children:[
+            {
+              path: '',
+              name: 'centerList',
+              component: CenterList,
+            },
+          ]
+        },
+        {
+            path: "/dietView",
+            name: "dietView",
+            component: DietView,
+            children:[
+              {
+                path: '',
+                name: 'dietDetail',
+                component: DietDetail,
+              },
+            ]
           },
     ]
 })
