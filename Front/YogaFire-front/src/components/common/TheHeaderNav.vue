@@ -3,10 +3,12 @@
         <header>
             <nav>
                 <RouterLink to="/">HOME</RouterLink> |
-                <RouterLink v-if="store.loginUser === ''" :to="{ name: 'login' }">LOG IN</RouterLink> |
-                <RouterLink v-if="store.loginUser === ''" :to="{ name: 'signup' }">SIGN UP</RouterLink> |
-                <p v-if="store.loginUser !== ''" @click="logout">LOG OUT</p>|
-                <p>MY PAGE</p>
+                <RouterLink v-if="store.loginUser === ''" :to="{ name: 'login' }">LOG IN |</RouterLink> 
+                <RouterLink v-if="store.loginUser === ''" :to="{ name: 'signup' }"> SIGN UP |</RouterLink> 
+                <p v-if="store.loginUser !== ''" @click="logout"> LOG OUT |</p>
+                <p> MY PAGE |</p>
+                <RouterLink :to="{ name: 'dietView' }"> DIET |</RouterLink>
+                <RouterLink :to="{ name: 'centerView' }"> CENTER |</RouterLink> 
             </nav>
         </header>
     </div>
