@@ -19,9 +19,9 @@
 
 	<insert id="insertVideo" parameterType="Video">
 		INSERT INTO video
-		(video_id, video_title, area, channel_name)
+		(video_id, video_title, area, channel_name, center_name)
 		VALUES (#{videoId}, #{videoTitle}, #{area},
-		#{channelName});
+		#{channelName}, #{centerName});
 	</insert>
 
 	<delete id="deleteVideo" parameterType="int">		
@@ -80,7 +80,7 @@
 			WHEN like_yn = 'N' THEN 'Y'
 			ELSE 'N'
 		END
-		WHERE video_key = #{videoKey};
+		WHERE video_id = #{videoId};
 	</update>
 
 	<select id="selectLike" resultType="video" parameterType="String">

@@ -73,7 +73,7 @@ CREATE TABLE video
   video_title  VARCHAR(1000) NOT NULL COMMENT '영상 제목',
   area         VARCHAR(1000) NOT NULL COMMENT '운동 부위',
   channel_name VARCHAR(100)  NOT NULL COMMENT '채널명',
-  center_name  VARCHAR(100)  NOT NULL COMMENT '요가원 이름(채널명과 동일)',
+  center_name  VARCHAR(100)  NOT NULL DEFAULT '요가원' COMMENT '요가원 이름(채널명과 동일)',
   view_cnt     INT           NOT NULL DEFAULT 0 COMMENT '조회수',
   reg_date     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '영상 등록일',
   v_comment_id INT           NOT NULL DEFAULT 0 COMMENT '영상 댓글 고유 번호',

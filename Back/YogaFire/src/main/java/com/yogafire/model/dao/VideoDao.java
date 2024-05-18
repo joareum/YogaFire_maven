@@ -28,7 +28,7 @@ public interface VideoDao {
 
 	public int updateVComment(VideoComment videoComment);
 
-	public void like(int videoKey);
+	public void like(String videoId);
 
 //	public void unlike(int videoKey);
 
