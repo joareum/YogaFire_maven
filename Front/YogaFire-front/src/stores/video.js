@@ -63,7 +63,11 @@ export const useVideoStore = defineStore('video', () => {
 
   const clickVideo = function(video){
     console.log(video)
-    selectedVideo.value = video
+    console.log('localStorage 확인')
+    console.log(video.videoId)
+    localStorage.setItem('videoId', video.videoId)
+
+    console.log(localStorage.getItem('videoId'))
   }
 
   return { videoSearch, videos, selectedVideo, clickVideo, videoRecommend, recommendVideos }
