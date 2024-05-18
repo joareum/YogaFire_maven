@@ -76,8 +76,8 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public void likeVideo(int videoKey) {
-		videoDao.like(videoKey);
+	public void likeVideo(String videoId) {
+		videoDao.like(videoId);
 	}
 	
 //	@Override
