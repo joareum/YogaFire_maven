@@ -59,11 +59,13 @@ public class VideoRestController {
 	}
 
 	// 영상 등록
-	@PostMapping("/{videoKey}")
+	@PostMapping("/{videoId}")
 	@Operation(summary = "영상 등록")
-	public ResponseEntity<?> uploadVideo(@RequestBody Video video, @PathVariable("videoKey") int videoKey) {
+	public ResponseEntity<?> uploadVideo(@RequestBody Video video, @PathVariable("videoId") String videoId) {
 		videoService.uploadVideo(video);
+		System.out.println();
 		return new ResponseEntity<Video>(video, HttpStatus.CREATED);
+		
 	}
 
 	// 영상 삭제
@@ -137,10 +139,10 @@ public class VideoRestController {
 	}
 	
 	// 영상 찜하기
-	@PutMapping("/{videoKey}/like")
+	@PutMapping("/{videoId}/like")
 	@Operation(summary = "영상 찜")
-	public ResponseEntity<?> likeVideo(@PathVariable("videoKey") int videoKey) {
-		videoService.likeVideo(videoKey);
+	public ResponseEntity<?> likeVideo(@PathVariable("videoId") String videoId) {
+		videoService.likeVideo(videoId);
 		return new ResponseEntity<Video>(HttpStatus.CREATED);
 	}
 

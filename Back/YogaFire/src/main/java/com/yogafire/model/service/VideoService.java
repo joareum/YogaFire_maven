@@ -39,7 +39,7 @@ public interface VideoService {
 	public int editComment(VideoComment videoComment);
 	
 	// 영상 찜하기
-	public void likeVideo(int videoKey);
+	public void likeVideo(String videoId);
 	
 //	// 영상 찜 해제
 //	public void unlikeVideo(int videoKey);
