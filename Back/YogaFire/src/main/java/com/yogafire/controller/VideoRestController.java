@@ -22,6 +22,7 @@ import com.yogafire.model.service.VideoService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/video")
@@ -164,6 +165,14 @@ public class VideoRestController {
 			return new ResponseEntity<>("찜한 영상이 없습니다.", HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
+	}
+	
+	// 세션 아이디로 DB에 연결해서 영상 리스트 가져오는 메서드
+	@GetMapping("/session")
+	public ResponseEntity<List<Video>> getVideoBySession(HttpSession session){
+		String sessionId=(String) session.getAttribute("loggedInUser");
+		List<Video> videos = videoService.getVideosBySessionId(sessionId);
+		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
 	}
 
 }

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <br>
         <CenterList />
     </div>
 </template>
