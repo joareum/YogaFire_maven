@@ -7,6 +7,11 @@ import router from '@/router'
 
 // axios.defaults.withCredentials = true;
 
+const apiClient = axios.create({
+  baseURL: 'http://localhost:8080/api',
+  withCredentials: true, // 쿠키를 포함하여 요청을 보냄
+});
+
 export const useVideoStore = defineStore('video', () => {
   const videos = ref([])
   const selectedVideo = ref(null)
@@ -74,10 +79,9 @@ export const useVideoStore = defineStore('video', () => {
       url: `http://localhost:8080/video/${newVideo.videoId}`,
       method: 'POST',
       data: newVideo,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // }
     })
     .then(() => {
       console.log("Video uploaded successfully", newVideo);
@@ -164,10 +168,9 @@ export const useVideoStore = defineStore('video', () => {
       url: `http://localhost:8080/video/${newVideo.videoId}/like`,
       method: 'PUT',
       data: newVideo,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // }
     })
     .then(() => {
       console.log("Video uploaded successfully", newVideo);
