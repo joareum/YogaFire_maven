@@ -2,7 +2,7 @@ package com.yogafire.model.dto;
 
 public class VideoLike {
 	private int likeId;
-	private String likeYn;
+	private Boolean likeYn;
 	private int videoKey;
 	private String userId;
 	
@@ -17,11 +17,11 @@ public class VideoLike {
 		this.likeId = likeId;
 	}
 
-	public String getLikeYn() {
+	public Boolean getLikeYn() {
 		return likeYn;
 	}
 
-	public void setLikeYn(String likeYn) {
+	public void setLikeYn(Boolean likeYn) {
 		this.likeYn = likeYn;
 	}
 
