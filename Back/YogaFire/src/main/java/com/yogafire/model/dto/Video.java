@@ -11,11 +11,11 @@ public class Video {
 	private String centerName;
 	private int viewCnt;
 	private Timestamp regDate;
+	private String sessionId;
 //	private int vCommentId;
 //	private String vCommentContent;
 //	private Timestamp vCommentReg;
 //	private String deleteYn;
-//	private String userId;
 	
 	public Video() {
 	}
@@ -84,15 +84,23 @@ public class Video {
 		this.regDate = regDate;
 	}
 	
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setUserId(String userId) {
+		this.sessionId = sessionId;
+	}
+
 	@Override
 	public String toString() {
 		return "Video [videoKey=" + videoKey + ", videoId=" + videoId + ", videoTitle=" + videoTitle + ", area=" + area
 				+ ", channelName=" + channelName + ", centerName=" + centerName + ", viewCnt=" + viewCnt + ", regDate="
-				+ regDate + "]";
+				+ regDate + ", sessionId=" + sessionId + "]";
 	}
-	
 
-//	public int getvCommentId() {
+	
+	//	public int getvCommentId() {
 //		return vCommentId;
 //	}
 //
@@ -123,15 +131,6 @@ public class Video {
 //	public void setDeleteYn(String deleteYn) {
 //		this.deleteYn = deleteYn;
 //	}
-//
-//	public String getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(String userId) {
-//		this.userId = userId;
-//	}
 
 	
-
 }
