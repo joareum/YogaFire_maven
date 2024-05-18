@@ -73,14 +73,24 @@
 		WHERE video_key = #{videoKey}
 	</update>
 
-	<update id="like" parameterType="int">
+	<update id="like" parameterType="String">
+	<!-- video 테이블에서 video_id가 #{videoId}일 때, video_key 값을 찾고, video_like 테이블에서 해당 video_key를 가지는 데이터의 like_yn 컬럼의 값을 false 또는 true로 업데이트 -->
 		UPDATE video_like
-		SET like_yn = CASE
-			WHEN like_yn = 'N' THEN 'Y'
-			ELSE 'N'
+		SET like_yn = (CASE
+			WHEN like_yn = false THEN true
+			ELSE false)
 		END
-		WHERE video_id = #{videoId};
+		WHERE video_key = (SELECT video_key FROM video WHERE video_id = #{videoId});
 	</update>
+
+	<!-- <update id="like" parameterType="String">
+    	UPDATE video_like
+   		SET like_yn = CASE
+        	WHEN like_yn = false THEN true
+        	ELSE false
+    	END
+    	WHERE video_key = (SELECT video_key FROM video WHERE video_id = CAST(#{videoId} AS UNSIGNED));
+	</update> -->
 
 	<select id="selectLike" resultType="video" parameterType="String">
 		SELECT video.video_key, video.video_id, video.video_title, video.area, video.channel_name, video.center_name, video.view_cnt, date_format(video.reg_date, '%Y-%m-%d') AS reg_date
@@ -89,5 +99,7 @@
 		ON video.video_key = video_like.video_key AND video_like.like_yn = 'Y'
 		WHERE video_like.user_id = #{userId};
 	</select>
+	
+	
 
 </mapper>
