@@ -1,7 +1,6 @@
 -- drop database yogafire;
 -- create database yogafire;
         
-        
 CREATE TABLE diet
 (
   diet_id   INT          NOT NULL AUTO_INCREMENT COMMENT '식단 테이블 고유 번호',
@@ -40,7 +39,7 @@ CREATE TABLE profile
 ) COMMENT '요가원 상세 페이지 테이블';
 
 ALTER TABLE profile
-  ADD CONSTRAINT UQ_center_name UNIQUE (center_name);
+  ADD CONSTRAINT UQ_centerreview_name UNIQUE (center_name);
 
 CREATE TABLE user
 (
@@ -55,8 +54,6 @@ CREATE TABLE user
   delete_yn   VARCHAR(1)  NOT NULL DEFAULT 'N' COMMENT '탈퇴여부',
   weight      INT         NOT NULL COMMENT '체중',
   sex         INT         NOT NULL COMMENT '성별',
-  age         INT         NULL     COMMENT '나이',
-  height      INT         NULL     COMMENT '키',
   PRIMARY KEY (user_id)
 ) COMMENT '회원 테이블';
 
@@ -72,12 +69,14 @@ ALTER TABLE user
 CREATE TABLE video
 (
   video_key    INT           NOT NULL AUTO_INCREMENT COMMENT '영상 고유 번호',
+  video_id     VARCHAR(100)  NOT NULL COMMENT '유튜브 video id',
   video_title  VARCHAR(1000) NOT NULL COMMENT '영상 제목',
   area         VARCHAR(1000) NOT NULL COMMENT '운동 부위',
+  channel_name VARCHAR(100)  NOT NULL COMMENT '채널명',
   center_name  VARCHAR(100)  NOT NULL COMMENT '요가원 이름(채널명과 동일)',
   view_cnt     INT           NOT NULL DEFAULT 0 COMMENT '조회수',
   reg_date     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '영상 등록일',
-  v_comment_id INT           NOT NULL COMMENT '영상 댓글 고유 번호',
+  v_comment_id INT           NOT NULL DEFAULT 0 COMMENT '영상 댓글 고유 번호',
   PRIMARY KEY (video_key)
 ) COMMENT '영상 테이블';
 
@@ -157,4 +156,5 @@ ALTER TABLE video_like
     REFERENCES video (video_key)
     ON DELETE CASCADE;
 
-     
+        
+      
