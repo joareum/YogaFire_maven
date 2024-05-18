@@ -12,95 +12,103 @@ public class Video {
 	private int viewCnt;
 	private Timestamp regDate;
 	private String sessionId;
+	private Boolean likeYn;
 //	private int vCommentId;
 //	private String vCommentContent;
 //	private Timestamp vCommentReg;
 //	private String deleteYn;
-	
+
 	public Video() {
 	}
-	
+
 	public int getVideoKey() {
 		return videoKey;
 	}
-	
+
 	public void setVideoKey(int videoKey) {
 		this.videoKey = videoKey;
 	}
-	
+
 	public String getVideoId() {
 		return videoId;
 	}
-	
+
 	public void setVideoId(String videoId) {
 		this.videoId = videoId;
 	}
-	
+
 	public String getVideoTitle() {
 		return videoTitle;
 	}
-	
+
 	public void setVideoTitle(String videoTitle) {
 		this.videoTitle = videoTitle;
 	}
-	
+
 	public String getArea() {
 		return area;
 	}
-	
+
 	public void setArea(String area) {
 		this.area = area;
 	}
-	
+
 	public String getChannelName() {
 		return channelName;
 	}
-	
+
 	public void setChannelName(String channelName) {
 		this.channelName = channelName;
 	}
-	
+
 	public String getCenterName() {
 		return centerName;
 	}
-	
+
 	public void setCenterName(String centerName) {
 		this.centerName = centerName;
 	}
-	
+
 	public int getViewCnt() {
 		return viewCnt;
 	}
-	
+
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
 	}
-	
+
 	public Timestamp getRegDate() {
 		return regDate;
 	}
-	
+
 	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
 	}
-	
+
 	public String getSessionId() {
 		return sessionId;
 	}
 
-	public void setUserId(String userId) {
+	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
+	}
+
+	public Boolean getLikeYn() {
+		return likeYn;
+	}
+
+	public void setLikeYn(Boolean likeYn) {
+		this.likeYn = likeYn;
 	}
 
 	@Override
 	public String toString() {
 		return "Video [videoKey=" + videoKey + ", videoId=" + videoId + ", videoTitle=" + videoTitle + ", area=" + area
 				+ ", channelName=" + channelName + ", centerName=" + centerName + ", viewCnt=" + viewCnt + ", regDate="
-				+ regDate + ", sessionId=" + sessionId + "]";
+				+ regDate + ", sessionId=" + sessionId + ", likeYn=" + likeYn + "]";
 	}
 
-	
-	//	public int getvCommentId() {
+	// public int getvCommentId() {
 //		return vCommentId;
 //	}
 //
@@ -132,5 +140,4 @@ public class Video {
 //		this.deleteYn = deleteYn;
 //	}
 
-	
 }

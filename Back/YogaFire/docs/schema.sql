@@ -72,7 +72,7 @@ ALTER TABLE user
 CREATE TABLE video
 (
   video_key    INT           NOT NULL AUTO_INCREMENT COMMENT '영상 고유 번호',
-  video_id     VARCHAR(100)  NOT NULL COMMENT '유튜브 video id',
+  video_id     VARCHAR(100)  NULL COMMENT '유튜브 video id',
   video_title  VARCHAR(1000) NOT NULL COMMENT '영상 제목',
   area         VARCHAR(1000) NOT NULL COMMENT '운동 부위',
   channel_name VARCHAR(100)  NOT NULL COMMENT '채널명',
@@ -80,11 +80,16 @@ CREATE TABLE video
   view_cnt     INT           NOT NULL DEFAULT 0 COMMENT '조회수',
   reg_date     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '영상 등록일',
   v_comment_id INT           NOT NULL DEFAULT 0 COMMENT '영상 댓글 고유 번호',
+  session_id   VARCHAR(30)   NOT NULL COMMENT '세션에서 가져온 회원 아이디',
+  like_yn      BOOLEAN       NOT NULL DEFAULT false COMMENT '찜 여부 확인',
   PRIMARY KEY (video_key)
 ) COMMENT '영상 테이블';
 
 ALTER TABLE video
   ADD CONSTRAINT UQ_video_key UNIQUE (video_key);
+  
+ALTER TABLE video
+  ADD CONSTRAINT UQ_video_id UNIQUE (video_id);
 
 -- ALTER TABLE video
 --   ADD CONSTRAINT UQ_v_comment_id UNIQUE (v_comment_id);
@@ -103,18 +108,6 @@ CREATE TABLE video_comment
 ALTER TABLE video_comment
   ADD CONSTRAINT UQ_v_comment_id UNIQUE (v_comment_id);
 
-CREATE TABLE video_like
-(
-  like_id   INT         NOT NULL AUTO_INCREMENT,
-  like_yn   VARCHAR(1)  NOT NULL,
-  user_id   VARCHAR(30) NOT NULL COMMENT '회원 아이디',
-  video_key INT         NOT NULL COMMENT '영상 고유 번호',
-  PRIMARY KEY (like_id)
-) COMMENT '찜 테이블';
-
-ALTER TABLE video_like
-  ADD CONSTRAINT UQ_like_id UNIQUE (like_id);
-
 CREATE TABLE yoga_into
 (
   center_location VARCHAR(100) NOT NULL COMMENT '요가원 지역',
@@ -127,11 +120,6 @@ CREATE TABLE yoga_into
 ALTER TABLE yoga_into
   ADD CONSTRAINT UQ_center_name UNIQUE (center_name);
 
-ALTER TABLE video_like
-  ADD CONSTRAINT FK_user_TO_video_like
-    FOREIGN KEY (user_id)
-    REFERENCES user (user_id);
-
 ALTER TABLE diet
   ADD CONSTRAINT FK_user_TO_diet
     FOREIGN KEY (user_id)
@@ -140,24 +128,17 @@ ALTER TABLE diet
 ALTER TABLE video_comment
   ADD CONSTRAINT FK_video_TO_video_comment
     FOREIGN KEY (video_key)
-    REFERENCES video (video_key)
-    ON DELETE CASCADE;
+    REFERENCES video (video_key);
 
-ALTER TABLE profile
+ALTER TABLE `profile`
   ADD CONSTRAINT FK_video_TO_profile
     FOREIGN KEY (video_key)
     REFERENCES video (video_key);
-
+    
 ALTER TABLE diet
   ADD CONSTRAINT FK_food_list_TO_diet
     FOREIGN KEY (food_name)
     REFERENCES food_list (food_name);
-
-ALTER TABLE video_like
-  ADD CONSTRAINT FK_video_TO_video_like
-    FOREIGN KEY (video_key)
-    REFERENCES video (video_key)
-    ON DELETE CASCADE;
 
         
       

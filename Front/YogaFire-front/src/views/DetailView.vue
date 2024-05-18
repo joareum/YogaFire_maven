@@ -19,8 +19,8 @@
           <div>
             <p>{{ title }}</p>
             <span>{{ channelTitle }}</span>
-            <span >💗</span>
-            <span @click="clickUpload(video)">🤍</span>
+            <span v-if="video.isFavorite" @click="clickLike(video)">💗</span>
+            <span v-else @click="clickLike(video)">🤍</span>
           </div>
           <div>
             <p>{{ description }}</p>
@@ -55,14 +55,18 @@
   
   
   const videoId = ref(route.params.videoId);
-  
-  // 추가된 params
+
+  // ??
+  const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
+  const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
+  const sessionId = parsedData.loginUser; // loginUser 값 가져오기
+
+
   const channelTitle = ref(route.params.channelTitle);
   const description = ref(route.params.description);
   const title = ref(route.params.title);
   const publishTime = ref(route.params.publishTime);
-  // const isFavorite = ref(route.params.isFavorite);
-  const isFavorite = ref('N');
+  const isFavorite = ref(false);
   
   const savedVideoId = ref(null);
   const savedisFavorite = ref(null);
@@ -70,21 +74,27 @@
   // video 객체 생성
   const video = {
   id: { videoId: videoId.value },
+  sessionId: { sessionId: sessionId.value},
   snippet: {
     title: title.value,
     channelTitle: channelTitle.value,
     publishTime: publishTime.value
-  }
+  },
+  isFavorite: isFavorite.value
   };
   
   const loadData = () => {
   try {
     const savedVideoId = localStorage.getItem('videoId');
+    const savedIsFavorite = localStorage.getItem('isFavorite');
     console.log('완료')
     console.log(savedVideoId)
     if (savedVideoId) {
       videoId.value = savedVideoId;
-    } 
+    }
+    if (savedIsFavorite !== null) {
+      isFavorite.value = JSON.parse(savedIsFavorite);
+    }
     
   } catch (error) {
     console.error('Error loading data from localStorage:', error);
@@ -134,19 +144,17 @@
   //   // localStorage.setItem('isFavorite', JSON.stringify(isFavorite.value))
   //   }
   
-  // 2번째 
+
   const clickLike = function(video) {
-  console.log("click Like")
+    console.log("click Like")
+    isFavorite.value = video.isFavorite;
+    localStorage.setItem('isFavorite', JSON.stringify(isFavorite.value))
+    // localStorage.setItem('isFavorite', isFavorite.value)
 //   store.likeVideo(video)
-  isFavorite.value = video.isFavorite
-  console.log("click Like complete")
-  console.log(isFavorite.value)
+  // isFavorite.value = video.isFavorite
+    store.likeVideo(video)
+    console.log("click Like complete", video.isFavorite)
   }
-  
-  
-  onMounted(() => {
-  loadData()
-  })
   
 
   const clickUpload = function(video) {
@@ -160,6 +168,12 @@
   // console.log(videoId)
   }
 
+  onMounted(() => {
+  loadData()
+  // 컴포넌트가 마운트될 때 'isFavorite' 값을 로드하는지 확인
+  console.log(isFavorite.value)
+  clickUpload(video)
+  })
   
   </script>
   
