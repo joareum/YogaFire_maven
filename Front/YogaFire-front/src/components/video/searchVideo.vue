@@ -1,10 +1,10 @@
 <!-- 검색 컴포넌트 -->
 <template>
+    <TheHeaderNav/>
     <div>
         <input type="text" v-model="keyword">
         <span>     </span>
         <button @click="search">검색</button>
-        <!-- <RouterLink :to="{name:'search', params: {keyword:keyword}}">test</RouterLink> -->
     </div>
 </template>
 

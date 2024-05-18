@@ -13,6 +13,9 @@ import CenterList from '@/components/center/CenterList.vue'
 import DietView from '../views/DietView.vue'
 import DietDetail from '@/components/diet/DietDetail.vue'
 import GptView from '@/components/diet/GptView.vue'
+import DetailView from '../views/DetailView.vue'
+import createComment from '@/components/comment/createComment.vue'
+import showCommentList from '@/components/comment/showCommentList.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +54,12 @@ const router = createRouter({
             name: 'video',
             component: VideoView
         },
+        {
+          path: '/detail/:videoId/:title/:channelTitle/:description/:publishTime',
+          name: 'detail',
+          component: DetailView,
+          props: true
+          },
         {
             path: '/search',
             // path: '/search/:keyword',
@@ -97,6 +106,18 @@ const router = createRouter({
                 component: GptView,
               },
             ]
+        },
+        {
+          path: '/create',
+          name: 'createComment',
+          component: createComment,
+          
+        },
+        {
+          path: '/show',
+          name: 'showCommentList',
+          component: showCommentList,
+          
         },
     ]
 })

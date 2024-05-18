@@ -1,6 +1,6 @@
 <template>
     <div class="base">
-        <h2>추천영상</h2>
+        <!-- <h2>추천영상</h2> -->
         <div class="list">
             <RecommendVideoItem v-for="video in store.recommendVideos"
             :key ="video.id" 
