@@ -19,9 +19,8 @@
 
 	<insert id="insertVideo" parameterType="Video">
 		INSERT INTO video
-		(video_id, video_title, area, channel_name, center_name)
-		VALUES (#{videoId}, #{videoTitle}, #{area},
-		#{channelName}, #{centerName});
+		(video_id, video_title, area, session_id, channel_name, center_name)
+		VALUES (#{videoId}, #{videoTitle}, #{area}, #{sessionId}, #{channelName}, #{centerName});
 	</insert>
 
 	<delete id="deleteVideo" parameterType="int">		

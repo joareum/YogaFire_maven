@@ -49,7 +49,6 @@
   
   const store = useVideoStore()
   
-  
   // 추가
   const router = useRouter();
   const route = useRoute();
@@ -91,9 +90,6 @@
     console.error('Error loading data from localStorage:', error);
   }
   };
-  
-  
-  
   
   // 추가
   const fetchVideoDetails = async (videoId) => {
@@ -148,17 +144,22 @@
   }
   
   
+  onMounted(() => {
+  loadData()
+  })
   
+
   const clickUpload = function(video) {
   console.log("click Upload")
+  const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
+  const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
+  const sessionId = parsedData.loginUser; // loginUser 값 가져오기
+  console.log(sessionId)  
   store.uploadVideo(video)
   console.log("click Upload complete")
   // console.log(videoId)
   }
 
-  onMounted(() => {
-  loadData()
-  })
   
   </script>
   

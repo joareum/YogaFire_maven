@@ -1,6 +1,7 @@
 -- drop database yogafire;
 -- create database yogafire;
-        
+-- use yogafire;        
+
 CREATE TABLE diet
 (
   diet_id   INT          NOT NULL AUTO_INCREMENT COMMENT '식단 테이블 고유 번호',
@@ -46,12 +47,14 @@ CREATE TABLE user
   user_id     VARCHAR(30) NOT NULL COMMENT '회원 아이디',
   password    VARCHAR(30) NOT NULL COMMENT '회원 비밀번호',
   name        VARCHAR(30) NOT NULL COMMENT '회원 이름',
-  birthday    VARCHAR(8)  NOT NULL COMMENT '회원 생년월일',
+  birthday    VARCHAR(10)  NOT NULL COMMENT '회원 생년월일',
   email       VARCHAR(50) NOT NULL COMMENT '회원 이메일',
   phone       VARCHAR(20) NOT NULL COMMENT '전화번호',
   nickname    VARCHAR(30) NOT NULL COMMENT '닉네임',
   create_date DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일자',
   delete_yn   VARCHAR(1)  NOT NULL DEFAULT 'N' COMMENT '탈퇴여부',
+  height 	  INT   	  NOT NULL COMMENT '키',
+  age 		  INT 		  NOT NULL COMMENT '나이',	
   weight      INT         NOT NULL COMMENT '체중',
   sex         INT         NOT NULL COMMENT '성별',
   PRIMARY KEY (user_id)
@@ -83,8 +86,8 @@ CREATE TABLE video
 ALTER TABLE video
   ADD CONSTRAINT UQ_video_key UNIQUE (video_key);
 
-ALTER TABLE video
-  ADD CONSTRAINT UQ_v_comment_id UNIQUE (v_comment_id);
+-- ALTER TABLE video
+--   ADD CONSTRAINT UQ_v_comment_id UNIQUE (v_comment_id);
 
 CREATE TABLE video_comment
 (
