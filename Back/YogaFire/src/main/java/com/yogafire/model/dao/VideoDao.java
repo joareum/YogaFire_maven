@@ -34,4 +34,6 @@ public interface VideoDao {
 
 	public List<Video> selectLike(String userId);
 
+	public List<Video> getVideosBySessionId(String sessionId);
+
 }

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yogafire.model.dao.VideoDao">
-
+  
 	<select id="selectAll" resultType="video">
 		SELECT video_key, video_id,
 		video_title,
@@ -91,6 +91,7 @@
 	<select id="getVideosBySessionId" resultType="Video">
 		select * from video where session_id=#{sessionId}
 	</select>
+
 
 	<!-- <select id="selectLike" resultType="video" parameterType="String"> 
 		SELECT video.video_key, video.video_id, video.video_title, video.area, video.channel_name, 

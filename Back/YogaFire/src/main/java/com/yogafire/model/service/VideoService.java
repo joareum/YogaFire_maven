@@ -46,5 +46,8 @@ public interface VideoService {
 	
 	// 찜한 영상 조회
 	public List<Video> getLikeList(String userId);
+	
+	// 세션 아이디로 찾는 찜한 영상 리스트
+	public List<Video> getVideosBySessionId(String sessionId);
 
 }

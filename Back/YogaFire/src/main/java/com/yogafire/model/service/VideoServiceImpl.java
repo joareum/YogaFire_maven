@@ -90,4 +90,9 @@ public class VideoServiceImpl implements VideoService {
 		return videoDao.selectLike(userId);
 	}
 
+	@Override
+	public List<Video> getVideosBySessionId(String sessionId) {
+		return videoDao.getVideosBySessionId(sessionId);
+	}
+
 }

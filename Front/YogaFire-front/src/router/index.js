@@ -16,6 +16,7 @@ import GptView from '@/components/diet/GptView.vue'
 import DetailView from '../views/DetailView.vue'
 import createComment from '@/components/comment/createComment.vue'
 import showCommentList from '@/components/comment/showCommentList.vue'
+import MyPageView from '../views/MyPageView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -117,6 +118,12 @@ const router = createRouter({
           path: '/show',
           name: 'showCommentList',
           component: showCommentList,
+          
+        },
+        {
+          path: '/myPage',
+          name: 'myPageView',
+          component: MyPageView,
           
         },
     ]
