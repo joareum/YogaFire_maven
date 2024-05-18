@@ -8,7 +8,7 @@
             <input type="text" id="weight" v-model="weight" class="input" />
 
             <label for="age">나이</label>
-            <input type="number" id="age" v-model="age" class="input" />
+            <input type="text" id="age" v-model="age" class="input" />
 
             <label for="sex">성별</label>
             <input type="radio" name="sex" value="남" id="sex" v-model="sex" class="input" />남
@@ -25,7 +25,7 @@
             <br />
         </div>
         <br />
-        <div class="result text-center">당신의 적정 칼로리는 {{ kcal }} 입니다.</div>
+        <div class="result text-center">당신의 적정 칼로리는 {{ kcal }} kcal 입니다.</div>
 
     </div>
 </template>
@@ -33,15 +33,28 @@
 <script setup>
 import { ref, computed } from "vue";
 
-const height = ref(0);
-const weight = ref(0);
-const age = ref(0);
-const sex = ref(0);
+const height = ref();
+const weight = ref();
+const age = ref();
+const sex = ref('');
 const activityLevel = ref(1.2);
 
-const bmr = computed(()=>{
-})
-const kcal = ref("");
+const bmr = computed(() => {
+    if (sex.value === "남") {
+        return 88.362 + (13.397 * weight.value) + (4.799 * height.value) - (5.677 * age.value);
+    } else {
+        return 447.593 + (9.247 * weight.value) + (3.098 * height.value) - (4.33 * age.value);
+    }
+});
+
+const kcal = computed(()=>{
+    if (bmr.value && activityLevel.value) {
+        let result = bmr.value * activityLevel.value;
+        return Math.round(result);
+    } else {
+        return 0; // 또는 적절한 기본값 설정
+    }
+});
 
 </script>
 

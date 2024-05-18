@@ -12,6 +12,7 @@ import CenterView from '../views/CenterView.vue'
 import CenterList from '@/components/center/CenterList.vue'
 import DietView from '../views/DietView.vue'
 import DietDetail from '@/components/diet/DietDetail.vue'
+import GptView from '@/components/diet/GptView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -90,8 +91,13 @@ const router = createRouter({
                 name: 'dietDetail',
                 component: DietDetail,
               },
+              {
+                path: "/gptView",
+                name: "gptView",
+                component: GptView,
+              },
             ]
-          },
+        },
     ]
 })
 
