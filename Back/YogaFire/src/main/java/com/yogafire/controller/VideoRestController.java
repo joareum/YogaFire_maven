@@ -144,7 +144,7 @@ public class VideoRestController {
 	@Operation(summary = "영상 찜")
 	public ResponseEntity<?> likeVideo(@PathVariable("videoId") String videoId) {
 		videoService.likeVideo(videoId);
-		return new ResponseEntity<Video>(HttpStatus.CREATED);
+		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 
 //	// 영상 찜 해제
