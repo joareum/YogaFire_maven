@@ -5,8 +5,8 @@
 <mapper namespace="com.yogafire.model.dao.VideoDao">
 
 	<select id="selectAll" resultType="video">
-		SELECT video_key, video_title,
-		area, center_name, view_cnt,
+		SELECT video_key, video_id, video_title,
+		area, channel_name, center_name, view_cnt,
 		date_format(reg_date, '%Y-%m-%d') AS
 		reg_date FROM video;
 	</select>
@@ -19,9 +19,9 @@
 
 	<insert id="insertVideo" parameterType="Video">
 		INSERT INTO video
-		(video_title, area, center_name)
-		VALUES (#{videoTitle}, #{area},
-		#{centerName});
+		(video_id, video_title, area, channel_name)
+		VALUES (#{videoId}, #{videoTitle}, #{area},
+		#{channelName});
 	</insert>
 
 	<delete id="deleteVideo" parameterType="int">		
@@ -32,14 +32,14 @@
 	<update id="updateVideo" parameterType="Video">
 		UPDATE video
 		SET
-		video_title = #{videoTitle}, area = #{area}, center_name =
-		#{centerName}, reg_date = now()
+		video_title = #{videoTitle}, area = #{area}, channel_name =
+		#{channelName}, reg_date = now()
 		WHERE video_key = #{videoKey}
 	</update>
 
 	<select id="searchDetail" resultType="video"
 		parameterType="searchCondition">
-		SELECT video_key, video_title, area, center_name, view_cnt,
+		SELECT video_key, video_id, video_title, area, channel_name, center_name, view_cnt,
 		date_format(reg_date, '%Y-%m-%d') AS reg_date FROM video
 		<if test="key != 'none'">
 			WHERE ${key} LIKE concat('%', #{word}, '%')
@@ -84,7 +84,7 @@
 	</update>
 
 	<select id="selectLike" resultType="video" parameterType="String">
-		SELECT video.video_key, video.video_title, video.area, video.center_name, video.view_cnt, date_format(video.reg_date, '%Y-%m-%d') AS reg_date
+		SELECT video.video_key, video.video_id, video.video_title, video.area, video.channel_name, video.center_name, video.view_cnt, date_format(video.reg_date, '%Y-%m-%d') AS reg_date
 		FROM video
 		LEFT OUTER JOIN video_like
 		ON video.video_key = video_like.video_key AND video_like.like_yn = 'Y'
