@@ -14,13 +14,14 @@
         allowfullscreen>
       </iframe>
     </div>
-        <!-- {{ videoId }} -->
         <div class="text-container">
           <div>
             <p>{{ title }}</p>
             <span>{{ channelTitle }}</span>
-            <span v-if="video.isFavorite" @click="clickLike(video)">💗</span>
-            <span v-else @click="clickLike(video)">🤍</span>
+          
+            <span @click="toggleLike" :class="{ 'like': isFavorite }"> 
+          {{ isFavorite ? '💗' : '🤍' }} 
+        </span> 
           </div>
           <div>
             <p>{{ description }}</p>
@@ -36,6 +37,7 @@
   </template>
   
   <script setup>
+  import axios from 'axios';
   import searchVideo from '@/components/video/searchVideo.vue'
   import createComment from '@/components/comment/createComment.vue'
   import showCommentList from '@/components/comment/showCommentList.vue'
@@ -43,24 +45,18 @@
   import { useRoute } from 'vue-router';
   import { useRouter } from 'vue-router';
   import { useVideoStore } from '@/stores/video';
-  
-  // 추가
   import { computed, ref, onMounted } from 'vue';
-  
+
   const store = useVideoStore()
-  
-  // 추가
+
   const router = useRouter();
   const route = useRoute();
-  
-  
+
   const videoId = ref(route.params.videoId);
 
-  // ??
   const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
   const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
   const sessionId = parsedData.loginUser; // loginUser 값 가져오기
-
 
   const channelTitle = ref(route.params.channelTitle);
   const description = ref(route.params.description);
@@ -102,60 +98,102 @@
   };
   
   // 추가
+  // const fetchVideoDetails = async (videoId) => {
+  //   try {
+  //       const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+  //           params: {
+  //               key: import.meta.env.VITE_YOUTUBE_API_KEY,
+  //               part: 'snippet',
+  //               id: videoId,
+  //           }
+  //       });
+  //       if (response.data.items.length > 0) {
+  //           video.value = response.data.items[0];
+  //       }
+  //   } catch (error) {
+  //       console.error('Error fetching video details:', error);
+  //   }
+  // };
+
   const fetchVideoDetails = async (videoId) => {
-    try {
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-            params: {
-                key: import.meta.env.VITE_YOUTUBE_API_KEY,
-                part: 'snippet',
-                id: videoId,
-            }
-        });
-        if (response.data.items.length > 0) {
-            video.value = response.data.items[0];
-        }
-    } catch (error) {
-        console.error('Error fetching video details:', error);
+  try {
+    const response = await axios.get(`http://localhost:8080/video/${newVideo.videoId}/like`);
+    if (response.data) {
+      const videoData = response.data;
+      videoId.value = videoData.videoId;
+      title.value = videoData.title;
+      channelTitle.value = videoData.channelName;
+      description.value = videoData.description;
+      publishTime.value = videoData.publishTime;
+      isFavorite.value = videoData.likeYn;
     }
-  };
+  } catch (error) {
+    console.error('Error fetching video details:', error);
+  }
+};
   
   const videoURL = computed(()=>{
     
   return `https://www.youtube.com/embed/${videoId.value}`;
   })
-  
-  // 좋아요 상태를 토글하는 함수
-  // const clickLike = () => {
-  //   isFavorite.value = !isFavorite.value;
-  //   // localStorage.setItem('videoData', JSON.stringify({
-  //   //   videoId: savedVideoId.value,
-  //   //   isFavorite: isFavorite.value
-  //   // }));
-  //   console.log("click Like:", isFavorite.value)
-  // }
-  
-  // 이거이거이거 이거
-  // const clickLike = function(video){
-  //     console.log("click Like")
-  //     store.clickLike(video)
-  //     console.log("click Like store")
-  //   // isFavorite.value = !isFavorite.value;
-  //   console.log(isFavorite.value)
-  //   // localStorage.setItem('isFavorite', JSON.stringify(isFavorite.value))
-  //   }
-  
 
-  const clickLike = function(video) {
-    console.log("click Like")
-    isFavorite.value = video.isFavorite;
-    localStorage.setItem('isFavorite', JSON.stringify(isFavorite.value))
-    // localStorage.setItem('isFavorite', isFavorite.value)
-//   store.likeVideo(video)
-  // isFavorite.value = video.isFavorite
-    store.likeVideo(video)
-    console.log("click Like complete", video.isFavorite)
+
+
+// 오후 3시 수정
+// const clickLike = async (video) => {
+//   try {
+//     console.log(isFavorite.value); // false
+//     const newFavoriteStatus = isFavorite.value;
+//     isFavorite.value = newFavoriteStatus;
+//     // localStorage.setItem('isFavorite', JSON.stringify(newFavoriteStatus));
+
+//     const newVideo = {
+//       sessionId: sessionId,
+//       videoId: videoId.value,
+//       videoTitle: title.value,
+//       area: '전신',
+//       channelName: channelTitle.value,
+//       regDate: publishTime.value,
+//       centerName: channelTitle.value,
+//       likeYn: newFavoriteStatus
+//     };
+
+//     console.log(newVideo.likeYn) // false
+//     const response = await axios.put(`http://localhost:8080/video/${newVideo.videoId}/like`, newVideo);
+
+
+//     console.log("Like status updated successfully", newVideo);
+//   } catch (error) {
+//     console.error("Error updating like status", error);
+//   }
+// };
+
+const toggleLike = async () => {
+  try {
+    isFavorite.value = !isFavorite.value; // 좋아요 상태 토글
+    const newVideo = {
+      sessionId: parsedData.loginUser,
+      videoId: videoId.value,
+      videoTitle: title.value,
+      area: '전신',
+      channelName: channelTitle.value,
+      regDate: publishTime.value,
+      centerName: channelTitle.value,
+      likeYn: isFavorite.value
+    };
+    const response = await axios.put(`http://localhost:8080/video/${newVideo.videoId}/like`, newVideo);
+    console.log("Like status updated successfully", newVideo);
+
+    // 좋아요 상태가 변경되었으므로, 로컬 스토리지에 저장
+    localStorage.setItem('isFavorite', JSON.stringify(isFavorite.value)); // 변경된 부분
+
+  } catch (error) {
+    console.error("Error updating like status", error);
   }
-  
+};
+
+
+// 윗단이 수정된 clickLike
 
   const clickUpload = function(video) {
   console.log("click Upload")
@@ -171,7 +209,7 @@
   onMounted(() => {
   loadData()
   // 컴포넌트가 마운트될 때 'isFavorite' 값을 로드하는지 확인
-  console.log(isFavorite.value)
+  // console.log(isFavorite.value)
   clickUpload(video)
   })
   

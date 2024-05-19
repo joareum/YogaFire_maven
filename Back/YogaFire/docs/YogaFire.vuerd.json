@@ -3,9 +3,9 @@
     "version": "2.2.11",
     "width": 4000,
     "height": 4000,
-    "scrollTop": -1327.5020000000002,
-    "scrollLeft": -1447.1022223365621,
-    "zoomLevel": 0.4,
+    "scrollTop": -606,
+    "scrollLeft": -206.3333333333337,
+    "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -19,7 +19,7 @@
     },
     "database": "MySQL",
     "databaseName": "",
-    "canvasType": "@vuerd/builtin-sql-ddl",
+    "canvasType": "ERD",
     "language": "GraphQL",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",
@@ -236,7 +236,7 @@
             "name": "delete_yn",
             "comment": "탈퇴여부",
             "dataType": "VARCHAR(1)",
-            "default": "N",
+            "default": "'N'",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -351,7 +351,7 @@
           "active": false,
           "left": 960.6666,
           "top": 158.3337,
-          "zIndex": 5,
+          "zIndex": 70,
           "widthName": 60,
           "widthComment": 70.61181640625
         },
@@ -370,13 +370,13 @@
             "default": "",
             "option": {
               "autoIncrement": true,
-              "primaryKey": true,
+              "primaryKey": false,
               "unique": true,
-              "notNull": true
+              "notNull": false
             },
             "ui": {
               "active": false,
-              "pk": true,
+              "pk": false,
               "fk": false,
               "pfk": false,
               "widthName": 60.5380859375,
@@ -393,13 +393,13 @@
             "default": "",
             "option": {
               "autoIncrement": false,
-              "primaryKey": false,
+              "primaryKey": true,
               "unique": true,
               "notNull": true
             },
             "ui": {
               "active": false,
-              "pk": false,
+              "pk": true,
               "fk": false,
               "pfk": false,
               "widthName": 60,
@@ -551,7 +551,7 @@
             "name": "v_comment_id",
             "comment": "영상 댓글 고유 번호",
             "dataType": "INT",
-            "default": "",
+            "default": "0",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -614,13 +614,36 @@
               "widthDataType": 64.8544921875,
               "widthDefault": 60
             }
+          },
+          {
+            "id": "f8df5c63-0954-47f6-b664-95a4bed3c0a5",
+            "name": "v_comment_id",
+            "comment": "영상 댓글 고유 번호",
+            "dataType": "INT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 86.5380859375,
+              "widthComment": 116.83544921875,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
           }
         ],
         "ui": {
           "active": false,
           "left": 159.0373,
           "top": 334.4078,
-          "zIndex": 4,
+          "zIndex": 71,
           "widthName": 60,
           "widthComment": 70.61181640625
         },
@@ -705,7 +728,7 @@
             "name": "delete_yn",
             "comment": "삭제 여부",
             "dataType": "VARCHAR(1)",
-            "default": "N",
+            "default": "'N'",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -747,10 +770,10 @@
             }
           },
           {
-            "id": "b3371e26-d501-4b28-a84d-de14a60d43d6",
-            "name": "video_key",
-            "comment": "영상 고유 번호",
-            "dataType": "INT",
+            "id": "a450b7f0-0165-4c84-8c6b-9ca586ed611d",
+            "name": "video_id",
+            "comment": "유튜브 video id",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -763,18 +786,18 @@
               "pk": false,
               "fk": true,
               "pfk": false,
-              "widthName": 60.5380859375,
-              "widthComment": 87.2236328125,
-              "widthDataType": 60,
+              "widthName": 60,
+              "widthComment": 89.419921875,
+              "widthDataType": 94.94873046875,
               "widthDefault": 60
             }
           }
         ],
         "ui": {
-          "active": false,
+          "active": true,
           "left": 163.6576,
-          "top": 763.8797,
-          "zIndex": 2,
+          "top": 764.9908,
+          "zIndex": 77,
           "widthName": 93.76806640625,
           "widthComment": 100.2236328125
         },
@@ -901,10 +924,10 @@
             }
           },
           {
-            "id": "6538c992-8f02-4305-9463-3cbcc43b909b",
-            "name": "video_key",
-            "comment": "영상 고유 번호",
-            "dataType": "INT",
+            "id": "62adcb6c-0399-4c7e-9499-4d22cb89e8c8",
+            "name": "video_id",
+            "comment": "유튜브 video id",
+            "dataType": "VARCHAR(100)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -917,9 +940,9 @@
               "pk": false,
               "fk": true,
               "pfk": false,
-              "widthName": 60.5380859375,
-              "widthComment": 87.2236328125,
-              "widthDataType": 60,
+              "widthName": 60,
+              "widthComment": 89.419921875,
+              "widthDataType": 94.94873046875,
               "widthDefault": 60
             }
           }
@@ -928,7 +951,7 @@
           "active": false,
           "left": 942.4005,
           "top": 755.3746,
-          "zIndex": 3,
+          "zIndex": 51,
           "widthName": 60,
           "widthComment": 120
         },
@@ -1187,10 +1210,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 1700.8336,
           "top": 267.2856,
-          "zIndex": 7,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 70.61181640625
         },
@@ -1275,7 +1298,7 @@
             "name": "food_chech_yn",
             "comment": "선택 여부",
             "dataType": "VARCHAR(1)",
-            "default": "N",
+            "default": "'N'",
             "option": {
               "autoIncrement": false,
               "primaryKey": false,
@@ -1298,7 +1321,7 @@
           "active": false,
           "left": 1730.784,
           "top": 663.4626,
-          "zIndex": 6,
+          "zIndex": 68,
           "widthName": 60,
           "widthComment": 120
         },
@@ -1339,58 +1362,6 @@
         "visible": true
       },
       {
-        "id": "f5de1104-433f-4549-90b8-96d3a4439248",
-        "identification": false,
-        "relationshipType": "OneN",
-        "startRelationshipType": "Dash",
-        "start": {
-          "tableId": "1776ac41-e7c2-40d8-a94f-313514c6e000",
-          "columnIds": [
-            "230ba80d-0adc-4671-b4b1-b243a3373957"
-          ],
-          "x": 464.59687031249996,
-          "y": 628.9078,
-          "direction": "bottom"
-        },
-        "end": {
-          "tableId": "79a5bb1f-608b-4ade-9684-7ece932dac48",
-          "columnIds": [
-            "b3371e26-d501-4b28-a84d-de14a60d43d6"
-          ],
-          "x": 483.523078515625,
-          "y": 763.8797,
-          "direction": "top"
-        },
-        "constraintName": "fk_video_to_video_comment",
-        "visible": true
-      },
-      {
-        "id": "b49e4622-01cd-4a96-aa45-5e4144317f6f",
-        "identification": false,
-        "relationshipType": "OneOnly",
-        "startRelationshipType": "Dash",
-        "start": {
-          "tableId": "1776ac41-e7c2-40d8-a94f-313514c6e000",
-          "columnIds": [
-            "230ba80d-0adc-4671-b4b1-b243a3373957"
-          ],
-          "x": 770.156440625,
-          "y": 481.6578,
-          "direction": "right"
-        },
-        "end": {
-          "tableId": "9af622c9-f701-46c2-8fb0-071a1c083f76",
-          "columnIds": [
-            "6538c992-8f02-4305-9463-3cbcc43b909b"
-          ],
-          "x": 942.4005,
-          "y": 851.3746,
-          "direction": "left"
-        },
-        "constraintName": "fk_video_to_profile",
-        "visible": true
-      },
-      {
         "id": "cc31d8c3-4ddf-4360-962f-62d00d740346",
         "identification": false,
         "relationshipType": "OneN",
@@ -1414,6 +1385,58 @@
           "direction": "bottom"
         },
         "constraintName": "fk_food_list_to_diet",
+        "visible": true
+      },
+      {
+        "id": "d3103ba3-1d6a-467f-a79b-dd255aa65d40",
+        "identification": false,
+        "relationshipType": "OneOnly",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "1776ac41-e7c2-40d8-a94f-313514c6e000",
+          "columnIds": [
+            "bd7ba43c-a695-4b78-87c9-0338c8ae83a2"
+          ],
+          "x": 770.156440625,
+          "y": 491.9078,
+          "direction": "right"
+        },
+        "end": {
+          "tableId": "9af622c9-f701-46c2-8fb0-071a1c083f76",
+          "columnIds": [
+            "62adcb6c-0399-4c7e-9499-4d22cb89e8c8"
+          ],
+          "x": 942.4005,
+          "y": 851.3746,
+          "direction": "left"
+        },
+        "constraintName": "fk_video_to_profile",
+        "visible": true
+      },
+      {
+        "id": "a8343de6-f9da-4972-b7f1-9de630b483a2",
+        "identification": false,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "1776ac41-e7c2-40d8-a94f-313514c6e000",
+          "columnIds": [
+            "bd7ba43c-a695-4b78-87c9-0338c8ae83a2"
+          ],
+          "x": 464.59687031249996,
+          "y": 649.4078,
+          "direction": "bottom"
+        },
+        "end": {
+          "tableId": "79a5bb1f-608b-4ade-9684-7ece932dac48",
+          "columnIds": [
+            "a450b7f0-0165-4c84-8c6b-9ca586ed611d"
+          ],
+          "x": 483.523078515625,
+          "y": 764.9908,
+          "direction": "top"
+        },
+        "constraintName": "fk_video_to_video_comment",
         "visible": true
       }
     ]

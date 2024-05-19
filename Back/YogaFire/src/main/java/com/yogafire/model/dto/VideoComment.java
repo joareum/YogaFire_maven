@@ -3,7 +3,7 @@ package com.yogafire.model.dto;
 import java.sql.Timestamp;
 
 public class VideoComment {
-	private int videoKey;
+	private String videoId;
 	private int vCommentId;
 	private String vCommentContent;
 	private Timestamp vCommentReg;
@@ -13,12 +13,12 @@ public class VideoComment {
 	public VideoComment() {
 	}
 
-	public int getVideoKey() {
-		return videoKey;
+	public String getVideoId() {
+		return videoId;
 	}
 
-	public void setVideoKey(int videoKey) {
-		this.videoKey = videoKey;
+	public void setVideoId(String videoId) {
+		this.videoId = videoId;
 	}
 
 	public int getvCommentId() {
@@ -63,7 +63,7 @@ public class VideoComment {
 
 	@Override
 	public String toString() {
-		return "VideoComment [videoKey=" + videoKey + ", vCommentId=" + vCommentId + ", vCommentContent="
+		return "VideoComment [videoId=" + videoId + ", vCommentId=" + vCommentId + ", vCommentContent="
 				+ vCommentContent + ", vCommentReg=" + vCommentReg + ", deleteYn=" + deleteYn + ", userId=" + userId
 				+ "]";
 	}

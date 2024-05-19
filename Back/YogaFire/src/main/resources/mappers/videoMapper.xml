@@ -52,22 +52,21 @@
 
 	<!-- video 테이블과 video_comment 테이블의 video_key로 join하고, v_comment의 컬럼들을 가져옴 -->
 	<select id="selectAllComment" resultType="videoComment"
-		parameterType="int">
+		parameterType="String">
 		SELECT video_comment.v_comment_id, video_comment.v_comment_content,
 		date_format(video_comment.v_comment_reg, '%Y-%m-%d') AS v_comment_reg,
 		video_comment.delete_yn, video_comment.user_id
 		FROM video_comment
 		LEFT
 		OUTER JOIN video
-		ON video_comment.video_key = video.video_key
+		ON video_comment.video_id = video.video_id
 		WHERE
-		video_comment.video_key = #{videoKey} AND video_comment.delete_yn =
-		'N';
+		video_comment.video_id = #{videoId} AND video_comment.delete_yn = 'N';
 	</select>
 
 	<insert id="insertVComment" parameterType="videoComment">
-		INSERT INTO video_comment (v_comment_content, video_key, user_id)
-		VALUES (#{vCommentContent}, #{videoKey}, #{userId});
+		INSERT INTO video_comment (v_comment_content, video_id, user_id)
+		VALUES (#{vCommentContent}, #{videoId}, #{userId});
 	</insert>
 
 	<delete id="deleteVComment" parameterType="int">
@@ -79,7 +78,7 @@
 	<update id="updateVComment" parameterType="VideoComment">
 		UPDATE video_comment
 		SET v_comment_content = #{vCommentContent}, v_comment_reg = now()
-		WHERE video_key = #{videoKey}
+		WHERE v_comment_id = #{vCommentId};
 	</update>
 
 	<update id="like" parameterType="String">
@@ -87,10 +86,11 @@
 		SET like_yn = NOT like_yn
 		WHERE video_id = #{videoId};
 	</update>
-
+	
 	<select id="getVideosBySessionId" resultType="Video">
-		select * from video where session_id=#{sessionId}
-	</select>
+        select * from video where session_id=#{sessionId}
+        select * from video where session_id=#{sessionId} AND like_yn = TRUE
+    </select>
 
 
 	<!-- <select id="selectLike" resultType="video" parameterType="String"> 

@@ -1,6 +1,8 @@
 package com.yogafire.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -100,18 +102,19 @@ public class VideoRestController {
 		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
 	}
 
-	@GetMapping("/{videoKey}/comment")
+	// 영상 댓글 전체 조회
+	@GetMapping("/{videoId}/comment")
 	@Operation(summary = "영상 댓글 전체 조회")
-	public ResponseEntity<?> getComments(@PathVariable("videoKey") int videoKey) {
-		List<VideoComment> list = videoService.getComments(videoKey);
+	public ResponseEntity<?> getComments(@PathVariable("videoId") String videoId) {
+		List<VideoComment> list = videoService.getComments(videoId);
 		return new ResponseEntity<List<VideoComment>>(list, HttpStatus.OK);
 	}
 	
 	// 영상 댓글 작성
-	@PostMapping("/{videoKey}/comment")
+	@PostMapping("/{videoId}/comment")
 	@Operation(summary = "영상 댓글 작성")
-	public ResponseEntity<?> writeComment(@RequestBody VideoComment videoComment, @PathVariable("videoKey") int videoKey) {
-		videoComment.setVideoKey(videoKey);
+	public ResponseEntity<?> writeComment(@RequestBody VideoComment videoComment, @PathVariable("videoId") String videoId) {
+		videoComment.setVideoId(videoId);
 		if (videoService.writeComment(videoComment) > 0) {
 			return new ResponseEntity<>(HttpStatus.OK);			
 		} else {
@@ -120,20 +123,21 @@ public class VideoRestController {
 	}
 
 	// 영상 댓글 삭제
-	@DeleteMapping("/{videoKey}/comment/{vCommentId}")
+	@DeleteMapping("/{videoId}/comment/{vCommentId}")
 	@Operation(summary = "영상 댓글 삭제")
-	public ResponseEntity<?> removeComment(@PathVariable("videoKey") int videoKey, @PathVariable("vCommentId") int vCommentId) {
+	public ResponseEntity<?> removeComment(@PathVariable("videoId") String videoId, @PathVariable("vCommentId") int vCommentId) {
+		System.out.println(vCommentId);
 		videoService.removeComment(vCommentId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	// 영상 댓글 수정
-	@PutMapping("/{videoKey}/comment/{vCommentId}")
+	@PutMapping("/{videoId}/comment/{vCommentId}")
 	@Operation(summary = "영상 댓글 수정")
-	public ResponseEntity<?> editComment(@PathVariable("videoKey") int videoKey, @PathVariable("vCommentId") int vCommentId,
+	public ResponseEntity<?> editComment(@PathVariable("videoId") String videoId, @PathVariable("vCommentId") int vCommentId,
 			@ModelAttribute VideoComment videoComment) {
 		videoComment.setvCommentId(vCommentId);
-		videoComment.setvCommentId(videoKey);
+		videoComment.setVideoId(videoId);
 		if (videoService.editComment(videoComment) > 0) {
 			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);			
 		} else {

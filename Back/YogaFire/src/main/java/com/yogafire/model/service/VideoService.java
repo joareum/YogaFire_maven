@@ -1,6 +1,7 @@
 package com.yogafire.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yogafire.model.dto.SearchCondition;
 import com.yogafire.model.dto.Video;
@@ -27,7 +28,7 @@ public interface VideoService {
 	public List<Video> searchVideo(SearchCondition searchCondition);
 	
 	
-	public List<VideoComment> getComments(int videoKey);
+	public List<VideoComment> getComments(String videoId);
 	
 	// 영상 댓글 작성
 	public int writeComment(VideoComment videoComment);

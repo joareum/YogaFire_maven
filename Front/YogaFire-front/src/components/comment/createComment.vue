@@ -5,9 +5,9 @@
   </template>
   
   <script setup>
-    import { useCommentStore } from '@/stores/comment'
+    import { useVideoStore } from '@/stores/video'
   
-    const store = useCommentStore();
+    const store = useVideoStore();
 
   </script>
   

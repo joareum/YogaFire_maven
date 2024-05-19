@@ -1,6 +1,7 @@
 package com.yogafire.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yogafire.model.dto.SearchCondition;
 import com.yogafire.model.dto.Video;
@@ -20,7 +21,7 @@ public interface VideoDao {
 
 	public List<Video> searchDetail(SearchCondition searchCondition);
 
-	public List<VideoComment> selectAllComment(int videoKey);
+	public List<VideoComment> selectAllComment(String videoId);
 	
 	public int insertVComment(VideoComment videoComment);
 
