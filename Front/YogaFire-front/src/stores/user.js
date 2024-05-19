@@ -11,6 +11,7 @@ const REST_USER_API = `http://localhost:8080/user/signup`
 
 export const useUserStore = defineStore('user', () => {
 
+    const calculatedKcal = ref(0);
     const createAccount = function (user) {
         axios({
             url: REST_USER_API,
@@ -73,5 +74,5 @@ export const useUserStore = defineStore('user', () => {
     }
 
     const user = ref({})
-    return { createAccount, user, login, logout, loginUser }
+    return { createAccount, user, login, logout, loginUser, calculatedKcal }
 },{persist:true});

@@ -88,7 +88,6 @@
 	</update>
 	
 	<select id="getVideosBySessionId" resultType="Video">
-        select * from video where session_id=#{sessionId}
         select * from video where session_id=#{sessionId} AND like_yn = TRUE
     </select>
 

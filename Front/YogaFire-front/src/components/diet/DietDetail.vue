@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div class="insert text-center">
+            <!-- 사람 이모티콘?? 같은 거 들어가면 귀여울 듯 -->
             <label for="height">키</label>
             <input type="text" id="height" v-model="height" class="input" />
 
@@ -9,6 +10,8 @@
 
             <label for="age">나이</label>
             <input type="text" id="age" v-model="age" class="input" />
+            <br>
+            <br>
 
             <label for="sex">성별</label>
             <input type="radio" name="sex" value="남" id="sex" v-model="sex" class="input" />남
@@ -32,6 +35,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useUserStore } from '@/stores/user.js';
+const userStore = useUserStore();
 
 const height = ref();
 const weight = ref();
@@ -48,13 +53,21 @@ const bmr = computed(() => {
 });
 
 const kcal = computed(()=>{
+    console.log('칼로리 계산 시작점')
     if (bmr.value && activityLevel.value) {
         let result = bmr.value * activityLevel.value;
+        // useUserStore.calculatedKcal = 20;
+        // console.log("d"+useUserStore.calculatedKcal)
+        console.log('칼로리 계산 완료')
+        console.log(Math.round(result))
         return Math.round(result);
     } else {
+        // useUserStore.calculatedKcal = 40;
         return 0; // 또는 적절한 기본값 설정
     }
 });
+
+userStore.calculatedKcal = kcal
 
 </script>
 

@@ -20,13 +20,18 @@
 import { useVideoStore } from '@/stores/video';
 import { ref, onMounted } from 'vue';
 
+// 로컬 스토리지에서 sessionId 가져오기
+const storedData = localStorage.getItem('user');
+const parsedData = JSON.parse(storedData);
+const sessionId = parsedData.loginUser;
+
 const store = useVideoStore();
 
 const videos = ref([]);
 
 onMounted(async () => {
   try {
-    const videoList = await store.getVideosBySession();
+    const videoList = await store.getVideosBySession(sessionId);
     videos.value = videoList;
   } catch (error) {
     console.error('Error fetching videos by session:', error);
