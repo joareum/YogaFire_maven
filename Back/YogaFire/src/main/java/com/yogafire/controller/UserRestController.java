@@ -49,6 +49,7 @@ public class UserRestController {
 		if(tmp != null) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("loggedInUser", tmp);
+			System.out.println("Logged in user ID set in session: " + tmp.getUserId());
 			return new ResponseEntity<User>(tmp, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
