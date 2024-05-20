@@ -80,9 +80,14 @@ public class VideoServiceImpl implements VideoService {
 		return videoDao.updateVComment(videoComment);
 	}
 
+//	@Override
+//	public void likeVideo(String videoId) {
+//		videoDao.like(videoId);
+//	}
+	
 	@Override
-	public void likeVideo(String videoId) {
-		videoDao.like(videoId);
+	public void likeVideo(Map<String, Object> map) {
+		videoDao.like(map);
 	}
 	
 //	@Override

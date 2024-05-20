@@ -1,6 +1,8 @@
 package com.yogafire.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -159,14 +161,26 @@ public class VideoRestController {
 		}
 	}
 
+//	// 영상 찜하기
+//	@PutMapping("/{videoId}/like")
+//	@Operation(summary = "영상 찜")
+//	public ResponseEntity<?> likeVideo(@PathVariable("videoId") String videoId) {
+//		videoService.likeVideo(videoId);
+//		return new ResponseEntity<String>(HttpStatus.CREATED);
+//	}
+	
 	// 영상 찜하기
-	@PutMapping("/{videoId}/like")
+	@PutMapping("/{videoId}/like/{sessionId}")
 	@Operation(summary = "영상 찜")
-	public ResponseEntity<?> likeVideo(@PathVariable("videoId") String videoId) {
-		videoService.likeVideo(videoId);
-		return new ResponseEntity<String>(HttpStatus.CREATED);
-	}
+	public ResponseEntity<?> likeVideo(@PathVariable("videoId") String videoId, @PathVariable("sessionId") String sessionId) {
+		Map<String, Object> map = new HashMap<>();
 
+		map.put("videoId", videoId);
+		map.put("sessionId", sessionId);
+		videoService.likeVideo(map);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	// 찜한 영상 조회
 	@GetMapping("/{userId}/like")
 	@Operation(summary = "찜한 영상 리스트 조회")
