@@ -58,10 +58,10 @@ public class VideoRestController {
 	}
 
 	// 영상 하나만 가져오기
-	@GetMapping("/{videoKey}")
+	@GetMapping("/{videoId}")
 	@Operation(summary = "영상 1개 조회")
-	public ResponseEntity<Video> getVideo(@PathVariable("videoKey") int videoKey) {
-		Video video = videoService.getVideo(videoKey);
+	public ResponseEntity<Video> getVideo(@PathVariable("videoId") String videoId) {
+		Video video = videoService.getVideo(videoId);
 
 		if (video != null) {
 			return new ResponseEntity<Video>(video, HttpStatus.OK);
@@ -73,10 +73,16 @@ public class VideoRestController {
 	@PostMapping("/{videoId}")
 	@Operation(summary = "영상 등록")
 	public ResponseEntity<?> uploadVideo(@RequestBody Video video, @PathVariable("videoId") String videoId) {
-		videoService.uploadVideo(video);
-		System.out.println();
-		return new ResponseEntity<Video>(video, HttpStatus.CREATED);
+		Video getVideo = videoService.getVideo(video.getVideoId());
 
+		if (getVideo == null) {
+			videoService.uploadVideo(video);
+			return new ResponseEntity<Video>(video, HttpStatus.CREATED);
+		}
+		else {
+			System.out.println("중복으로 insert 안됨");
+			return new ResponseEntity<>(HttpStatus.OK);			
+		}
 	}
 
 	// 영상 삭제
@@ -129,11 +135,11 @@ public class VideoRestController {
 		}
 	}
 
+	// 이거 사용	
 	// 영상 댓글 삭제
 	@DeleteMapping("/{videoId}/comment/{vCommentId}")
 	@Operation(summary = "영상 댓글 삭제")
-	public ResponseEntity<?> removeComment(@PathVariable("videoId") String videoId,
-			@PathVariable("vCommentId") int vCommentId) {
+	public ResponseEntity<?> removeComment(@PathVariable("videoId") String videoId, @PathVariable("vCommentId") int vCommentId) {
 		System.out.println(vCommentId);
 		videoService.removeComment(vCommentId);
 		return new ResponseEntity<Void>(HttpStatus.OK);

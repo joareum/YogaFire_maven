@@ -15,23 +15,10 @@ const route = useRoute();
 const store = useCommentStore();
 
 const routevideoId = ref(route.params.videoId);
-
-//  // video 객체 생성
-//  const video = {
-//   id: { videoId: videoId.value },
-//   sessionId: { sessionId: sessionId.value},
-//   snippet: {
-//     title: title.value,
-//     channelTitle: channelTitle.value,
-//     publishTime: publishTime.value
-//   },
-//   isFavorite: isFavorite.value
-//   };
-
 const context = ref('')
 
-const createComment = function() {
-  store.insertComment(routevideoId.value , context.value);
+const createComment = async function() {
+  await store.insertComment(routevideoId.value , context.value);
   context.value = '';
 }
 

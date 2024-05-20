@@ -112,7 +112,6 @@ export const useVideoStore = defineStore('video', () => {
     })
       .then((response) => {
         recommendVideos.value = response.data.items
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -120,12 +119,12 @@ export const useVideoStore = defineStore('video', () => {
   }
 
   const clickVideo = function (video) {
-    console.log(video)
-    console.log('localStorage 확인')
-    console.log(video.videoId)
+    // console.log(video)
+    // console.log('localStorage 확인')
+    // console.log(video.videoId)
     localStorage.setItem('videoId', video.videoId)
 
-    console.log(localStorage.getItem('videoId'))
+    // console.log(localStorage.getItem('videoId'))
   }
 
   const clickLike = (video) => {

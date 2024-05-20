@@ -13,7 +13,7 @@ public interface VideoService {
 	public List<Video> getVideoList();
 	
 	// 영상 하나만 가져오기
-	public Video getVideo(int videoKey);
+	public Video getVideo(String videoId);
 
 	// 영상 등록
 	public void uploadVideo(Video video);

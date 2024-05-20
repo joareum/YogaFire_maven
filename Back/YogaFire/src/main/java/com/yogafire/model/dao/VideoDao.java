@@ -11,7 +11,7 @@ public interface VideoDao {
 
 	public List<Video> selectAll();
 
-	public Video selectOne(int videoKey);
+	public Video selectOne(String videoKey);
 
 	public void insertVideo(Video video);
 

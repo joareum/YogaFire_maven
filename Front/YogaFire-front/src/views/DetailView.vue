@@ -82,8 +82,8 @@
   try {
     const savedVideoId = localStorage.getItem('videoId');
     const savedIsFavorite = localStorage.getItem('isFavorite');
-    console.log('완료')
-    console.log(savedVideoId)
+    console.log('loadData') 
+
     if (savedVideoId) {
       videoId.value = savedVideoId;
     }
@@ -146,11 +146,10 @@ const toggleLike = async () => {
 
 // 윗단이 수정된 clickLike
   const clickUpload = function(video) {
-  console.log("click Upload")
   const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
   const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
   const sessionId = parsedData.loginUser; // loginUser 값 가져오기
-  console.log(sessionId)  
+   
   store.uploadVideo(video)
   console.log("click Upload complete")
   // console.log(videoId)
