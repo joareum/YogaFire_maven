@@ -2,7 +2,7 @@
     <div class="searchBase">
 
         <h2>searchView</h2>
-        <SearchListVideo />
+            <SearchListVideo />
         <!-- {{ store.videos }} -->
     </div>
 </template>

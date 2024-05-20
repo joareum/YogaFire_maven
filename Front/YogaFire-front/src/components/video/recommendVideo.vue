@@ -32,5 +32,7 @@ onMounted (()=>{
 
 .base{
     margin: 20px;
+    padding-left: 45px;
+    padding-right:40px;
 }
 </style>

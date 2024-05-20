@@ -1,19 +1,22 @@
 <template>
     <div>
-        <h4>로그인</h4>
         <fieldset>
+            <h4>YOGAFIRE</h4>
             <!-- <legend>로그인</legend> -->
-            <div>
-                <label for="userId">아이디 : </label>
-                <input type="text" id="userId" v-model="user.userId">
+            <br>
+            <div class="text-align">
+                <!-- <label for="userId">아이디 : </label> -->
+                <input class="insert" type="text" id="userId" v-model="user.userId">
             </div>
-            <div>
-                <label for="password">비밀번호 : </label>
-                <input type="password" id="password" v-model="user.password">
+            <br>
+            <div class="text-align">
+                <!-- <label for="password">비밀번호 : </label> -->
+                <input class="insert" type="password" id="password" v-model="user.password">
             </div>
-            <div>
+            <br>
+            <div class="text-align">
                 <button @click="login">로그인</button>
-                <button @click="findId">아이디 찾기</button>
+                <!-- <button @click="findId">아이디 찾기</button> -->
             </div>
         </fieldset>
     </div>
@@ -43,4 +46,24 @@ const findId = function(){
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.insert{
+    width: 800px;
+}
+
+fieldset{
+    padding-top: 300px;
+    padding-left : 300px;
+    padding-right: 300px;
+}
+
+h4{
+    text-align: center;
+    font-size:60px;
+    color:white;
+}
+
+.text-align{
+    text-align: center;
+}
+</style>
