@@ -27,15 +27,19 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public Video getVideo(int videoKey) {
-		System.out.println(videoKey + "번 영상을 불러옵니다.");
-		return videoDao.selectOne(videoKey);
+	public Video getVideo(String videoId) {
+		System.out.println(videoId + "번 영상을 불러옵니다.");
+		return videoDao.selectOne(videoId);
 	}
 
 	@Override
 	public void uploadVideo(Video video) {
-		videoDao.insertVideo(video);
-		System.out.println("영상을 등록합니다.");
+		if(videoDao.selectOne(video.getVideoId()) == null) {			
+			videoDao.insertVideo(video);
+			System.out.println("영상을 등록합니다.");
+		}else {
+			System.out.println("중복된 영상이라 등록이 불가합니다. ");
+		}
 	}
 
 	@Override

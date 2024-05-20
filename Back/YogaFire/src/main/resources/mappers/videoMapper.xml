@@ -12,12 +12,13 @@
 		reg_date FROM video;
 	</select>
 
-	<select id="selectOne" resultType="video" parameterType="int">
+	<select id="selectOne" resultType="video" parameterType="String">
 		SELECT *
 		FROM video
-		WHERE video_key = #{videoKey};
+		WHERE video_id = #{videoId};
 	</select>
-
+	
+	<!-- DB에 비디오 등록하는 쿼리문 -->
 	<insert id="insertVideo" parameterType="Video">
 		INSERT INTO video
 		(video_id, video_title, area, session_id, channel_name, center_name)
@@ -50,21 +51,15 @@
 		</if>
 	</select>
 
+	<!-- 댓글 출력 mapper 수정 -->
 	<!-- video 테이블과 video_comment 테이블의 video_key로 join하고, v_comment의 컬럼들을 가져옴 -->
-	<select id="selectAllComment" resultType="videoComment"
-		parameterType="String">
-		SELECT video_comment.v_comment_id, video_comment.v_comment_content,
-		date_format(video_comment.v_comment_reg, '%Y-%m-%d') AS v_comment_reg,
-		video_comment.delete_yn, video_comment.user_id
+	<select id="selectAllComment" resultType="videoComment" parameterType="String">
+		SELECT *
 		FROM video_comment
-		LEFT
-		OUTER JOIN video
-		ON video_comment.video_id = video.video_id
-		WHERE
-		video_comment.video_id = #{videoId} AND video_comment.delete_yn = 'N';
+		WHERE delete_yn = 'N' AND video_id = #{videoId};
 	</select>
 	
-	<!-- 지인이가 등록한 댓글 등록 -->
+	<!-- 지인이가 등록한 "댓글 등록"" -->
 	<insert id="insertVComment" parameterType="videoComment">
 		INSERT INTO video_comment (v_comment_content, video_id, user_id)
 		VALUES (#{vCommentContent}, #{videoId}, #{userId});

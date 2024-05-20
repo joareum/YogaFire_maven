@@ -1,37 +1,44 @@
 <template>
     <li>
         <div class="video-container">
-            <img :src="video.snippet.thumbnails.high.url" @click="clickVideo(video)"> 
+            <img :src="video.snippet.thumbnails.high.url" @click="clickVideo(video)">
         </div>
     </li>
 </template>
 
 <script setup>
 import { useVideoStore } from '@/stores/video';
-import { defineProps} from 'vue'; 
+import { defineProps } from 'vue';
 
 import { useRouter } from 'vue-router';
 
 const store = useVideoStore()
 
-const props  = defineProps({
+const props = defineProps({
     video: Object,
     required: true
 })
 
 const router = useRouter();
 
-const clickVideo = function(video){
+const clickVideo = function (video) {
     store.clickVideo(video.id)
 
-    router.push({name: 'detail', params: {
-        videoId: video.id.videoId,
-        channelTitle: props.video.snippet.channelTitle,
-        description: props.video.snippet.description,
-        title: props.video.snippet.title,
-        publishTime: props.video.snippet.publishTime,
-        isFavorite: 'N'
-      }})
+    router.push({
+        name: 'detail',
+        params: {
+            videoId: video.id.videoId,
+            channelTitle: props.video.snippet.channelTitle,
+            description: props.video.snippet.description,
+            title: props.video.snippet.title,
+            publishTime: props.video.snippet.publishTime,
+            isFavorite: 'N'
+        }
+    }).then(() => {
+        console.log(video.id.videoId + '으로 이동했습니다.');
+    }).catch(error => {
+        console.error('Navigation to detail view failed:', error);
+    });
 
 }
 
@@ -44,7 +51,7 @@ img {
 
 }
 
-li{ 
+li {
     margin: 20px 5px;
 }
 

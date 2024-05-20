@@ -2,7 +2,7 @@
     <div>
         <h4>로그인</h4>
         <fieldset>
-            <legend>로그인</legend>
+            <!-- <legend>로그인</legend> -->
             <div>
                 <label for="userId">아이디 : </label>
                 <input type="text" id="userId" v-model="user.userId">
