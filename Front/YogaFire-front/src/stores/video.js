@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import router from '@/router'
@@ -8,8 +8,14 @@ const apiClient = axios.create({
 });
 
 const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
-const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-const sessionId = parsedData.loginUser; // loginUser 값 가져오기
+const parsedData = storedData ? JSON.parse(storedData) : null; // JSON 문자열을 객체로 파싱하기
+
+// 기본값 설정
+const sessionId = parsedData ? parsedData.loginUser : null;
+
+
+// const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
+// const sessionId = parsedData.loginUser; // loginUser 값 가져오기
 
 export const useVideoStore = defineStore('video', () => {
   const videos = ref([])
@@ -17,48 +23,48 @@ export const useVideoStore = defineStore('video', () => {
   const recommendVideos = ref([])
   const isFavorite = ref(false)
 
-  const getVideosBySession = function (sessionId) {
-    return apiClient.get('/video/session', {
-      params: { sessionId: sessionId }
-    })
-      .then(response => {
+  const getVideosBySession = async (sessionId) => {
+    try {
+      const response = await apiClient.get('/video/session', {
+        params: { sessionId: sessionId }});
         return response.data;
-      })
-      .catch(error => {
-        console.error('Error fetching videos by session:', error);
-        throw error;
-      });
+      
+    } catch (error) {
+      console.error('Error fetching videos by session:', error);
+      throw error;
+    }
   };
 
-  const videoSearch = function (keyword) {
+  const videoSearch = async (keyword) => {
     const URL = 'https://www.googleapis.com/youtube/v3/search'
     const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
 
-    axios({
-      url: URL,
-      method: 'GET',
-      params: {
-        key: API_KEY,
-        part: 'snippet',
-        maxResults: 12,
-        q: keyword,
-        type: 'video'
-      },
-    })
-      .then((response) => {
-        console.log(response.data)
+    try {
+      const response = await axios.get(URL, {
+        params: {
+          key: API_KEY,
+          part: 'snippet',
+          maxResults: 12,
+          q: keyword,
+          type: 'video'
+        },
+      })
         videos.value = response.data.items
         console.log(response.data)
-      })
-      .catch((error) => {
+      } catch(error) {
         console.log(error)
-      })
+      }
   }
 
-  const uploadVideo = function (video) {
+  const uploadVideo = async (video) => {
+    // const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
+    // const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
+    // const sessionId = parsedData.loginUser; // loginUser 값 가져오기
+
     const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
-    const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-    const sessionId = parsedData.loginUser; // loginUser 값 가져오기
+    const parsedData = storedData ? JSON.parse(storedData) : null; // JSON 문자열을 객체로 파싱하기
+    const sessionId = parsedData ? parsedData.loginUser : null; // loginUser 값 가져오기
+
 
     if (!video || !video.snippet || (!video.id && !video.videoId) || !sessionId) {
       console.error("Invalid video object or missing stored id", video);
@@ -78,99 +84,129 @@ export const useVideoStore = defineStore('video', () => {
       likeYn: video.isFavorite
     };
 
-    axios({
-      url: `http://localhost:8080/video/${newVideo.videoId}`,
-      method: 'POST',
-      data: newVideo,
-      // headers: {
-      //   'Content-Type': 'application/json'
-      // }
-    })
-      .then(() => {
-        console.log("Video uploaded successfully", newVideo);
-      })
-      .catch((err) => {
-        console.error("Error uploading video", err);
-      });
-  };
+    try {
+      await apiClient.post(`/video/${newVideo.videoId}`, newVideo)
+      console.log("Video uploaded successfully", newVideo);
+    } catch (err) {
+      console.error("Error uploading video", err);
+    }
+  }
 
-
-  const videoRecommend = function () {
+  const videoRecommend = async () => {
     const URL = 'https://www.googleapis.com/youtube/v3/search'
     const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
 
-    axios({
-      url: URL,
-      method: 'GET',
-      params: {
-        key: API_KEY,
-        part: 'snippet',
-        maxResults: 8,
-        q: '요가 영상 추천',
-        type: 'video'
-      },
+    try {
+      const response = await axios.get(URL, {
+        params: {
+          key: API_KEY,
+          part: 'snippet',
+          maxResults: 8,
+          q: '요가 영상 추천',
+          type: 'video'
+
+      }
     })
-      .then((response) => {
         recommendVideos.value = response.data.items
-      })
-      .catch((error) => {
+
+      } catch (error) {
         console.log(error)
-      })
+      }
   }
 
-  const clickVideo = function (video) {
-    // console.log(video)
-    // console.log('localStorage 확인')
-    // console.log(video.videoId)
-    localStorage.setItem('videoId', video.videoId)
 
-    // console.log(localStorage.getItem('videoId'))
+  const clickVideo = (video) => {
+    console.log(video)
+    console.log('clickVideo: localStorage 확인')
+    console.log(video.videoId)
+    localStorage.setItem('videoId', video.videoId)
+    console.log(localStorage.getItem('videoId'))
   }
 
   const clickLike = (video) => {
     console.log(video)
+    console.log('clickLike: localStorage 확인')
     localStorage.setItem('isFavorite', JSON.stringify(video.isFavorite))
     console.log("click Like:", localStorate.getItem('isFavorite'))
 
   }
 
 
-  const likeVideo = function (video) {
+  // const likeVideo = function (video) {
+  //   const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
+  //   const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
+  //   const sessionId = parsedData.loginUser; // loginUser 값 가져오기
+  //   const likeYn = video.isFavorite;
+
+
+  //   if (!video || !video.snippet || (!video.id && !video.videoId) || !sessionId) {
+  //     console.error("Invalid video object or missing stored id", video);
+  //     return;
+  //   }
+
+  //   const videoId = video.id?.videoId || video.videoId; // video.id.videoId 또는 video.videoId 둘 다 처리
+
+  //   const newVideo = {
+  //     sessionId: sessionId,
+  //     videoId: videoId,
+  //     videoTitle: video.snippet.title,
+  //     area: '전신',
+  //     channelName: video.snippet.channelTitle,
+  //     regDate: video.snippet.publishTime,
+  //     centerName: video.snippet.channelTitle,
+  //     likeYn: likeYn
+  //   };
+
+  //   axios({ // url 경로를 `http://localhost:8080/video/${newVideo.videoId}/like`에서 수정해줌
+  //     url: `http://localhost:8080/video/${newVideo.videoId}/like/${newVideo.sessionId}`,
+  //     method: 'PUT',
+  //     data: newVideo,
+  //   })
+  //     .then(() => {
+  //       console.log("Video uploaded successfully", newVideo);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error uploading video", err);
+  //     });
+  // };
+
+  const likeVideo = async (videoByUser) => {
+    // const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
+    // const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
+    // const sessionId = parsedData.loginUser; // loginUser 값 가져오기
+    const likeYn = videoByUser.isFavorite;
+
     const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
-    const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-    const sessionId = parsedData.loginUser; // loginUser 값 가져오기
-    const likeYn = video.isFavorite;
+    const parsedData = storedData ? JSON.parse(storedData) : null; // JSON 문자열을 객체로 파싱하기
+    const sessionId = parsedData ? parsedData.loginUser : null; // loginUser 값 가져오기
 
 
-    if (!video || !video.snippet || (!video.id && !video.videoId) || !sessionId) {
-      console.error("Invalid video object or missing stored id", video);
+    if (!videoByUser || !videoByUser.snippet || (!videoByUser.id && !videoByUser.videoId) || !sessionId) {
+      console.error("Invalid video object or missing stored id", videoByUser);
       return;
     }
 
-    const videoId = video.id?.videoId || video.videoId; // video.id.videoId 또는 video.videoId 둘 다 처리
+    const videoId = videoByUser.id?.videoId || videoByUser.videoId; // video.id.videoId 또는 video.videoId 둘 다 처리
 
     const newVideo = {
       sessionId: sessionId,
       videoId: videoId,
-      videoTitle: video.snippet.title,
+      videoTitle: videoByUser.snippet.title,
       area: '전신',
-      channelName: video.snippet.channelTitle,
-      regDate: video.snippet.publishTime,
-      centerName: video.snippet.channelTitle,
-      likeYn: likeYn
+      channelName: videoByUser.snippet.channelTitle,
+      regDate: videoByUser.snippet.publishTime,
+      centerName: videoByUser.snippet.channelTitle,
+      likeYn: videoByUser.isFavorite
     };
 
-    axios({
-      url: `http://localhost:8080/video/${newVideo.videoId}/like`,
-      method: 'PUT',
-      data: newVideo,
-    })
-      .then(() => {
-        console.log("Video uploaded successfully", newVideo);
-      })
-      .catch((err) => {
-        console.error("Error uploading video", err);
-      });
+    try {
+      await apiClient.put(`/video/${newVideo.videoId}/like/${newVideo.sessionId}`, newVideo)
+      console.log("Like status updated successfully", newVideo)
+      isFavorite.value = newVideo.likeYn;
+      localStorage.setItem('isFavorite', JSON.stringify(newVideo.likeYn))
+    } catch (err) {
+      console.error("Error updating like status", err)
+    }
   };
 
   
@@ -181,10 +217,9 @@ export const useVideoStore = defineStore('video', () => {
     selectedVideo,
     clickVideo,
     videoRecommend,
-    clickLike,
+    clickLike, 
     recommendVideos,
     likeVideo,
     uploadVideo,
-    isFavorite,
   }
 })
