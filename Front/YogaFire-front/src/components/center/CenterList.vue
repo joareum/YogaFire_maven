@@ -1,20 +1,23 @@
 <template>
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th v-for="header in headers" :key="header">{{ header }}</th>
+      <div class="yogaCenter">
+          <table>
+          <thead>
+            <tr>
+              <th v-for="header in headers" :key="header">{{ header }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, rowIndex) in rows" :key="rowIndex">
+              <td v-for="(cell, cellIndex) in row" :key="cellIndex">
+                  <img v-if="cellIndex === 4" src="/map.png" alt="Map Icon" class="map-icon" @click="openModal(row)">
+                  <span v-else>{{ cell }}</span>
+              </td>
           </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(row, rowIndex) in rows" :key="rowIndex">
-            <td v-for="(cell, cellIndex) in row" :key="cellIndex">
-                <img v-if="cellIndex === 4" src="/map.png" alt="Map Icon" class="map-icon" @click="openModal(row)">
-                <span v-else>{{ cell }}</span>
-            </td>
-        </tr>
-    </tbody>
-</table>
+        </tbody>
+        </table>
+      </div>
+      
 <CenterMapPopUp v-if="modalData" :data="modalData" @sendClose="closeModalView"/>
     </div>
   </template>
@@ -56,9 +59,15 @@
   </script>
   
   <style scoped>
+  .yogaCenter{
+    padding-left: 180px;
+    padding-right:40px;
+  }
+
   table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
+    
   }
   
   th, td {

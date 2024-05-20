@@ -17,6 +17,7 @@
 
 <style scoped>
 .searchList{
+    padding-left: 500px;
     list-style-type: none;
     display:flex;
     flex-wrap: wrap;

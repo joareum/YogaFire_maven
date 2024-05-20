@@ -1,31 +1,41 @@
 <template>
-  <!-- 로고 -->
-  <div class="img">
-    <img src="@/assets/yogafire.png" style="max-width: 300px; height: auto;">
-  </div>
-  <div class="ibm-plex-sans-bold-italic">
-    <h2>YOGAFIRE</h2>
-  </div>
-  
-  <div class="base">
-    <div class="recommend-container">
-      <SearchVideo/>
-      <RecommendVideo />
+  <div class="total">
+    <div class="img">
+      <img src="@/assets/yogafire_pink.png" style="max-width: 300px; height: auto;">
     </div>
+    <!-- <div class="ibm-plex-sans-bold-italic">
+      <h2>YOGAFIRE</h2>
+    </div> -->
+    
+    <div class="base">
+      <div class="recommend-container">
+        <br>
+        <SearchVideo/>
+        <br>
+        <TheHeaderNav/>
+        <!-- <RecommendVideo /> -->
+      </div>
+    </div>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   </div>
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   </template>
   
   <script setup>
     import SearchVideo from '@/components/video/searchVideo.vue'
-    import RecommendVideo from '@/components/video/recommendVideo.vue'
+    import TheHeaderNav from '@/components/common/TheHeaderNav.vue'
+    // import RecommendVideo from '@/components/video/recommendVideo.vue'
   
   </script>
   
   <style>
+  .total{
+    padding-top: 130px;
+  }
+
   /* .logo-font {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;

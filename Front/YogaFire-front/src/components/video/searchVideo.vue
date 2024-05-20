@@ -2,9 +2,9 @@
 <template>
     <TheHeaderNav/>
     <div class="search-bar">
-        <input class="search-bar__input" type="text" placeholder="검색어를 입력하세요." v-model="keyword">
+        <input class="search-bar__input" type="text" placeholder="YOGAFIRE" v-model="keyword" @keyup.enter="search">
         <span>     </span>
-        <button class="w-btn w-btn-gra2 w-btn-gra-anim" type="button" @click="search">Search</button>
+        <!-- <button class="w-btn w-btn-gra2 w-btn-gra-anim" type="button" @click="search">Search</button> -->
     </div>
 </template>
 
