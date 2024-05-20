@@ -18,20 +18,20 @@
           <div>
             <p>{{ title }}</p>
             <span>{{ channelTitle }}</span>
-          
+            <br>
             <span @click="toggleLike" :class="{ 'like': isFavorite }"> 
           {{ isFavorite ? '💗' : '🤍' }} 
         </span> 
           </div>
           <div>
-            <p>{{ description }}</p>
-            <p>{{ publishTime }}</p>
+            <!-- 빼도 될 것 같아서 일단 지웁니당. 깔끔하게..! -->
+            <!-- <p>{{ description }}</p> -->
+            <!-- <p>{{ publishTime }}</p> -->
             </div>
           </div>
-        <!-- <searchVideoDetail /> -->
-        <hr>
+        <br>
         <createComment />
-        <hr>
+        <br>
         <showCommentList />
     </div>
   </template>
@@ -42,8 +42,7 @@
   import createComment from '@/components/comment/createComment.vue'
   import showCommentList from '@/components/comment/showCommentList.vue'
   
-  import { useRoute } from 'vue-router';
-  import { useRouter } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
   import { useVideoStore } from '@/stores/video';
   import { computed, ref, onMounted } from 'vue';
 
@@ -96,24 +95,6 @@
     console.error('Error loading data from localStorage:', error);
   }
   };
-  
-  // 추가
-  // const fetchVideoDetails = async (videoId) => {
-  //   try {
-  //       const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-  //           params: {
-  //               key: import.meta.env.VITE_YOUTUBE_API_KEY,
-  //               part: 'snippet',
-  //               id: videoId,
-  //           }
-  //       });
-  //       if (response.data.items.length > 0) {
-  //           video.value = response.data.items[0];
-  //       }
-  //   } catch (error) {
-  //       console.error('Error fetching video details:', error);
-  //   }
-  // };
 
   const fetchVideoDetails = async (videoId) => {
   try {
@@ -137,36 +118,6 @@
   return `https://www.youtube.com/embed/${videoId.value}`;
   })
 
-
-
-// 오후 3시 수정
-// const clickLike = async (video) => {
-//   try {
-//     console.log(isFavorite.value); // false
-//     const newFavoriteStatus = isFavorite.value;
-//     isFavorite.value = newFavoriteStatus;
-//     // localStorage.setItem('isFavorite', JSON.stringify(newFavoriteStatus));
-
-//     const newVideo = {
-//       sessionId: sessionId,
-//       videoId: videoId.value,
-//       videoTitle: title.value,
-//       area: '전신',
-//       channelName: channelTitle.value,
-//       regDate: publishTime.value,
-//       centerName: channelTitle.value,
-//       likeYn: newFavoriteStatus
-//     };
-
-//     console.log(newVideo.likeYn) // false
-//     const response = await axios.put(`http://localhost:8080/video/${newVideo.videoId}/like`, newVideo);
-
-
-//     console.log("Like status updated successfully", newVideo);
-//   } catch (error) {
-//     console.error("Error updating like status", error);
-//   }
-// };
 
 const toggleLike = async () => {
   try {
@@ -194,7 +145,6 @@ const toggleLike = async () => {
 
 
 // 윗단이 수정된 clickLike
-
   const clickUpload = function(video) {
   console.log("click Upload")
   const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기

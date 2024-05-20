@@ -3,10 +3,6 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import router from '@/router'
 
-// axios.defaults.headers['Access-Control-Allow-Origin'] = 'http://localhost:8080';
-
-// axios.defaults.withCredentials = true;
-
 const apiClient = axios.create({
   baseURL: 'http://localhost:8080'
 });
@@ -134,9 +130,6 @@ export const useVideoStore = defineStore('video', () => {
 
   const clickLike = (video) => {
     console.log(video)
-    // video.isFavorite = !video.isFavorite;
-    // isFavorite.value = !isFavorite.value;
-    // localStorage.setItem('isFavorite', video.isFavorite)
     localStorage.setItem('isFavorite', JSON.stringify(video.isFavorite))
     console.log("click Like:", localStorate.getItem('isFavorite'))
 
@@ -165,9 +158,6 @@ export const useVideoStore = defineStore('video', () => {
       channelName: video.snippet.channelTitle,
       regDate: video.snippet.publishTime,
       centerName: video.snippet.channelTitle,
-      // likeYn: isFavorite.value == false
-      // likeYn: isFavorite.value
-      // likeYn: video.isFavorite
       likeYn: likeYn
     };
 
@@ -175,9 +165,6 @@ export const useVideoStore = defineStore('video', () => {
       url: `http://localhost:8080/video/${newVideo.videoId}/like`,
       method: 'PUT',
       data: newVideo,
-      // headers: {
-      //   'Content-Type': 'application/json'
-      // }
     })
       .then(() => {
         console.log("Video uploaded successfully", newVideo);
@@ -187,8 +174,7 @@ export const useVideoStore = defineStore('video', () => {
       });
   };
 
-
-
+  
   return {
     getVideosBySession,
     videoSearch,
