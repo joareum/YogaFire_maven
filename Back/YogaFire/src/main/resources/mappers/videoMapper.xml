@@ -63,7 +63,8 @@
 		WHERE
 		video_comment.video_id = #{videoId} AND video_comment.delete_yn = 'N';
 	</select>
-
+	
+	<!-- 지인이가 등록한 댓글 등록 -->
 	<insert id="insertVComment" parameterType="videoComment">
 		INSERT INTO video_comment (v_comment_content, video_id, user_id)
 		VALUES (#{vCommentContent}, #{videoId}, #{userId});
@@ -75,6 +76,7 @@
 		WHERE v_comment_id = #{vCommentId};
 	</delete>
 
+	<!-- 댓글 업데이트까지 되어 있음 -->
 	<update id="updateVComment" parameterType="VideoComment">
 		UPDATE video_comment
 		SET v_comment_content = #{vCommentContent}, v_comment_reg = now()

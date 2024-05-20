@@ -1,8 +1,6 @@
 package com.yogafire.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +28,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/video")
 @Tag(name = "VideoRestController", description = "영상 관련 기능")
-@CrossOrigin(value = "*") 
+@CrossOrigin(value = "*")
 public class VideoRestController {
-	
+
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
@@ -44,13 +42,13 @@ public class VideoRestController {
 	}
 
 	// 세션 아이디로 DB에 연결해서 영상 리스트 가져오는 메서드
-		@GetMapping("/session")
-		public ResponseEntity<List<Video>> getVideoBySession(@RequestParam String sessionId) {
-		    System.out.println("Session ID: " + sessionId);
-		    List<Video> videos = videoService.getVideosBySessionId(sessionId);
-		    return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
-		}
-	
+	@GetMapping("/session")
+	public ResponseEntity<List<Video>> getVideoBySession(@RequestParam String sessionId) {
+		System.out.println("Session ID: " + sessionId);
+		List<Video> videos = videoService.getVideosBySessionId(sessionId);
+		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+	}
+
 	// 영상 리스트 전체 조회
 	@GetMapping("/")
 	@Operation(summary = "영상 리스트 전체 조회")
@@ -78,7 +76,7 @@ public class VideoRestController {
 		videoService.uploadVideo(video);
 		System.out.println();
 		return new ResponseEntity<Video>(video, HttpStatus.CREATED);
-		
+
 	}
 
 	// 영상 삭제
@@ -117,14 +115,15 @@ public class VideoRestController {
 		List<VideoComment> list = videoService.getComments(videoId);
 		return new ResponseEntity<List<VideoComment>>(list, HttpStatus.OK);
 	}
-	
+
 	// 영상 댓글 작성
 	@PostMapping("/{videoId}/comment")
 	@Operation(summary = "영상 댓글 작성")
-	public ResponseEntity<?> writeComment(@RequestBody VideoComment videoComment, @PathVariable("videoId") String videoId) {
+	public ResponseEntity<?> writeComment(@RequestBody VideoComment videoComment,
+			@PathVariable("videoId") String videoId) {
 		videoComment.setVideoId(videoId);
 		if (videoService.writeComment(videoComment) > 0) {
-			return new ResponseEntity<>(HttpStatus.OK);			
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -133,7 +132,8 @@ public class VideoRestController {
 	// 영상 댓글 삭제
 	@DeleteMapping("/{videoId}/comment/{vCommentId}")
 	@Operation(summary = "영상 댓글 삭제")
-	public ResponseEntity<?> removeComment(@PathVariable("videoId") String videoId, @PathVariable("vCommentId") int vCommentId) {
+	public ResponseEntity<?> removeComment(@PathVariable("videoId") String videoId,
+			@PathVariable("vCommentId") int vCommentId) {
 		System.out.println(vCommentId);
 		videoService.removeComment(vCommentId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
@@ -142,17 +142,17 @@ public class VideoRestController {
 	// 영상 댓글 수정
 	@PutMapping("/{videoId}/comment/{vCommentId}")
 	@Operation(summary = "영상 댓글 수정")
-	public ResponseEntity<?> editComment(@PathVariable("videoId") String videoId, @PathVariable("vCommentId") int vCommentId,
-			@ModelAttribute VideoComment videoComment) {
+	public ResponseEntity<?> editComment(@PathVariable("videoId") String videoId,
+			@PathVariable("vCommentId") int vCommentId, @ModelAttribute VideoComment videoComment) {
 		videoComment.setvCommentId(vCommentId);
 		videoComment.setVideoId(videoId);
 		if (videoService.editComment(videoComment) > 0) {
-			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);			
+			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	// 영상 찜하기
 	@PutMapping("/{videoId}/like")
 	@Operation(summary = "영상 찜")
@@ -160,14 +160,6 @@ public class VideoRestController {
 		videoService.likeVideo(videoId);
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
-
-//	// 영상 찜 해제
-//	@DeleteMapping("/{videoKey}/{likeId}")
-//	@Operation(summary = "영상 찜 해제")
-//	public ResponseEntity<?> unlikeVideo(@PathVariable("videoKey") int videoKey, @PathVariable("likeId") int likeId) {
-//		videoService.unlikeVideo(videoKey);
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-//	}
 
 	// 찜한 영상 조회
 	@GetMapping("/{userId}/like")
@@ -180,6 +172,5 @@ public class VideoRestController {
 		}
 		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
 	}
-	
-	
+
 }

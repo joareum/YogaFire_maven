@@ -1,14 +1,17 @@
 <template>
     <div>
       <h3>showCommentList</h3>
+      <div class="commentList">
+        
+      </div>
 
   </div>
   </template>
   
   <script setup>
-    import { useVideoStore } from '@/stores/video'
-  
-    const store = useVideoStore();
+    import { useCommentStore } from '@/stores/comment'
+
+    const store = useCommentStore();
 
   </script>
   

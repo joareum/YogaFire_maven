@@ -2,13 +2,20 @@
     <div id="container">
       <header>
         <nav>
-          <RouterLink to="/">HOME |</RouterLink> 
-          <RouterLink v-if="store.loginUser === ''" :to="{ name: 'login' }"> LOG IN |</RouterLink> 
-          <RouterLink v-if="store.loginUser === ''" :to="{ name: 'signup' }"> SIGN UP |</RouterLink> 
-          <RouterLink v-if="store.loginUser !== ''" to="/" @click.native="logout" class="logout-link"> LOG OUT |</RouterLink>
-          <RouterLink :to="{ name: 'myPageView' }"> MY PAGE |</RouterLink>
-          <RouterLink :to="{ name: 'dietView' }"> DIET |</RouterLink>
-          <RouterLink :to="{ name: 'centerView' }"> CENTER |</RouterLink> 
+          <RouterLink to="/">HOME</RouterLink>
+          <RouterLink to="/" class="logout-link"> |</RouterLink> 
+          <RouterLink v-if="store.loginUser === ''" :to="{ name: 'login' }"> LOG IN</RouterLink>
+          <RouterLink v-if="store.loginUser === ''" to="/" class="logout-link"> |</RouterLink> 
+          <RouterLink v-if="store.loginUser === ''" :to="{ name: 'signup' }"> SIGN UP</RouterLink>
+          <RouterLink v-if="store.loginUser === ''" to="/" class="logout-link"> |</RouterLink>  
+          <RouterLink v-if="store.loginUser !== ''" to="/" @click]="logout" class="logout-link"> LOG OUT</RouterLink>
+          <RouterLink v-if="store.loginUser !== ''" to="/" class="logout-link"> |</RouterLink>  
+          <RouterLink :to="{ name: 'myPageView' }"> MY PAGE </RouterLink>
+          <RouterLink to="/" class="logout-link"> |</RouterLink>  
+          <RouterLink :to="{ name: 'dietView' }"> DIET </RouterLink>
+          <RouterLink to="/" class="logout-link"> |</RouterLink>  
+          <RouterLink :to="{ name: 'centerView' }"> CENTER </RouterLink> 
+          <RouterLink to="/" class="logout-link"> |</RouterLink>  
         </nav>
       </header>
     </div>
