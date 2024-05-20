@@ -78,14 +78,48 @@
 		WHERE v_comment_id = #{vCommentId};
 	</update>
 
-	<update id="like" parameterType="String">
+<!-- 	<update id="like" parameterType="String">
 		UPDATE video
 		SET like_yn = NOT like_yn
-		WHERE video_id = #{videoId};
-	</update>
+		WHERE video_id = #{videoId} AND session_id = #{sessionId};
+	</update> -->
+	
+<!-- 	<update id="like" parameterType="map">
+		WITH user_video AS (
+        SELECT user.*, video.*
+        FROM user
+        LEFT JOIN video ON user.user_id = video.session_id
+        UNION
+        SELECT user.*, video.*
+        FROM video
+        RIGHT JOIN user ON user.user_id = video.session_id
+    	)
+    	UPDATE video
+    	SET like_yn = NOT like_yn
+    	WHERE video_id IN (
+        SELECT video_id FROM user_video WHERE video_id = #{videoId} AND session_id = #{sessionId}
+    	);	
+    </update> -->
+    
+    	<update id="like" parameterType="map">
+		WITH user_video AS (
+        SELECT user.*, video.*
+        FROM user
+        LEFT JOIN video ON user.user_id = video.session_id
+        UNION
+        SELECT user.*, video.*
+        FROM video
+        RIGHT JOIN user ON user.user_id = video.session_id
+    	)
+    	UPDATE video
+    	SET like_yn = NOT like_yn
+    	WHERE video_id IN (
+        SELECT video_id FROM user_video WHERE video_id = #{videoId} AND session_id = #{sessionId}
+    	);	
+    </update>
 	
 	<select id="getVideosBySessionId" resultType="Video">
-        select * from video where session_id=#{sessionId} AND like_yn = TRUE
+        SELECT * FROM video WHERE session_id = #{sessionId} AND like_yn = TRUE
     </select>
 
 

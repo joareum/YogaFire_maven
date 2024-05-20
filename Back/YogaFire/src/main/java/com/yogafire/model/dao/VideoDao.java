@@ -29,7 +29,7 @@ public interface VideoDao {
 
 	public int updateVComment(VideoComment videoComment);
 
-	public void like(String videoId);
+	public void like(Map<String, Object> map);
 
 //	public void unlike(int videoKey);
 
