@@ -45,11 +45,18 @@ const clickVideo = function (video) {
 </script>
 
 <style scoped>
-img {
+/* img {
     margin: 3.2px 0px 1px 0px;
     width: 350px;
+} */
 
+img {
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    display: block; /* 블록 요소로 설정하여 수직 정렬을 조정합니다. */
+    width: 350px;
+    height: auto; /* 너비에 따라 비율을 유지하도록 설정합니다. */
 }
+
 
 li {
     margin: 20px 5px;

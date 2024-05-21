@@ -25,6 +25,22 @@ const search = function(){
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+/* Placeholder 텍스트를 굵게 표시 */
+
+
+.search-bar__input::placeholder {
+    font-weight: bold;
+    /* color: #ff7c7c; 기본 placeholder 색상 */
+}
+
+.search-bar__input:focus::placeholder {
+    color: #ff7c7c; /* 포커스된 상태에서의 placeholder 색상 */
+}
+
+/* input에 커서가 있을 때 커서 숨김 */
+.search-bar__input:focus {
+    caret-color: transparent;
+}
 
 * {
     margin: 0;

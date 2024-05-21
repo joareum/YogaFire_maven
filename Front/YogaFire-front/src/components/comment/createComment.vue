@@ -1,8 +1,8 @@
 <template>
   <div>
-    <span>createComment ! </span>
-    <textarea placeholder="댓글을 입력하세요" v-model="context"></textarea>
-    <button @click="createComment">댓글달기</button>
+    <!-- <span>createComment ! </span> -->
+    <textarea v-model="context" @keyup.enter="createComment"></textarea>
+    <!-- <button @click="createComment">댓글달기</button> -->
   </div>
 </template>
   
@@ -26,4 +26,14 @@ const createComment = async function() {
 
   
 <style scoped>
+textarea{
+  width: 650px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #ff7c7c;
+  font-size: 12px;
+  text-align: center;
+  resize: none;
+  font-size: 16px;
+}
 </style>

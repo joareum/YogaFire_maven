@@ -11,7 +11,4 @@
 </script>
 
 <style>
-.back{
-    background-color: #ff7c7c !important;
-}
 </style>

@@ -66,5 +66,9 @@ export const useCommentStore = defineStore('comment', () => {
         });
     }
 
+    const reComment = function(){
+
+    }
+    
     return { insertComment, outComment, getComment, deleteComment }
 })

@@ -43,21 +43,22 @@ const logout = function() {
 
 nav a, nav p {
   font-weight: bold;
-  font-size: 180%;
+  font-size: 150%;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.514);
 }
 
-nav a.router-link-exact-active {
-  color: #ffbdd3;
-}
-
-nav a.logout-link.router-link-exact-active {
-  color: rgba(0, 0, 0, 0.514) !important; /* 기본 색상으로 설정 */
-}
+/* 해당 스타일은 삭제합니다. */
 
 nav a.logout-link {
   color: rgba(0, 0, 0, 0.514);
 }
+
+/* RouterLink에 마우스 hover 시 색상 변경 */
+/* 해당 부분을 삭제하고 아래의 스타일을 추가합니다. */
+nav a:hover {
+    color: #ff7c7c; /* 마우스 hover 시 색상 변경 */
+}
 </style>
+
 

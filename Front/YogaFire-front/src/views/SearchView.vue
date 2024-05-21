@@ -1,5 +1,6 @@
 <template>
     <div class="searchBase">
+        <AnotherNav/>
 
         <h2>searchView</h2>
             <SearchListVideo />
@@ -9,6 +10,8 @@
 
 <script setup>
 import SearchListVideo from '@/components/video/searchListVideo.vue'
+import AnotherNav from '@/components/common/AnotherNav.vue'
+
 // import { onMounted } from 'vue'
 // import { useVideoStore } from '@/stores/video';
 // import { useRoute } from 'vue-router'
