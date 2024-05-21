@@ -1,11 +1,14 @@
 <template class="template">
   <div v-if="videoId" class="container">
-    <h3>DetailView</h3>
+    <AnotherNav/>
+    <!-- <h2>DetailView</h2> -->
+    <div class="search">
       <searchVideo />
+    </div>
       <div class="video-detail">
     <iframe
-      width="560"
-      height="315"
+      width="650"
+      height="400"
       :src="videoURL"
       title="YouTube video player"
       frameborder="0"
@@ -19,7 +22,8 @@
           <p>{{ title }}</p>
           <span>{{ channelTitle }}</span>
           <br>
-          <span @click="toggleLike" :class="{ 'like': isFavorite }"> 
+          <br>
+          <span class="heart" @click="toggleLike" :class="{ 'like': isFavorite }"> 
         {{ isFavorite ? '💗' : '🤍' }} 
       </span> 
         </div>
@@ -41,6 +45,7 @@ import axios from 'axios';
 import searchVideo from '@/components/video/searchVideo.vue'
 import createComment from '@/components/comment/createComment.vue'
 import showCommentList from '@/components/comment/showCommentList.vue'
+import AnotherNav from '@/components/common/AnotherNav.vue'
 
 import { useRoute, useRouter } from 'vue-router';
 import { useVideoStore } from '@/stores/video';
@@ -253,6 +258,16 @@ clickUpload({
 </script>
 
 <style scoped>
+.search{
+  margin-top:30px ;
+}
+.text-container{
+  margin-top: -25px;
+}
+
+iframe{
+  margin-top: -5px;
+}
 .container {
 display: flex;
 flex-direction: column;

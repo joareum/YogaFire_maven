@@ -147,11 +147,12 @@ public class VideoRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+	// 사용 예정
 	// 영상 댓글 수정
 	@PutMapping("/{videoId}/comment/{vCommentId}")
 	@Operation(summary = "영상 댓글 수정")
 	public ResponseEntity<?> editComment(@PathVariable("videoId") String videoId,
-			@PathVariable("vCommentId") int vCommentId, @ModelAttribute VideoComment videoComment) {
+			@PathVariable("vCommentId") int vCommentId, @RequestBody VideoComment videoComment) {
 		videoComment.setvCommentId(vCommentId);
 		videoComment.setVideoId(videoId);
 		if (videoService.editComment(videoComment) > 0) {

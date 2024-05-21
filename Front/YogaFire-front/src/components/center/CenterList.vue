@@ -48,8 +48,11 @@
       };
     },
     methods: {
-        openModal(row) {
+      openModal(row) {
+      console.log("클릭 발생", row)
+      console.log('Kakao API Key:', import.meta.env.VITE_KAKAO_API_KEY);
       this.modalData = row;
+      console.log("이벤트 끝")
     },
     closeModalView() {
       this.modalData = null;
