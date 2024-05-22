@@ -15,15 +15,23 @@
 </script>
 
 <style scoped>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     width: 100%;
-    max-width: 2200px;
-    height: 1000px;
+    /* max-width: 2200px; */
+    height: 100%;
     display: flex;
     margin: 0 auto;
 }
+
 div.left {
     width: 50%;
+    height: 100%;
     /* float: left; */
     box-sizing: border-box;
     
@@ -46,11 +54,23 @@ div.left {
   /* background-image: linear-gradient(45deg, #ee9ca7 0%, #ffdde1 100%); */
 
 }
+
 div.right {
+    height: 100%;
     width: 50%;
     /* float: right; */
     box-sizing: border-box;
 
     /* background-color: blue; */
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left, .right {
+        width: 100%;
+    }
 }
 </style>
