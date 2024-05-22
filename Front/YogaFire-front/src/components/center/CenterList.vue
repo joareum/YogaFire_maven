@@ -70,6 +70,8 @@
   table {
     width: 90%;
     border-collapse: collapse;
+    border: 1px solid #444444;
+
     
   }
   

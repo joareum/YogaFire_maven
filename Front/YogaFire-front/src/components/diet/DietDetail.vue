@@ -24,7 +24,7 @@
                         <span class="checkbox">
                             <input type="checkbox" name="sex" value="남" id="sex" ref="maleCheckbox"
                                 @change="handleCheckboxChange('남')" />
-                            <span class="checkbox-text" />
+                            <!-- <span class="checkbox-text" /> -->
                             <span class="checkbox-text">남</span>
                         </span>
                     </span>
@@ -58,6 +58,8 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useUserStore } from '@/stores/user.js';
+
+
 const userStore = useUserStore();
 
 const height = ref();
@@ -132,7 +134,9 @@ userStore.calculatedKcal = kcal
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    width: 100%;
+    height: 100vh;
     /* height: 100px; */
     /* background-color: rgba(255, 255, 255, 0.5); */
     /* padding: 20px; */
@@ -140,71 +144,89 @@ userStore.calculatedKcal = kcal
 }
 
 .box {
-    width: 680px;
+    /* width: 680px; */
+    width: 80%;
+    max-width: 600px;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 30%;
+    margin-bottom: 55%;
+    /* margin-top: 30px; */
     /* 흰 박스 마진 */
     background-color: rgb(255, 255, 255, 0.5);
-    padding: 20px;
+    padding: 2%;
+    /* padding: 20px; */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    margin-top: 27px;
-    margin-bottom: 45px;
+    margin-top: 5%;
+    margin-bottom: 6%;
+    /* margin-top: 27px; */
+    /* margin-bottom: 45px; */
     text-shadow: -3px -3px 0 #ffffff, 0 -3px 0 #ffffff, 3px -3px 0 #ffffff, 3px 0 0 #ffffff, 3px 3px 0 #ffffff, 0 3px 0 #ffffff, -3px 3px 0 #ffffff, -3px 0 0 #ffffff;
     /* text-shadow:-2.5px -2.5px 0 #ffffff,0 -2.5px 0 #ffffff, 2.5px -2.5px 0 #ffffff,2.5px 0 0 #ffffff,2.5px 2.5px 0 #ffffff,0 2.5px 0 #ffffff,-2.5px 2.5px 0 #ffffff,-2.5px 0 0 #ffffff; */
 }
 
+.input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .input-group {
-    margin: 13px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* margin: 2% 0; */
+}
+
+.input-group label {
+    flex: 1;
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10px;
+}
+
+.input-group input,
+.input-group select {
+    flex: 2;
     text-align: center;
-}
-
-
-.input-age {
-    margin-bottom: 30px;
-}
-
-.input-activity {
-    margin-top: 30px;
-}
-
-.input {
-    text-align-last: center;
-    text-align: center;
-    width: 350px;
     height: 30px;
-    /* margin-left: 30px; */
-    margin-right: 38px;
-
+    width: 80%;
     font-size: 15px;
     border: 0;
     border-radius: 12px;
     outline: none;
-    padding-left: 10px;
     background-color: rgb(255, 255, 255);
+    margin-right: 10%;
 }
 
 .checkbox {
-    margin-left: 40px;
-    margin-right: 30px;
+    margin: 0 2%;
+    /* margin-left: 40px;
+    margin-right: 30px; */
     accent-color: rgb(250, 16, 55);
 }
 
 .checkbox-box {
-    margin-left: 70px;
+    /* margin-left: 70px; */
+    display: flex;
+    align-items: center;
+    margin-left: 5%;
 }
 
 .checkbox-text {
-
-    margin-left: 13px;
+    margin-left: 5%;
+    font-size: 15px;
+    /* margin-left: 13px; */
 }
 
 .result {
-    margin-top: 40px;
-    margin-bottom: 26px;
+    margin-top: 8%;
+    margin-bottom: 7%;
+    /* margin-top: 40px;
+    margin-bottom: 26px; */
     text-align: center;
 }
 </style>

@@ -1,15 +1,19 @@
 <template>
+    <div>
+        <AnotherNav/>
+    </div>
+
   <div class="text-center">
   </div>
 
   <div>
-    <div class="chatbot-container">
+    <div class="chatbot-container" v-if="isChatbotVisible">
       <button @click="getGPTResponse">당신의 적정 칼로리인 {{ kcal }} kcal 에 맞는 식단을 GPT가 알려줄 거예요!</button>
       <div class="chatbot-message" v-html="formattedResponse">
       </div>
     </div>
     <div>
-      <img src="@/assets/yogafire_pink.png" style="max-width: 55px; height: auto;">
+      <img src="@/assets/yogafire_pinkC.png" style="max-width: 55px; height: auto;" @click="toggleChatbotVisibility">
     </div>
   </div>
 </template>
@@ -19,6 +23,9 @@ import { ref, watchEffect, computed } from 'vue'
 import OpenAI from 'openai'
 
 import { useUserStore } from '@/stores/user.js';
+
+import AnotherNav from '@/components/common/AnotherNav.vue'
+
 
 const userStore = useUserStore();
 
@@ -30,6 +37,8 @@ watchEffect(async () => {
 });
 
 const response = ref('')
+const isChatbotVisible = ref(false) // 채팅봇 표시 여부를 저장할 ref 변수 선언
+
 
 const getGPTResponse = async () => {
   try {
@@ -54,6 +63,10 @@ const getGPTResponse = async () => {
   } catch (error) {
     console.log('chatGPT: 🚨 에러가 발생했습니다.')
   }
+}
+
+const toggleChatbotVisibility = () => {
+  isChatbotVisible.value = !isChatbotVisible.value; // 채팅봇 표시 여부를 토글
 }
 
 const formattedResponse = computed(() => {
@@ -103,18 +116,32 @@ button {
 } */
 
 img {
-  position: fixed;
-  right: 40px;
-  bottom: 50px;
+  border: 1px solid #bb5454;
+  padding: 2px;
+  /* position: fixed; */
+  /* right: 40px;
+  bottom: 50px; */
+  position: absolute;
+  right: 4%;
+  bottom: 5%;
+  max-width: 55px;
+  height: auto;
   border-radius: 25px;
   box-shadow: rgb(0 0 0 / 10%) 0px 12px 60px 5px;
+  cursor: pointer; /* 이미지 클릭을 위한 커서 설정 */
+
 }
 .chatbot-container {
-  position: fixed;
-  right: 40px;
+  /* position: fixed; */
+  /* right: 40px;
   bottom: 130px;
   width: 650px;
-  height: 780px;
+  height: 780px; */
+  position: absolute;
+  right: 3%;
+  bottom: 16%;
+  width: 37%;
+  height: 67%;
   background-color: white;
   border-radius: 25px;
   box-shadow: rgb(0 0 0 / 30%) 0px 12px 60px 5px;
@@ -123,7 +150,7 @@ img {
   flex-direction: column;
   /* justify-content: center; */
   /* overflow: hidden; */
-  padding: 20px;
+  padding: 22px;
   /* height: 80%; */
   min-height: 250px;
   max-height: 780px;
@@ -137,7 +164,7 @@ img {
   margin-top: 5px;
   margin-left: 23px;
   margin-right: 23px;
-  padding: 25px 29px 22px 24px;
+  padding: 25px 31px 22px 26px;
   font-size: 16px;
   cursor: pointer;
   border-top-right-radius: 40px;
