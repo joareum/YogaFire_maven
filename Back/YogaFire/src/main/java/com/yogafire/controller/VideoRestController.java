@@ -147,7 +147,7 @@ public class VideoRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	// 사용 예정
+	// ******* 사용 예정
 	// 영상 댓글 수정
 	@PutMapping("/{videoId}/comment/{vCommentId}")
 	@Operation(summary = "영상 댓글 수정")

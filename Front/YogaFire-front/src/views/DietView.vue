@@ -26,7 +26,7 @@ div.left {
     width: 50%;
     /* float: left; */
     box-sizing: border-box;
-
+    
     /* background: rgba(255, 124, 124, 0.080); */
     /* background-image: linear-gradient(
     45deg,

@@ -38,8 +38,14 @@ const user = ref({
 })
 
 const login = function() {
-    console.log(user.value)
-    store.login(user.value)
+    // if(user.userId == ''){
+    //     alert('아이디를 입력하세요');
+    // }else if(user.password == ''){
+    //     alert('비밀번호를 입력하세요');
+    // }else{
+        console.log(user.value)
+        store.login(user.value)
+    // }
 }
 
 // const findId = function(){

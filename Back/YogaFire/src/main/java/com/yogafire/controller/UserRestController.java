@@ -52,7 +52,15 @@ public class UserRestController {
 			System.out.println("Logged in user ID set in session: " + tmp.getUserId());
 			return new ResponseEntity<User>(tmp, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+			// 아이디나 비밀번호를 입력하지 않았을 때 - 400 에러
+	        if (user.getPassword() == "" || user.getPassword().isEmpty()) {
+	            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+	        } else if (user.getUserId() == "" || user.getUserId().isEmpty()){
+	        	return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+	        } else {
+	        	// 아이디나 비밀번호가 잘못되었을 때 - 401 에러
+	            return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+	        }
 		}
 	}
 	

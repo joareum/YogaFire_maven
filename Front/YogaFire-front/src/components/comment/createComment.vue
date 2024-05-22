@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <span>createComment ! </span> -->
-    <textarea v-model="context" @keyup.enter="createComment"></textarea>
+    <textarea v-model="context" @keyup.enter="createComment" placeholder="COMMENT"></textarea>
     <!-- <button @click="createComment">댓글달기</button> -->
   </div>
 </template>

@@ -30,7 +30,6 @@ export const useUserStore = defineStore('user', () => {
     const loginUser = ref('');
 
     const login = function (credentials) {
-        console.log(credentials.userId)
         axios({
             url: `http://localhost:8080/user/signin`,
             method: 'POST',
@@ -38,21 +37,23 @@ export const useUserStore = defineStore('user', () => {
         })
         .then((response) => {
             console.log(response.data)
-            if (response.data) {
+            if (response.status === 200) {
                 console.log('로그인 성공');
                 loginUser.value = credentials.userId
                 console.log(credentials.userId)
                 sessionStorage.setItem("loggedInUser", JSON.stringify(loginUser.value))
                 console.log(sessionStorage.getItem("loggedInUser"))
                 router.push({ name: 'home' })
-                } else {
-                    console.error('로그인 실패');
-                }
-            })
-            .catch((err) => {
-                console.log("test error")
-                console.error('로그인 실패:', err);
-            })
+            }
+        })
+        .catch((error) => {
+            console.error('로그인 실패:', error);
+            if (error.response.status === 400) {
+                alert('아이디나 비밀번호를 입력해주세요.');
+            } else if (error.response.status === 401) {
+                alert('아이디나 비밀번호가 잘못되었습니다.');
+            }
+        });
     }
 
     const logout = function () {
@@ -62,7 +63,7 @@ export const useUserStore = defineStore('user', () => {
         axios({
             url: `http://localhost:8080/user/signout`,
             method: 'GET',
-            
+
         })
             .then(() => {
                 sessionStorage.removeItem('loggedInUser')
@@ -75,4 +76,4 @@ export const useUserStore = defineStore('user', () => {
 
     const user = ref({})
     return { createAccount, user, login, logout, loginUser, calculatedKcal }
-},{persist:true});
+}, { persist: true });
