@@ -2,7 +2,7 @@
     <div>
         <fieldset class="custom-fieldset">
             <div class="fieldset-content">
-                <RouterLink to="/" class="goHome"><h4>YOGAFIRE</h4></RouterLink>
+                <RouterLink to="/" class="goHome"><h4>LOG IN</h4></RouterLink>
                 <div class = "text-input">
                     <div class="text-align">
                         <!-- <label for="userId">아이디 : </label> -->
@@ -38,14 +38,8 @@ const user = ref({
 })
 
 const login = function() {
-    // if(user.userId == ''){
-    //     alert('아이디를 입력하세요');
-    // }else if(user.password == ''){
-    //     alert('비밀번호를 입력하세요');
-    // }else{
         console.log(user.value)
         store.login(user.value)
-    // }
 }
 
 // const findId = function(){

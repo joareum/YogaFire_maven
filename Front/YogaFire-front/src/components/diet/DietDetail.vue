@@ -24,7 +24,6 @@
                         <span class="checkbox">
                             <input type="checkbox" name="sex" value="남" id="sex" ref="maleCheckbox"
                                 @change="handleCheckboxChange('남')" />
-                            <!-- <span class="checkbox-text" /> -->
                             <span class="checkbox-text">남</span>
                         </span>
                     </span>
@@ -214,6 +213,7 @@ h1 {
     display: flex;
     align-items: center;
     margin-left: 5%;
+    
 }
 
 .checkbox-text {

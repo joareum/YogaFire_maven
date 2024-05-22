@@ -4,7 +4,6 @@ import axios from 'axios'
 import router from '@/router'
 
 // axios.defaults.headers['Access-Control-Allow-Origin'] = 'http://localhost:8080';
-
 // axios.defaults.withCredentials = true;
 
 const REST_USER_API = `http://localhost:8080/user/signup`
@@ -24,6 +23,12 @@ export const useUserStore = defineStore('user', () => {
             })
             .catch((err) => {
                 console.log(err)
+                if (err.response.status === 500) {
+                    console.log('500 에러')
+                    alert('중복체크를 해주세요.');
+                }else if(err.response.status === 400){
+                    alert('형식에 맞지 않는 형태를 입력했습니다.');
+                }
             })
     }
 
@@ -40,9 +45,9 @@ export const useUserStore = defineStore('user', () => {
             if (response.status === 200) {
                 console.log('로그인 성공');
                 loginUser.value = credentials.userId
-                console.log(credentials.userId)
+                // console.log(credentials.userId)
                 sessionStorage.setItem("loggedInUser", JSON.stringify(loginUser.value))
-                console.log(sessionStorage.getItem("loggedInUser"))
+                // console.log(sessionStorage.getItem("loggedInUser"))
                 router.push({ name: 'home' })
             }
         })
@@ -52,7 +57,7 @@ export const useUserStore = defineStore('user', () => {
                 alert('아이디나 비밀번호를 입력해주세요.');
             } else if (error.response.status === 401) {
                 alert('아이디나 비밀번호가 잘못되었습니다.');
-            }
+            } 
         });
     }
 

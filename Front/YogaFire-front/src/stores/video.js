@@ -107,13 +107,12 @@ export const useVideoStore = defineStore('video', () => {
 
       }
     })
-        recommendVideos.value = response.data.items
+      recommendVideos.value = response.data.items
 
       } catch (error) {
         console.log(error)
       }
   }
-
 
   const clickVideo = (video) => {
     console.log(video)
@@ -130,45 +129,6 @@ export const useVideoStore = defineStore('video', () => {
     console.log("click Like:", localStorate.getItem('isFavorite'))
 
   }
-
-
-  // const likeVideo = function (video) {
-  //   const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
-  //   const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-  //   const sessionId = parsedData.loginUser; // loginUser 값 가져오기
-  //   const likeYn = video.isFavorite;
-
-
-  //   if (!video || !video.snippet || (!video.id && !video.videoId) || !sessionId) {
-  //     console.error("Invalid video object or missing stored id", video);
-  //     return;
-  //   }
-
-  //   const videoId = video.id?.videoId || video.videoId; // video.id.videoId 또는 video.videoId 둘 다 처리
-
-  //   const newVideo = {
-  //     sessionId: sessionId,
-  //     videoId: videoId,
-  //     videoTitle: video.snippet.title,
-  //     area: '전신',
-  //     channelName: video.snippet.channelTitle,
-  //     regDate: video.snippet.publishTime,
-  //     centerName: video.snippet.channelTitle,
-  //     likeYn: likeYn
-  //   };
-
-  //   axios({ // url 경로를 `http://localhost:8080/video/${newVideo.videoId}/like`에서 수정해줌
-  //     url: `http://localhost:8080/video/${newVideo.videoId}/like/${newVideo.sessionId}`,
-  //     method: 'PUT',
-  //     data: newVideo,
-  //   })
-  //     .then(() => {
-  //       console.log("Video uploaded successfully", newVideo);
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error uploading video", err);
-  //     });
-  // };
 
   const likeVideo = async (videoByUser) => {
     // const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기

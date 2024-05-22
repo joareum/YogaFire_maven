@@ -13,7 +13,7 @@ import com.yogafire.model.dto.User;
 @Service
 public class UserServiceImpl implements UserService {
 	private final UserDao userDao;
-	
+
 	public UserServiceImpl(UserDao userDao) {
 		this.userDao = userDao;
 	}
@@ -38,9 +38,22 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectOne(info);
 	}
 
-	@Override //??
-	public String findId(User user) {
-		return userDao.findId(user);
+	// 아이디 중복체크에 사용
+	@Override
+	public int findId(String id) {
+		return userDao.findId(id);
+	}
+
+	// 이메일 중복체크에 사용
+	@Override
+	public int findEmail(String email) {
+		return userDao.findEmail(email);
+	}
+
+	// 닉네임 중복체크에 사용
+	@Override
+	public int findNickname(String nickname) {
+		return userDao.findNickname(nickname);
 	}
 
 	@Override
@@ -62,10 +75,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean updatePw(String userId, String newPw) {
 		User user = userDao.findById(userId);
-		if(user == null) {
+		if (user == null) {
 			return false;
 		}
-		
+
 		user.setPassword(newPw);
 		userDao.updateUser(user);
 		return true;
@@ -76,6 +89,5 @@ public class UserServiceImpl implements UserService {
 		// 이메일을 받아서 아이디 출력!!!!!
 		return userDao.findIdByEmail(email);
 	}
-
 
 }
