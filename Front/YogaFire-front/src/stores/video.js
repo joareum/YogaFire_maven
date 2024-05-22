@@ -101,7 +101,7 @@ export const useVideoStore = defineStore('video', () => {
         params: {
           key: API_KEY,
           part: 'snippet',
-          maxResults: 8,
+          maxResults: 16,
           q: '요가 영상 추천',
           type: 'video'
 
