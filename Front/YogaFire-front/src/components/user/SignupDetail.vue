@@ -2,59 +2,61 @@
   <div class="signup-container">
     <fieldset class="text-center">
       <div class="fieldset-content">
-        <RouterLink to="/" class="goHome"><h4>WELCOME TO JOIN US</h4></RouterLink>
-        <!-- <label for="user_id">ID</label> -->
-        <input type="text" id="user_id" v-model="user_id" class="view" placeholder="ID" /><br />
+        <RouterLink to="/" class="goHome">
+          <h4>WELCOME TO JOIN US</h4>
+        </RouterLink>
+        <input type="text" id="user_id" v-model="user_id" class="view" @input="checkDuplicateUserId" placeholder="ID" />
+        <br>
+        <span v-if="duplicateUserId === true">이미 존재하는 사용자 ID입니다.</span>
+        <span v-if="duplicateUserId === null">아이디 중복체크가 필요합니다.</span>
+        <span v-if="duplicateUserId === false">사용할 수 있는 ID입니다.</span>
+        <br />
 
-        <!-- <label for="password">PW</label> -->
         <input type="password" id="password" v-model="password" class="view" placeholder="PW" /><br />
 
-        <!-- <label for="name">이름</label> -->
         <input type="text" id="name" v-model="name" class="view" placeholder="NAME" /><br />
 
-        <!-- <label for="email">이메일</label> -->
-        <input type="email" id="email" v-model="email" class="view" placeholder="EMAIL" /><br />
+        <input type="email" id="email" v-model="email" class="view"  @input="checkDuplicateUserEmail" placeholder="EMAIL" />
+        <br>
+        <span v-if="duplicateUserEmail === true">이미 존재하는 사용자 EMAIL입니다.</span>
+        <span v-if="duplicateUserEmail === null">EMAIL 중복체크가 필요합니다.</span>
+        <span v-if="duplicateUserEmail === false">사용할 수 있는 EMAIL입니다.</span>
+        <br />
 
-        <!-- <label for="birth">생일</label> -->
-        <!-- <div class="view" id="info__birth"> -->
         <select class="box" id="birth-year" v-model="selectedYear" @focus="generateYears" placeholder="YEAR">
           <option disabled selected hidden>출생 연도</option>
-          <option value="" class="first" selected>  YEAR</option>
+          <option value="" class="first" selected> YEAR</option>
           <option v-for="year in birthYears" :key="year" :value="year">{{ year }}</option>
         </select>
         <select class="box" id="birth-month" v-model="selectedMonth" @focus="generateMonths">
-          <option value="" class="first" selected>  MONTH</option>
+          <option value="" class="first" selected> MONTH</option>
           <option v-for="month in months" :key="month" :value="month">{{ month }}</option>
         </select>
         <select class="box" id="birth-day" v-model="selectedDay" @focus="generateDays">
-          <option value="" class="first" selected>  DAY</option>
-          <!-- <option disabled selected>일</option> -->
+          <option value="" class="first" selected> DAY</option>
           <option v-for="day in days" :key="day" :value="day">{{ day }}</option>
         </select>
-        <!-- </div> -->
         <br />
 
-        <!-- <label for="age">나이</label> -->
         <input type="age" id="age" v-model="age" class="view-age" placeholder="AGE" />
 
-        <!-- <label for="sex">성별</label> -->
-        <!-- <input type="sex" id="sex" v-model="sex" class="view-gender" placeholder="GENDER" /><br /> -->
         <select class="gender" id="gender" v-model="sex" @focus="generateGender">
-          <option value="" class="first" selected>  GENDER</option>
+          <option value="" class="first" selected> GENDER</option>
           <option value="1">남</option>
           <option value="2">여</option>
         </select>
 
-        <!-- <label for="phone">핸드폰 번호</label> -->
         <input type="phone" id="phone" v-model="phone" class="view" placeholder="PHONE" /><br />
 
-        <!-- <label for="nickname">닉네임</label> -->
-        <input type="nickname" id="nickname" v-model="nickname" class="view" placeholder="NICKNAME" /><br />
+        <input type="nickname" id="nickname" v-model="nickname" class="view" @input="checkDuplicateUserNickname" placeholder="NICKNAME" />
+        <br>
+        <span v-if="duplicateUserNickname === true">이미 존재하는 사용자 닉네임입니다.</span>
+        <span v-if="duplicateUserNickname === null">닉네임 중복체크가 필요합니다.</span>
+        <span v-if="duplicateUserNickname === false">사용할 수 있는 닉네임입니다.</span>
+        <br />
 
-        <!-- <label for="height">키</label> -->
         <input type="height" id="height" v-model="height" class="view" placeholder="HEIGHT" /><br />
 
-        <!-- <label for="weight">몸무게</label> -->
         <input type="weight" id="weight" v-model="weight" class="view" placeholder="WEIGHT" /><br />
 
 
@@ -67,12 +69,16 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
+import axios from 'axios';
 
 const userStore = useUserStore();
 
 const user_id = ref("");
 const password = ref("");
 const name = ref("");
+const duplicateUserId = ref(null);
+const duplicateUserEmail = ref(null);
+const duplicateUserNickname = ref(null);
 
 const birthYears = ref([]);
 const months = ref([]);
@@ -117,6 +123,12 @@ const createAccount = () => {
   if (!selectedYear.value || !selectedMonth.value || !selectedDay.value) {
     alert('생년월일을 모두 선택해주세요.');
     return;
+  } else if(duplicateUserId === null || duplicateUserEmail === null || duplicateUserNickname === null ){
+    alert('아이디 혹은 이메일 혹은 닉네임 중복 체크를 해주세요')
+    return;
+  }else if(duplicateUserId === true || duplicateUserEmail === true || duplicateUserNickname === true ){
+    alert('아이디 혹은 이메일 혹은 닉네임이 이미 존재합니다. 중복 체크를 해주세요')
+    return;
   }
 
   let birthDate = `${selectedYear.value}-${String(selectedMonth.value).padStart(2, '0')}-${String(selectedDay.value).padStart(2, '0')}`;
@@ -137,21 +149,71 @@ const createAccount = () => {
 
   console.log("usertest : " + user.userId)
 
-  userStore.createAccount(user);
+  userStore.createAccount(user);  
 };
+
+// 아이디 중복 체크 함수
+const checkDuplicateUserId = async () => {
+  if (user_id.value) {
+    try {
+      const response = await axios.get(`http://localhost:8080/user/checkDuplicateUserId/${user_id.value}`);
+      duplicateUserId.value = response.data; // 서버에서 중복 여부를 boolean 값으로 반환
+    } catch (error) {
+      console.error("아이디 중복 확인 중 오류 발생:", error);
+    }
+  } else {
+  duplicateUserId.value = null; // 입력 필드가 비어 있을 경우
+}
+};
+
+// 이메일 중복 체크 함수
+const checkDuplicateUserEmail = async () => {
+  if (email.value) {
+    try {
+      const response = await axios.get(`http://localhost:8080/user/checkDuplicateUserEmail/${email.value}`);
+      duplicateUserEmail.value = response.data; // 서버에서 중복 여부를 boolean 값으로 반환
+    } catch (error) {
+      console.error("이메일 중복 확인 중 오류 발생:", error);
+    }
+  } else {
+    duplicateUserEmail.value = null; // 입력 필드가 비어 있을 경우
+}
+};
+
+// 닉네임 중복 체크 함수
+const checkDuplicateUserNickname = async () => {
+  if (nickname.value) {
+    try {
+      const response = await axios.get(`http://localhost:8080/user/checkDuplicateUserNickname/${nickname.value}`);
+      duplicateUserNickname.value = response.data; // 서버에서 중복 여부를 boolean 값으로 반환
+    } catch (error) {
+      console.error("이메일 중복 확인 중 오류 발생:", error);
+    }
+  } else {
+    duplicateUserNickname.value = null; // 입력 필드가 비어 있을 경우
+}
+};
+
+
+
+
 </script>
 
 <style scoped>
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   border: none;
 }
+
 fieldset {
-  border: none; /* 테두리 없애기 */
+  border: none;
+  /* 테두리 없애기 */
   padding-top: 50px;
 }
-.first{
+
+.first {
   text-align: left;
   margin-left: 100px !important;
   display: inline-block;
@@ -176,7 +238,7 @@ fieldset {
   border: 50px;
 }
 
-.gender{
+.gender {
   width: 24%;
   height: 40px;
   border: none;
@@ -292,7 +354,9 @@ label {
   text-align: center;
 }
 
-.goHome, h4, .a {
+.goHome,
+h4,
+.a {
   text-align: center;
   font-size: 50px;
   color: #ff7c7c;
@@ -300,9 +364,9 @@ label {
   text-decoration: none;
 }
 
-h4{
+h4 {
   margin-bottom: 15px;
-  margin-top:25px
+  margin-top: 25px
 }
 
 .text-align {
