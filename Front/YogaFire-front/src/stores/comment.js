@@ -18,6 +18,7 @@ export const useCommentStore = defineStore('comment', () => {
         })
         .then((response)=>{
             outComment.value = response.data
+            console.log(outComment.value)
         })
         .catch((error)=>{
             console.error("댓글 가져오는 과정에서 오류가 있었습니다.",error)
@@ -66,9 +67,20 @@ export const useCommentStore = defineStore('comment', () => {
         });
     }
 
-    const reComment = function(){
-
+    const reComment = function(videoId, vCommentId, updatedContent){
+        axios({
+            url: `${baseURL}/${videoId}/comment/${vCommentId}`,
+            method: 'PUT',
+            data: {
+                vCommentContent: updatedContent
+            }
+        }).then(async ()=>{
+            console.log('댓글 수정 완료');
+            await getComment(videoId);
+        }).catch((err)=>{
+            console.error("댓글 수정 오류 발생.", err);
+        });
     }
     
-    return { insertComment, outComment, getComment, deleteComment }
+    return { insertComment, outComment, getComment, deleteComment, reComment }
 })

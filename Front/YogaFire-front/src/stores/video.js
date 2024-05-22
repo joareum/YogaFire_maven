@@ -66,7 +66,7 @@ export const useVideoStore = defineStore('video', () => {
     const sessionId = parsedData ? parsedData.loginUser : null; // loginUser 값 가져오기
 
 
-    if (!video || !video.snippet || (!video.id && !video.videoId) || !sessionId) {
+    if (!video || !video.snippet || (!video.id && !video.videoId)) {
       console.error("Invalid video object or missing stored id", video);
       return;
     }

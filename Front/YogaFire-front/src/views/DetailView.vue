@@ -71,36 +71,7 @@ const isFavorite = ref(false);
 const savedVideoId = ref(null);
 const savedisFavorite = ref(null);
 
-// video 객체 생성
-// const video = {
-// id: { videoId: videoId.value },
-// sessionId: { sessionId: sessionId.value},
-// snippet: {
-//   title: title.value,
-//   channelTitle: channelTitle.value,
-//   publishTime: publishTime.value
-// },
-// isFavorite: isFavorite.value
-// };
-
 const videoByUser = {
-// id: { videoId: videoId.value },
-// user: {
-//   userId: userId.value,
-//   password: password.value,
-//   name: name.value,
-//   birthday: birthday.value,
-//   email: email.value,
-//   phone: phone.value,
-//   nickname: nickname.value,
-//   createDate: createDate.value,
-//   deleteYn: deleteYn.value,
-//   height: height.value,
-//   age: age.value,
-//   weight: weight.value,
-//   sex: sex.value,
-// },
-
 sessionId: { sessionId: sessionId.value},
 snippet: {
   title: title.value,
@@ -110,8 +81,10 @@ snippet: {
 isFavorite: isFavorite.value
 };
 
+// like 때문에 쓰는 거임 
 const loadData = () => {
 try {
+  // 로컬 스토리지에서 아이디 불러 옴
   const savedUser = localStorage.getItem('user');
   const parsedUser = JSON.parse(savedUser);
 
@@ -123,26 +96,6 @@ try {
   }
 };
   
-  // const savedVideoId = localStorage.getItem('videoId');
-
-  // // const savedIsFavorite = localStorage.getItem('isFavorite');
-  // console.log('완료')
-  // console.log(savedVideoId)
-  // if (savedVideoId) {
-  //   videoId.value = savedVideoId;
-  // }
-  // // if (savedIsFavorite !== null) {
-  //   // isFavorite.value = JSON.parse(savedIsFavorite);
-  // // }
-
-  // if(parsedData && parsedData.isFavorite !== undefined) {
-  //   isFavorite.value = parsedData.isFavorite;
-  // }
-  
-// } catch (error) {
-//   console.error('Error loading data from localStorage:', error);
-// }
-// };
 
 const fetchVideoDetails = async (videoId) => {
 try {
@@ -177,22 +130,7 @@ try {
     };
     localStorage.setItem('user', JSON.stringify(updatedUser));
 
-  // const updatedUser = { ...parsedData, isFavorite: isFavorite.value };
-  // localStorage.setItem('user', JSON.stringify(updatedUser));
-
-
-  // const storedData = localStorage.getItem('user');
-  // const userData = JSON.parse(storedData);
-
-  // if (!userData.user) {
-  //   userData.user = {};
-  // }
-
-  // userData.user.isFavorite = isFavorite.value;
-  // localStorage.setItem('user', JSON.stringify(userData));
-
-  // localStorage.removeItem('isFavorite');
-
+ 
   // API 요청 보내기
   const newVideo = {
     sessionId: sessionId,
@@ -216,17 +154,6 @@ try {
 }
 };
 
-// const toggleLike = function(videoByUser) {
-//   console.log(videoByUser.birthday)
-//   store.uploadVideo(videoByUser)
-//   console.log("Like status updated successfully");
-
-//   // 좋아요 상태가 변경되었으므로, 로컬 스토리지에 저장
-//   localStorage.setItem('isFavorite', JSON.stringify(isFavorite.value)); // 변경된 부분
-//   console.log("Like: localStorage update")
-// }
-
-
 // 윗단이 수정된 clickLike
 const clickUpload = async (video) => {
 console.log("click Upload")
@@ -240,7 +167,9 @@ console.log("click Upload complete")
 }
 
 onMounted(() => {
+
 loadData()
+
 // 컴포넌트가 마운트될 때 'isFavorite' 값을 로드하는지 확인
 // console.log(isFavorite.value)
 clickUpload({
