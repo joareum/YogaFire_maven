@@ -23,7 +23,7 @@ html, body {
 
 .container {
     width: 100%;
-    /* max-width: 2200px; */
+    /* max-height: 2000px; */
     height: 100%;
     display: flex;
     margin: 0 auto;

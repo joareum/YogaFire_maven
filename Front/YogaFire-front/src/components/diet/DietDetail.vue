@@ -18,9 +18,9 @@
                     <input type="text" id="age" v-model="age" class="input" />
                 </div>
 
-                <div class="input-group">
+                <div class="input-checkbox">
                     <!-- <label class="label" for="sex">성별</label> -->
-                    <span class="checkbox-box">
+                    <span>
                         <span class="checkbox">
                             <input type="checkbox" name="sex" value="남" id="sex" ref="maleCheckbox"
                                 @change="handleCheckboxChange('남')" />
@@ -147,7 +147,7 @@ userStore.calculatedKcal = kcal
     width: 80%;
     max-width: 600px;
     text-align: center;
-    margin-top: 30%;
+    margin-top: 28%;
     margin-bottom: 55%;
     /* margin-top: 30px; */
     /* 흰 박스 마진 */
@@ -167,6 +167,8 @@ h1 {
     /* text-shadow:-2.5px -2.5px 0 #ffffff,0 -2.5px 0 #ffffff, 2.5px -2.5px 0 #ffffff,2.5px 0 0 #ffffff,2.5px 2.5px 0 #ffffff,0 2.5px 0 #ffffff,-2.5px 2.5px 0 #ffffff,-2.5px 0 0 #ffffff; */
 }
 
+
+
 .input-box {
     display: flex;
     flex-direction: column;
@@ -184,7 +186,7 @@ h1 {
     flex: 1;
     text-align: left;
     margin-left: 10%;
-    margin-right: 10px;
+    /* margin-right: px; */
 }
 
 .input-group input,
@@ -201,7 +203,16 @@ h1 {
     margin-right: 10%;
 }
 
+.input-age {
+    margin-bottom: 3%
+}
+
+.input-activity {
+    margin-top: 3%;
+}
+
 .checkbox {
+    /* margin-top: 2%; */
     margin: 0 2%;
     /* margin-left: 40px;
     margin-right: 30px; */
@@ -217,16 +228,30 @@ h1 {
 }
 
 .checkbox-text {
-    margin-left: 5%;
+    margin-left: 3%;
     font-size: 15px;
     /* margin-left: 13px; */
+    margin-right: 5%;
 }
 
 .result {
+    /* margin-top: 8%;
+    margin-bottom: 7%;
+    text-align: center; */
+
     margin-top: 8%;
     margin-bottom: 7%;
+    /* background-color: rgba(255, 234, 234, 0.534); */
+    padding: 10px;
     /* margin-top: 40px;
     margin-bottom: 26px; */
+    width: 80%;
+    margin-left: 10%;
     text-align: center;
+    border: 2px solid #f8dddd86;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #d8e9ff86;
 }
+
 </style>

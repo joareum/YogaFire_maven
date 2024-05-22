@@ -1,9 +1,16 @@
 <template>
+    <div class="list-all">
     <li>
+        <div class="video-item">
         <div class="video-container">
             <img :src="video.snippet.thumbnails.high.url" @click="clickVideo(video)">
         </div>
+        <div class="text-container">
+        <span>{{ video.snippet.title }}</span>
+    </div>
+    </div>
     </li>
+</div>
 </template>
 
 <script setup>
@@ -51,15 +58,24 @@ const clickVideo = function (video) {
 } */
 
 img {
-    margin: 0 auto; /* 수평 중앙 정렬 */
-    display: block; /* 블록 요소로 설정하여 수직 정렬을 조정합니다. */
-    width: 350px;
-    height: auto; /* 너비에 따라 비율을 유지하도록 설정합니다. */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
 }
 
 
 li {
-    margin: 20px 5px;
+    margin: 1%;
+
+}
+
+.list-all {
+    margin: 0 auto;
+}
+
+.video-item {
+    width: 365px;
 }
 
 .text-container {
@@ -67,17 +83,28 @@ li {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    max-width: 280px;
-    height: 50px;
-    padding: 2px;
-    margin: 4px;
+    /* max-width: 280px; */
+    width: 100%;
+    height: 2%;
+    padding: 0.8%;
+    /* margin: ; */
+    margin-top: 2%;
+    margin-bottom: 17%;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* background-color: rgba(252, 182, 165, 0.2); */
 }
 
 .video-container {
-    border: 3px groove;
-    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 3%;
+    border-radius: 10px;
     border-color: white;
+    width: 365px; /* 원하는 너비 설정 */
+    height: 196px; /* 원하는 높이 설정 */
+    overflow: hidden; /* 컨테이너를 넘는 내용 숨기기 */
 }
 </style>
