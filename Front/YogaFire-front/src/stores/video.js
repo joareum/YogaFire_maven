@@ -100,11 +100,9 @@ export const useVideoStore = defineStore('video', () => {
           maxResults: 20,
           q: '요가 영상 추천',
           type: 'video'
-
       }
     })
       recommendVideos.value = response.data.items
-
       } catch (error) {
         console.log(error)
       }
