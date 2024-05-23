@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="base-container">
         <div class="left">
         <DietDetail />
         </div>
@@ -15,23 +15,31 @@
 </script>
 
 <style scoped>
-html, body {
+html{
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-.container {
+body{
+    margin: 0px;
+    /* border: solid 2px black; */
+}
+
+.base-container {
     width: 100%;
     /* max-height: 2000px; */
     height: 100%;
     display: flex;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
 }
 
-div.left {
+.left {
+    /* 이거 하면 고정 되는데 navbar가 사라짐 */
+    position: fixed;
     width: 50%;
-    height: 100%;
+    height: 100vh;
     /* float: left; */
     box-sizing: border-box;
     
@@ -53,6 +61,8 @@ div.left {
   background-image: linear-gradient(-225deg, #FFE29F 0%, #FFA99F 48%, #FF719A 100%);
   /* background-image: linear-gradient(45deg, #ee9ca7 0%, #ffdde1 100%); */
 
+  background-size: 100vh; /* 배경 이미지를 요소에 맞게 확장하여 보여줍니다. */
+  background-repeat: no-repeat; 
 }
 
 div.right {

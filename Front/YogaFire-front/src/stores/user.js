@@ -56,6 +56,7 @@ export const useUserStore = defineStore('user', () => {
             if (error.response.status === 400) {
                 alert('아이디나 비밀번호를 입력해주세요.');
             } else if (error.response.status === 401) {
+                console.log('401 에러')
                 alert('아이디나 비밀번호가 잘못되었습니다.');
             } 
         });

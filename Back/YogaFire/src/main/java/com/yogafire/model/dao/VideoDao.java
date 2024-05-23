@@ -37,4 +37,6 @@ public interface VideoDao {
 
 	public List<Video> getVideosBySessionId(String sessionId);
 
+	public int findVideo(Map<String, String> info);
+
 }

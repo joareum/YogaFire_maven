@@ -50,5 +50,8 @@ public interface VideoService {
 	
 	// 세션 아이디로 찾는 찜한 영상 리스트
 	public List<Video> getVideosBySessionId(String sessionId);
+	
+	// 세션 아이디와 비디오 아이디가 비디오에 존재하는지 여부 파악
+	public int isSessionIdAndVideoIdExist(String sessionId, String videoId);
 
 }

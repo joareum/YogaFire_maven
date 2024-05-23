@@ -1,5 +1,6 @@
 package com.yogafire.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,6 +104,15 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public List<Video> getVideosBySessionId(String sessionId) {
 		return videoDao.getVideosBySessionId(sessionId);
+	}
+
+	// 값이 1 이상이면 존재하기 때문에 넣을 수 없고 0일 때만 넣을 수 있음
+	@Override
+	public int isSessionIdAndVideoIdExist(String sessionId, String videoId) {
+		Map<String, String> info = new HashMap<>();
+		info.put("sessionId", sessionId);
+		info.put("videoId", videoId);
+		return videoDao.findVideo(info);
 	}
 
 }

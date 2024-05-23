@@ -75,9 +75,12 @@ public class VideoRestController {
 	@PostMapping("/{videoId}")
 	@Operation(summary = "영상 등록")
 	public ResponseEntity<?> uploadVideo(@RequestBody Video video, @PathVariable("videoId") String videoId) {
-		Video getVideo = videoService.getVideo(video.getVideoId());
-
-		if (getVideo == null) {
+		String sessionId = video.getSessionId();
+		
+		int isSessionIdAndVideoIdExist = videoService.isSessionIdAndVideoIdExist(sessionId, videoId);
+		
+		// getVideo == null 이라는 뜻은 없으면...? 같은 videoId가 없으면..		
+		if (isSessionIdAndVideoIdExist == 0) {
 			videoService.uploadVideo(video);
 			return new ResponseEntity<Video>(video, HttpStatus.CREATED);
 		}
@@ -116,6 +119,7 @@ public class VideoRestController {
 		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
 	}
 
+	// 이거 사용
 	// 영상 댓글 전체 조회
 	@GetMapping("/{videoId}/comment")
 	@Operation(summary = "영상 댓글 전체 조회")
