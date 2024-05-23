@@ -56,6 +56,8 @@ export const useVideoStore = defineStore('video', () => {
       }
   }
 
+
+
   const uploadVideo = async (video) => {
     // const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
     // const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
@@ -72,6 +74,7 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     const videoId = video.id?.videoId || video.videoId; // video.id.videoId 또는 video.videoId 둘 다 처리
+  
 
     const newVideo = {
       sessionId: sessionId,
@@ -81,7 +84,7 @@ export const useVideoStore = defineStore('video', () => {
       channelName: video.snippet.channelTitle,
       regDate: video.snippet.publishTime,
       centerName: video.snippet.channelTitle,
-      likeYn: video.isFavorite
+      likeYn: video.isFavorite,
     };
 
     try {
@@ -101,7 +104,7 @@ export const useVideoStore = defineStore('video', () => {
         params: {
           key: API_KEY,
           part: 'snippet',
-          maxResults: 16,
+          maxResults: 20,
           q: '요가 영상 추천',
           type: 'video'
 

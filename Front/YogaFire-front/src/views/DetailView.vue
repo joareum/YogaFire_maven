@@ -1,66 +1,82 @@
-<template class="template">
-  <div v-if="videoId" class="container">
-    <AnotherNav/>
-    <!-- <h2>DetailView</h2> -->
+<template>
+  <div class="base">
+    <div class="nav">
+      <a href="http://localhost:5173">
+        <img src="@/assets/yogafire_pink.png" style="max-width: 85px; height: auto;">
+      </a>
+      <div class="sub-nav">
+        <SubNav />
+      </div>
+    </div>
+
+    <div v-if="videoId" class="container"></div>
+
     <div class="search">
       <searchVideo />
     </div>
+    <div class="video-content">
       <div class="video-detail">
-    <iframe
-      width="650"
-      height="400"
-      :src="videoURL"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen>
-    </iframe>
-  </div>
+      <iframe
+        width="700"
+        height="393.75"
+        :src="videoURL"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
       <div class="text-container">
         <div>
-          <p>{{ title }}</p>
-          <span>{{ channelTitle }}</span>
-          <br>
-          <br>
-          <span class="heart" @click="toggleLike" :class="{ 'like': isFavorite }"> 
-        {{ isFavorite ? '💗' : '🤍' }} 
-      </span> 
+          <h3 class="channel-title">{{ title }}</h3>
+          <div class="profile-channel-container">
+          <span class="profile-empty"></span><span class="channel-name">{{ channelTitle }}</span>
+          
+          <div class="sub-like">Like</div>
+          <span class="heart" @click="toggleLike" :class="{ 'like': isFavorite }">
+            {{ isFavorite ? '💗' : '🤍' }}
+          </span>
         </div>
-        <div>
-          <!-- 빼도 될 것 같아서 일단 지웁니당. 깔끔하게..! -->
-          <!-- <p>{{ description }}</p> -->
-          <!-- <p>{{ publishTime }}</p> -->
-          </div>
+        <div class="content-part">
+          <div class="channel-time">최초 공개: {{ formattedPublishTime }}</div>
+          <!-- <div v-if="showFullDescription">{{ description }}</div>
+          <div v-else>{{ shortDescription }}</div>
+          <button @click="toggleDescription">{{ showFullDescription ? '간략히 보기' : '더보기' }}</button> -->
+          <div>{{ description }}</div>
+
         </div>
-      <br>
-      <createComment />
-      <br>
-      <showCommentList />
+        </div>
+      </div>
+    </div>
+    <div class="total-comment-area">
+    <createComment />
+    <showCommentList />
+  </div>
   </div>
 </template>
 
 <script setup>
 import axios from 'axios';
-import searchVideo from '@/components/video/searchVideo.vue'
-import createComment from '@/components/comment/createComment.vue'
-import showCommentList from '@/components/comment/showCommentList.vue'
-import AnotherNav from '@/components/common/AnotherNav.vue'
+import searchVideo from '@/components/video/searchVideo.vue';
+import createComment from '@/components/comment/createComment.vue';
+import showCommentList from '@/components/comment/showCommentList.vue';
+import SubNav from '@/components/common/SubNav.vue';
 
 import { useRoute, useRouter } from 'vue-router';
 import { useVideoStore } from '@/stores/video';
 import { computed, ref, onMounted } from 'vue';
 
-const store = useVideoStore()
+const store = useVideoStore();
 
 const router = useRouter();
 const route = useRoute();
 
 const videoId = ref(route.params.videoId);
 
-const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
-const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-const sessionId = parsedData.loginUser; // loginUser 값 가져오기
+const storedData = localStorage.getItem('user');
+const parsedData = JSON.parse(storedData);
+const sessionId = parsedData.loginUser;
 
 const channelTitle = ref(route.params.channelTitle);
 const description = ref(route.params.description);
@@ -72,149 +88,268 @@ const savedVideoId = ref(null);
 const savedisFavorite = ref(null);
 
 const videoByUser = {
-sessionId: { sessionId: sessionId.value},
-snippet: {
-  title: title.value,
-  channelTitle: channelTitle.value,
-  publishTime: publishTime.value
-},
-isFavorite: isFavorite.value
-};
-
-// like 때문에 쓰는 거임 
-const loadData = () => {
-try {
-  // 로컬 스토리지에서 아이디 불러 옴
-  const savedUser = localStorage.getItem('user');
-  const parsedUser = JSON.parse(savedUser);
-
-  if (parsedUser && parsedUser.videoId === videoId.value) {
-      isFavorite.value = parsedUser.isFavorite;
-    }
-  } catch (error) {
-    console.error('Error loading data from localStorage:', error);
-  }
-};
-  
-
-const fetchVideoDetails = async (videoId) => {
-try {
-  const response = await axios.get(`http://localhost:8080/video/${videoId}/like/${sessionId}`);
-  if (response.data) {
-    const videoData = response.data;
-    videoId.value = videoData.videoId;
-    title.value = videoData.title;
-    channelTitle.value = videoData.channelName;
-    description.value = videoData.description;
-    publishTime.value = videoData.publishTime;
-    isFavorite.value = videoData.likeYn;
-  }
-} catch (error) {
-  console.error('Error fetching video details:', error);
-}
-};
-
-const videoURL = computed(() => {
-  return `https://www.youtube.com/embed/${videoId.value}`;
-})
-
-
-const toggleLike = async () => {
-try {
-  isFavorite.value = !isFavorite.value; // 좋아요 상태 토글
-
-  const updatedUser = {
-      loginUser: sessionId,
-      videoId: videoId.value,
-      isFavorite: isFavorite.value
-    };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-
- 
-  // API 요청 보내기
-  const newVideo = {
-    sessionId: sessionId,
-    videoId: videoId.value,
-    videoTitle: title.value,
-    area: '전신',
-    channelName: channelTitle.value,
-    regDate: publishTime.value,
-    centerName: channelTitle.value,
-    likeYn: isFavorite.value
-  };
-  
-  const response = await axios.put(`http://localhost:8080/video/${newVideo.videoId}/like/${newVideo.sessionId}`, newVideo);
-  console.log("Like status updated successfully", newVideo);
-
-  // 결과 확인 (디버깅용)
-  console.log(JSON.parse(localStorage.getItem('user')))
-
-} catch (error) {
-  console.error("Error updating like status", error);
-}
-};
-
-// 윗단이 수정된 clickLike
-const clickUpload = async (video) => {
-console.log("click Upload")
-// const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
-// const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-// const sessionId = parsedData.loginUser; // loginUser 값 가져오기
-// console.log(sessionId)  
-await store.uploadVideo(video)
-console.log("click Upload complete")
-// console.log(videoId)
-}
-
-onMounted(() => {
-
-loadData()
-
-// 컴포넌트가 마운트될 때 'isFavorite' 값을 로드하는지 확인
-// console.log(isFavorite.value)
-clickUpload({
-  id: { videoId: videoId.value },
-  sessionId: sessionId.value,
+  sessionId: { sessionId: sessionId.value },
   snippet: {
     title: title.value,
     channelTitle: channelTitle.value,
     publishTime: publishTime.value
   },
   isFavorite: isFavorite.value
-  })
-})
+};
+
+const loadData = () => {
+  try {
+    const savedUser = localStorage.getItem('user');
+    const parsedUser = JSON.parse(savedUser);
+
+    if (parsedUser && parsedUser.videoId === videoId.value) {
+      isFavorite.value = parsedUser.isFavorite;
+    }
+  } catch (error) {
+    console.error('Error loading data from localStorage:', error);
+  }
+};
+
+const fetchVideoDetails = async (videoId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/video/${videoId}/like/${sessionId}`);
+    if (response.data) {
+      const videoData = response.data;
+      videoId.value = videoData.videoId;
+      title.value = videoData.title;
+      channelTitle.value = videoData.channelName;
+      description.value = videoData.description;
+      publishTime.value = videoData.publishTime;
+      isFavorite.value = videoData.likeYn;
+    }
+  } catch (error) {
+    console.error('Error fetching video details:', error);
+  }
+};
+
+const videoURL = computed(() => {
+  return `https://www.youtube.com/embed/${videoId.value}`;
+});
+
+const formattedPublishTime = computed(() => {
+  if (publishTime.value) {
+    const date = new Date(publishTime.value);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}년 ${month}월 ${day}일`;
+  }
+  return '';
+});
+
+const toggleLike = async () => {
+  try {
+    isFavorite.value = !isFavorite.value;
+
+    const updatedUser = {
+      loginUser: sessionId,
+      videoId: videoId.value,
+      isFavorite: isFavorite.value
+    };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+
+    const newVideo = {
+      sessionId: sessionId,
+      videoId: videoId.value,
+      videoTitle: title.value,
+      area: '전신',
+      channelName: channelTitle.value,
+      regDate: publishTime.value,
+      centerName: channelTitle.value,
+      likeYn: isFavorite.value
+    };
+
+    const response = await axios.put(`http://localhost:8080/video/${newVideo.videoId}/like/${newVideo.sessionId}`, newVideo);
+    console.log("Like status updated successfully", newVideo);
+
+    console.log(JSON.parse(localStorage.getItem('user')));
+
+  } catch (error) {
+    console.error("Error updating like status", error);
+  }
+};
+
+const clickUpload = async (video) => {
+  console.log("click Upload");
+  await store.uploadVideo(video);
+  console.log("click Upload complete");
+};
+
+onMounted(() => {
+  loadData();
+  clickUpload({
+    id: { videoId: videoId.value },
+    sessionId: sessionId.value,
+    snippet: {
+      title: title.value,
+      channelTitle: channelTitle.value,
+      publishTime: publishTime.value
+    },
+    isFavorite: isFavorite.value
+  });
+});
+
+const shortDescriptionLength = 100; // 간략한 설명의 길이
+const showFullDescription = ref(false); // 전체 설명을 보여줄지 여부
+
+const shortDescription = computed(() => {
+  return description.value.slice(0, shortDescriptionLength);
+});
+
+const toggleDescription = () => {
+  showFullDescription.value = !showFullDescription.value;
+};
 
 </script>
 
 <style scoped>
-.search{
-  margin-top:30px ;
-}
-.text-container{
-  margin-top: -25px;
+.heart {
+  font-size: 22px;
 }
 
-iframe{
-  margin-top: -5px;
+.sub-like {
+  align-self: flex-end; /* 추가 */
+  font-size: 12px;
 }
-.container {
-display: flex;
-flex-direction: column;
-align-items: center;
-text-align: center;
+
+.nav {
+  display: flex;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.nav a {
+  margin-right: 20px;
+}
+
+.sub-nav {
+  margin-left: auto;
+}
+
+.base {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  margin: 20px;
+  padding-left: 45px;
+  padding-right: 40px;
+}
+
+.search {
+  margin-top: 30px;
+  display: flex;
+  justify-content: end;
+  margin-right: 1%;
+  margin-top: 2px;
+  margin-bottom: 5%;
+}
+
+.video-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .video-detail {
-/* margin: 0 auto; */
-
-margin: 35px;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
 }
 
+.text-container {
+  width: 700px;
+  text-align: left;
+  margin-top: -2%;
+  padding-left: 1px;
+  /* margin-top: -25px; */
+}
+
+iframe {
+  border-radius: 13px;
+}
+
+.channel-title {
+  margin-top: 3%;
+  font-size: 20px;
+  margin-bottom: 4%;
+}
+
+.profile-channel-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4%;
+}
+
+
+.profile-empty {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 221, 221);
+  border-radius: 50%;
+  border: 1px solid rgb(164, 154, 154);
+  margin-right: 14px;
+}
+
+.channel-name {
+  font-size: 17px;
+  margin-right: 65%;
+}
+
+.content-part {
+  margin-top: 4%;
+  padding: 4%;
+  background-color: rgba(203, 202, 202, 0.326);
+  border-radius: 18px;
+  height: 180px;
+  margin-bottom: 8%;
+
+}
+
+.channel-time {
+  font-size: 14px;
+  margin-bottom: 4%;
+}
+
+
+/* .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+} */
+
 hr {
-width: 100%;
+  width: 100%;
 }
 
 h3 {
-margin-bottom: 20px;
+  margin-top: 2%;
+  /* margin-top: 3%;
+  display: flex;
+  justify-content: center; */
 }
+
+.total-comment-area {
+  background: linear-gradient(to bottom,
+    rgba(245, 228, 222, 0) 12%,
+    rgba(245, 228, 222, 0.4) 30%,
+    rgba(245, 228, 222, 0.5) 75%,
+    rgba(245, 228, 222, 0.6) 100%,
+    rgba(245, 228, 222, 0.8) 100%,
+    rgba(245, 228, 222, 1) 100%
+    );
+  border-radius: 14px;
+  padding: 3%;
+  width: 740px;
+  min-height: 500px;
+  margin: 0 auto;
+}
+
 </style>

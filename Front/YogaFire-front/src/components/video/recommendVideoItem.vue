@@ -83,11 +83,9 @@ li {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    /* max-width: 280px; */
     width: 100%;
     height: 2%;
     padding: 0.8%;
-    /* margin: ; */
     margin-top: 2%;
     margin-bottom: 17%;
     overflow: hidden;
