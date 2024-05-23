@@ -68,11 +68,12 @@ export const useCommentStore = defineStore('comment', () => {
     }
 
     const reComment = function(videoId, vCommentId, updatedContent){
+        console.log('reComment로 전달된 내용 :'+updatedContent);
         axios({
             url: `${baseURL}/${videoId}/comment/${vCommentId}`,
             method: 'PUT',
             data: {
-                vCommentContent: updatedContent
+                vCommentContent: updatedContent.value
             }
         }).then(async ()=>{
             console.log('댓글 수정 완료');

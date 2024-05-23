@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', () => {
             data: user
         })
             .then(() => {
+                alert('회원가입에 성공했습니다.')
                 // 회원가입 하면 바로 로그인 페이지로 이동.
                 router.push({ name: 'loginDetail' })
             })
@@ -27,7 +28,7 @@ export const useUserStore = defineStore('user', () => {
                     console.log('500 에러')
                     alert('중복체크를 해주세요.');
                 }else if(err.response.status === 400){
-                    alert('형식에 맞지 않는 형태를 입력했습니다.');
+                    alert('형식에 맞지 않는 값을 입력했습니다.');
                 }
             })
     }

@@ -148,11 +148,15 @@ public class VideoRestController {
 	@GetMapping("/{videoId}/like/{sessionId}")
 	@Operation(summary = "영상 찜")
 	public ResponseEntity<?> likeVideo(@PathVariable("videoId") String videoId, @PathVariable("sessionId") String sessionId) {
-		Video video = new Video();
-		video.setVideoId(videoId);
-		video.setSessionId(sessionId);
-		int res = videoService.likeVideo(video);
-		return new ResponseEntity<>(res, HttpStatus.OK);
+		System.out.println(sessionId);
+	    if (sessionId.isEmpty()) {
+	        return new ResponseEntity<>("Session ID cannot be empty", HttpStatus.BAD_REQUEST);
+	    }
+	    Video video = new Video();
+	    video.setVideoId(videoId);
+	    video.setSessionId(sessionId);
+	    int res = videoService.likeVideo(video);
+	    return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{videoId}/like/{sessionId}")
