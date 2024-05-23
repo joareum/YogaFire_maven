@@ -18,6 +18,13 @@
 		WHERE video_id = #{videoId};
 	</select>
 	
+	<!-- 아이디나 비디오 중복 없이 upload, 등록하도록 하는 코드 -->
+	<select id="findVideo" resultType="int" parameterType="map">
+	SELECT COUNT(*) 
+	FROM video 
+	WHERE session_id = #{sessionId} OR video_id = #{videoId};
+	</select>
+	
 	<!-- DB에 비디오 등록하는 쿼리문 -->
 	<insert id="insertVideo" parameterType="Video">
 		INSERT INTO video

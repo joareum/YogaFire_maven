@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="box">
-            <h1>🏃🏃🏃</h1>
+            <h1 @click="goHome">🏃🏃🏃</h1>
             <div class="input-box">
                 <div class="input-group">
                     <label for="height">키</label>
@@ -57,6 +57,9 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useUserStore } from '@/stores/user.js';
+import { useRoute, useRouter } from 'vue-router'
+
+const router = useRouter();
 
 
 const userStore = useUserStore();
@@ -112,6 +115,10 @@ const kcal = computed(() => {
 });
 
 userStore.calculatedKcal = kcal
+
+const goHome = () => {
+    router.push('/');
+};
 
 </script>
 
