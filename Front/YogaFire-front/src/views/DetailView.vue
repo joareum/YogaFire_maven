@@ -28,7 +28,7 @@
 
             <span class="profile-empty"></span><span class="channel-name">{{ channelTitle }}</span>
 
-            <div class="sub-like">Like</div>
+            
             <span class="heart" @click="toggleLike">
               {{ likeCount > 0 ? '💗' : '🤍' }}
             </span>
@@ -137,7 +137,9 @@ onMounted(() => {
 const toggleLike = async () => {
   console.log(likeCount.value + '<- 이 값이 0 이상이면 Like된 것, 0 이면 Like 안된 것')
   try {
-    if (likeCount.value === 0) {
+    if(sessionId == ""){
+      alert('비회원은 찜 기능을 사용할 수 없습니다. 로그인 해주세요!')
+    } else if (likeCount.value === 0) {
       console.log(likeCount.value + '<- 이 값이 0 이상이면 Like된 것, 0 이면 Like 안된 것')
       // isFavorite.value = !isFavorite.value;
 
@@ -249,12 +251,6 @@ const toggleDescription = () => {
 .channel-name {
   font-size: 17px;
   margin-right: auto; /* Ensures there's space between the channel name and the like button */
-}
-
-.sub-like {
-  font-size: 12px;
-  margin-right: 10px;
-  /* margin-left:  */
 }
 
 .heart {
