@@ -1,7 +1,9 @@
 <template>
-  <div>
-      <AnotherNav/>
-  </div>
+<div>
+  <a href="http://localhost:5173" class="logo-container">
+        <img src="@/assets/yogafire_pink.png" style="max-width: 85px; height: auto;">
+      </a>
+</div>
 
 <div class="text-center">
 </div>
@@ -14,7 +16,7 @@
     </div>
   </div>
   <div>
-    <img src="@/assets/yogafire_pinkC.png" style="max-width: 55px; height: auto;" @click="toggleChatbotVisibility">
+    <img class="chat-img" src="@/assets/yogafire_pinkC.png" style="max-width: 55px; height: auto;" @click="toggleChatbotVisibility">
   </div>
 </div>
 </template>
@@ -82,6 +84,13 @@ padding: 0;
 box-sizing: border-box;
 }
 
+.logo-container {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  margin-right: 2%;
+}
+
 .text-center {
 text-align: center;
 margin: 20px;
@@ -116,7 +125,7 @@ color: rgba(48, 45, 41, 0.932);
   left: 43px;
 } */
 
-img {
+.chat-img {
 border: 1px solid #bb5454;
 padding: 2px;
 /* position: fixed; */
@@ -128,6 +137,7 @@ bottom: 5%;
 max-width: 55px;
 height: auto;
 border-radius: 25px;
+background-color: white;
 box-shadow: rgb(0 0 0 / 10%) 0px 12px 60px 5px;
 cursor: pointer; /* 이미지 클릭을 위한 커서 설정 */
 

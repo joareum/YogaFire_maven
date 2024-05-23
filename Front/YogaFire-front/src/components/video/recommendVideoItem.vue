@@ -80,15 +80,15 @@ li {
 
 .text-container {
     word-break: break-word;
-    display: -webkit-box;
+    /* display: -webkit-box; */
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     width: 100%;
-    height: 2%;
+    height: 34px;
     padding: 0.8%;
     margin-top: 2%;
     margin-bottom: 17%;
-    overflow: hidden;
+    /* overflow: hidden; */
     text-overflow: ellipsis;
     /* background-color: rgba(252, 182, 165, 0.2); */
 }

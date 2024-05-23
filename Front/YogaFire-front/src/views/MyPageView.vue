@@ -3,7 +3,7 @@
     <br> -->
     <div class="nav">
       <a href="http://localhost:5173">
-        <img src="@/assets/yogafire_pink.png" class="logo">
+        <img src="@/assets/yogafire_pink.png" class="logo" @click="goHome">
       </a>
       <div class="sub-nav">
         <SubNav />
@@ -28,8 +28,7 @@ import SubNav from '@/components/common/SubNav.vue'
   justify-content: space-between; /* 양쪽 끝으로 정렬 */
   padding: 20px; /* 상하 좌우 패딩 추가 */
   /* background-color: #ffeff7; */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
-  border-radius: 10px; /* 모서리 둥글게 */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
   margin: 10px 20px; /* 상하 10px 좌우 20px 마진 */
 }
 

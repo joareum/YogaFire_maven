@@ -40,7 +40,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { useCommentStore } from '@/stores/comment'
+import { useCommentStore } from '@/stores/comment';
 import { useRoute } from 'vue-router';
 
 const store = useCommentStore();
@@ -52,9 +52,8 @@ const editedCommentContent = ref(''); // 수정 중인 댓글의 내용
 const originalCommentContent = ref(''); // 수정하기 전 댓글의 원래 내용
 
 onMounted(async () => {
-  await store.getComment(routevideoId.value)
-  comments.value = store.outComment
-})
+  await store.getComment(routevideoId.value);
+});
 
 const comments = computed(() => store.outComment);
 
@@ -65,54 +64,43 @@ const userObject = JSON.parse(userString);
 // 객체에서 'loginUser' 값을 가져옴
 const loginUser = userObject.loginUser;
 
-const deleteComment = function (videoId, commentId, commentUserId) {
-
-  if(loginUser === commentUserId){
-    store.deleteComment(videoId, commentId);
-  } else{
+const deleteComment = async (videoId, commentId, commentUserId) => {
+  if (loginUser === commentUserId) {
+    await store.deleteComment(videoId, commentId);
+    await store.getComment(routevideoId.value); // 댓글 목록 업데이트
+  } else {
     alert('본인의 댓글만 삭제할 수 있습니다.');
   }
-}
+};
 
 const formatDate = (dateStr) => {
   const date = new Date(dateStr);
   const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
   return formattedDate;
-}
+};
 
 const saveEdit = async (videoId, vCommentId) => {
   await store.reComment(videoId, vCommentId, editedCommentContent.value);
+  await store.getComment(routevideoId.value); // 댓글 목록 업데이트
   editingCommentId.value = null;
   editedCommentContent.value = '';
-  await store.getComment(routevideoId.value); // 댓글 목록 업데이트
 };
-
 
 const startEditing = (commentId, currentContent, commentUserId) => {
-  if(loginUser === commentUserId){
-    console.log(commentId)
-    console.log(editingCommentId.value) // null
+  if (loginUser === commentUserId) {
     editingCommentId.value = commentId;
-    console.log(editingCommentId.value) // 동일
     editedCommentContent.value = currentContent;
-  }else{
+    originalCommentContent.value = currentContent; // 원래 댓글 내용 저장
+  } else {
     alert('본인의 댓글만 수정할 수 있습니다.');
   }
-}; 
-
-// const startEditing = (commentId) => {
-//   const comment = comments.value.find(comment => comment.id === commentId);
-//   editedCommentContent.value = comment.vCommentContent;
-//   editingCommentId.value = commentId;
-// };
-
+};
 
 const cancelEdit = () => {
-  editedCommentContent.value = originalCommentContent.value
+  editedCommentContent.value = originalCommentContent.value; // 원래 댓글 내용으로 복원
   editingCommentId.value = null;
   editedCommentContent.value = '';
 };
-
 </script>
 
 <style scoped>
@@ -121,9 +109,9 @@ const cancelEdit = () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 35vh; /* 최소 높이 설정 */
+  min-height: 35vh;
   width: 100%;
-  margin-bottom: 50px; /* 아래쪽 마진 추가 */
+  margin-bottom: 50px;
 }
 
 .comment-list {
@@ -139,49 +127,27 @@ li {
   display: flex;
   padding-bottom: 5px;
   width: 100%;
-  padding-left: 110px;
+  margin-bottom: 2%;
+  padding-left: 18px;
+  align-items: baseline;
 }
 
-.content {
-  margin-left: 20px; /* 왼쪽 마진을 더 넓게 설정 */
-  margin-right: 100px; /* 오른쪽 마진을 더 넓게 설정 */
-  flex: 1;
-}
-
-.date {
-  margin-right: 30px;
-  flex: 1;
-}
-
-.button {
-  margin-right: 50px;
-  flex: 1;
-}
-
-.id {
+.id, .date, .button {
+  flex: 2; /* 가로 너비를 늘리기 위해 flex 값 증가 */
   text-align: center;
-  margin-right: 3%;
-  flex: 1;
+  display: flex; /* 높이를 맞추기 위해 flex 박스로 설정 */
+  align-items: baseline; /* 요소를 가운데 정렬 */
+  justify-content: center; /* 내용 가운데 정렬 */
 }
 
 .content {
+  flex: 3; /* 가로 너비를 늘리기 위해 flex 값 증가 */
+  padding: 0 20px;
   display: flex;
-  align-items: center;
-  /* flex-grow: 2; */
-}
-
-.date {
-  margin-left: 50px;
-  /* flex-grow: 1.5; */
-}
-
-.button {
-  text-align: left;
-  flex-grow: 1;
+  /* align-items: baseline; */
 }
 
 /* 버튼 디자인 */
-
 * {
   margin: 0;
   padding: 0;
@@ -213,7 +179,6 @@ button {
   position: relative;
   border: none;
   display: inline-block;
-  /* padding: 15px 30px; */
   border-radius: 13px;
   font-family: "paybooc-Light", sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
@@ -237,35 +202,31 @@ button {
   0% {
     background-position: 0% 50%;
   }
-
   50% {
     background-position: 100% 50%;
   }
-
   100% {
     background-position: 0% 50%;
   }
 }
 
 textarea {
-  width: 100%; /* 좌우 넓이 설정 */
-  height: 100px; /* 높이 설정 */
+  width: 100%;
+  height: 100px;
   border: 2px solid #ff7c7c;
-  /* margin-right: -10px !important; */
   outline: none;
   margin-bottom: 7%;
   font-size: 16px;
-  padding: 10px; /* 안쪽 여백 추가 */
-  border-radius: 8px; /* 모서리를 둥글게 */
-  background-color: #f9f9f9; /* 배경색 추가 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-  resize: none; /* 크기 조절 비활성화 */
-  transition: border-color 0.3s, box-shadow 0.3s; /* 전환 효과 추가 */
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  resize: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 textarea:focus {
-  border-color: #ff5252; /* 포커스 시 테두리 색 변경 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 포커스 시 그림자 효과 변경 */
+  border-color: #ff5252;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
-
 </style>

@@ -33,7 +33,7 @@
           <div class="profile-channel-container">
           <span class="profile-empty"></span><span class="channel-name">{{ channelTitle }}</span>
           
-          <div class="sub-like">Like</div>
+          <!-- <div class="sub-like">Like</div> -->
           <span class="heart" @click="toggleLike">
             {{ likeCount === 0 ? '🤍' : '💗' }}
           </span>
@@ -154,7 +154,7 @@ localStorage.setItem('user', JSON.stringify(updatedUser));
 
 const newVideo = {
   sessionId: sessionId,
-  videoId: videoId.value,
+  videoId: videoId.value
 };
 
 // vLikeVideo
@@ -213,15 +213,40 @@ const toggleDescription = () => {
 </script>
 
 <style scoped>
-.heart {
-  font-size: 22px;
+.profile-channel-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4%;
+}
+
+.profile-empty {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 221, 221);
+  border-radius: 50%;
+  border: 1px solid rgb(164, 154, 154);
+  margin-right: 14px;
+}
+
+.channel-name {
+  font-size: 17px;
+  margin-right: auto; /* Ensures there's space between the channel name and the like button */
 }
 
 .sub-like {
-  align-self: flex-end; /* 추가 */
   font-size: 12px;
+  margin-right: 10px;
+  /* margin-left:  */
 }
 
+.heart {
+  font-size: 22px;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+/* Additional styles for other elements */
 .nav {
   display: flex;
   align-items: center;
@@ -237,9 +262,6 @@ const toggleDescription = () => {
 }
 
 .base {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   margin: 20px;
   padding-left: 45px;
   padding-right: 40px;
@@ -247,11 +269,12 @@ const toggleDescription = () => {
 
 .search {
   margin-top: 30px;
-  display: flex;
+  text-align: center;
+  /* display: flex;
   justify-content: end;
   margin-right: 1%;
   margin-top: 2px;
-  margin-bottom: 5%;
+  margin-bottom: 5%; */
 }
 
 .video-content {
@@ -272,7 +295,6 @@ const toggleDescription = () => {
   text-align: left;
   margin-top: -2%;
   padding-left: 1px;
-  /* margin-top: -25px; */
 }
 
 iframe {
@@ -280,31 +302,9 @@ iframe {
 }
 
 .channel-title {
-  margin-top: 3%;
+  margin-top: 4%;
   font-size: 20px;
   margin-bottom: 4%;
-}
-
-.profile-channel-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 4%;
-}
-
-
-.profile-empty {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  background-color: rgb(255, 221, 221);
-  border-radius: 50%;
-  border: 1px solid rgb(164, 154, 154);
-  margin-right: 14px;
-}
-
-.channel-name {
-  font-size: 17px;
-  margin-right: 65%;
 }
 
 .content-part {
@@ -312,9 +312,8 @@ iframe {
   padding: 4%;
   background-color: rgba(203, 202, 202, 0.326);
   border-radius: 18px;
-  height: 180px;
+  height: 100px;
   margin-bottom: 8%;
-
 }
 
 .channel-time {
@@ -322,23 +321,12 @@ iframe {
   margin-bottom: 4%;
 }
 
-
-/* .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-} */
-
 hr {
   width: 100%;
 }
 
 h3 {
   margin-top: 2%;
-  /* margin-top: 3%;
-  display: flex;
-  justify-content: center; */
 }
 
 .total-comment-area {
