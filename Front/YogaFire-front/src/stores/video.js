@@ -1,7 +1,6 @@
 import { ref, computed, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import router from '@/router'
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8080'
@@ -13,9 +12,6 @@ const parsedData = storedData ? JSON.parse(storedData) : null; // JSON 문자열
 // 기본값 설정
 const sessionId = parsedData ? parsedData.loginUser : null;
 
-
-// const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-// const sessionId = parsedData.loginUser; // loginUser 값 가져오기
 
 export const useVideoStore = defineStore('video', () => {
   const videos = ref([])
@@ -59,9 +55,6 @@ export const useVideoStore = defineStore('video', () => {
 
 
   const uploadVideo = async (video) => {
-    // const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
-    // const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-    // const sessionId = parsedData.loginUser; // loginUser 값 가져오기
 
     const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
     const parsedData = storedData ? JSON.parse(storedData) : null; // JSON 문자열을 객체로 파싱하기
@@ -134,9 +127,6 @@ export const useVideoStore = defineStore('video', () => {
   }
 
   const likeVideo = async (videoByUser) => {
-    // const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기
-    // const parsedData = JSON.parse(storedData); // JSON 문자열을 객체로 파싱하기
-    // const sessionId = parsedData.loginUser; // loginUser 값 가져오기
     const likeYn = videoByUser.isFavorite;
 
     const storedData = localStorage.getItem('user'); // 로컬 스토리지에서 값 가져오기

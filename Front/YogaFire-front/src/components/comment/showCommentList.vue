@@ -11,7 +11,7 @@
             </template>
 
             <template v-else>
-              <textarea v-model="editedCommentContent"></textarea>
+              <textarea v-model="editedCommentContent" @keyup.enter="saveEdit(comment.videoId, comment.vCommentId)"></textarea>
             </template>
           </div>
 

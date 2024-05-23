@@ -19,7 +19,6 @@
                 </div>
 
                 <div class="input-checkbox">
-                    <!-- <label class="label" for="sex">성별</label> -->
                     <span>
                         <span class="checkbox">
                             <input type="checkbox" name="sex" value="남" id="sex" ref="maleCheckbox"
@@ -103,13 +102,10 @@ const kcal = computed(() => {
     console.log('칼로리 계산 시작점')
     if (bmr.value && activityLevel.value) {
         let result = bmr.value * activityLevel.value;
-        // useUserStore.calculatedKcal = 20;
-        // console.log("d"+useUserStore.calculatedKcal)
         console.log('칼로리 계산 완료')
         console.log(Math.round(result))
         return Math.round(result);
     } else {
-        // useUserStore.calculatedKcal = 40;
         return 0; // 또는 적절한 기본값 설정
     }
 });
@@ -131,7 +127,6 @@ const goHome = () => {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* text-align: center; */
 }
 
 
@@ -140,27 +135,19 @@ const goHome = () => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* margin: 0 auto; */
     width: 100%;
     height: 100vh;
-    /* height: 100px; */
-    /* background-color: rgba(255, 255, 255, 0.5); */
-    /* padding: 20px; */
-    /* border: 1px solid blanchedalmond; */
 }
 
 .box {
-    /* width: 680px; */
     width: 80%;
     max-width: 600px;
     text-align: center;
-    margin-top: 28%;
+    margin-top: 45%;
     margin-bottom: 55%;
-    /* margin-top: 30px; */
     /* 흰 박스 마진 */
     background-color: rgb(255, 255, 255, 0.5);
     padding: 2%;
-    /* padding: 20px; */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -168,10 +155,7 @@ const goHome = () => {
 h1 {
     margin-top: 5%;
     margin-bottom: 6%;
-    /* margin-top: 27px; */
-    /* margin-bottom: 45px; */
     text-shadow: -3px -3px 0 #ffffff, 0 -3px 0 #ffffff, 3px -3px 0 #ffffff, 3px 0 0 #ffffff, 3px 3px 0 #ffffff, 0 3px 0 #ffffff, -3px 3px 0 #ffffff, -3px 0 0 #ffffff;
-    /* text-shadow:-2.5px -2.5px 0 #ffffff,0 -2.5px 0 #ffffff, 2.5px -2.5px 0 #ffffff,2.5px 0 0 #ffffff,2.5px 2.5px 0 #ffffff,0 2.5px 0 #ffffff,-2.5px 2.5px 0 #ffffff,-2.5px 0 0 #ffffff; */
 }
 
 
@@ -186,14 +170,12 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* margin: 2% 0; */
 }
 
 .input-group label {
     flex: 1;
     text-align: left;
     margin-left: 10%;
-    /* margin-right: px; */
 }
 
 .input-group input,
@@ -219,15 +201,11 @@ h1 {
 }
 
 .checkbox {
-    /* margin-top: 2%; */
     margin: 0 2%;
-    /* margin-left: 40px;
-    margin-right: 30px; */
     accent-color: rgb(250, 16, 55);
 }
 
 .checkbox-box {
-    /* margin-left: 70px; */
     display: flex;
     align-items: center;
     margin-left: 5%;
@@ -237,21 +215,13 @@ h1 {
 .checkbox-text {
     margin-left: 3%;
     font-size: 15px;
-    /* margin-left: 13px; */
     margin-right: 5%;
 }
 
 .result {
-    /* margin-top: 8%;
-    margin-bottom: 7%;
-    text-align: center; */
-
     margin-top: 8%;
     margin-bottom: 7%;
-    /* background-color: rgba(255, 234, 234, 0.534); */
     padding: 10px;
-    /* margin-top: 40px;
-    margin-bottom: 26px; */
     width: 80%;
     margin-left: 10%;
     text-align: center;

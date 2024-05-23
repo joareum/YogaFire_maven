@@ -43,8 +43,6 @@ export const useCommentStore = defineStore('comment', () => {
         })
         .then(async ()=>{
             console.log("댓글이 성공적으로 입력되었습니다.", newComment);
-            // outComment.value.push(newComment)
-            // store.getComment();
             await getComment(videoId);
         }).catch((err)=>{
             console.error("댓글 입력에 오류가 있었습니다.", err);
@@ -55,10 +53,6 @@ export const useCommentStore = defineStore('comment', () => {
         axios({
             url: `${baseURL}/${videoId}/comment/${vCommentId}`,
             method: 'DELETE',
-            // params:{
-            //     videoId: videoId,
-            //     vCommentId: vCommentId,
-            // }
         }).then(async ()=>{
             console.log('댓글 삭제 완료');
             await getComment(videoId);

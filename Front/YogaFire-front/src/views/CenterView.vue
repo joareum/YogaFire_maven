@@ -9,8 +9,7 @@
           </div>
       </div>
       <div class="image">
-          <img src="@/assets/yoga_image1.jpg" style="width: 1000px; height: auto;">
-          <!-- <img src="@/assets/yoga_image2.jpg" style="width: 300px; height: auto;"> -->
+          <img src="@/assets/yoga_image1.jpg" style="width: 1250px; height: 450px;">
       </div>
       <CenterList />
   </div>
@@ -39,7 +38,7 @@
 .image {
   display: flex;
   justify-content: center; /* Center align horizontally */
-  margin-bottom: 60px;
+  margin-bottom: 50px;
   margin-top: 8px;
 }
 </style>

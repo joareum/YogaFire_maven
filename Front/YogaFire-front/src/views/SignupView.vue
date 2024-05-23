@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- <h2>SignupView</h2> -->
         <SignupDetail/>
     </div>
 </template>

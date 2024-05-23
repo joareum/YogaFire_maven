@@ -27,9 +27,6 @@ import OpenAI from 'openai'
 
 import { useUserStore } from '@/stores/user.js';
 
-import AnotherNav from '@/components/common/AnotherNav.vue'
-
-
 const userStore = useUserStore();
 
 const kcal = ref(0); // kcal 값을 저장할 ref 변수 선언
@@ -83,7 +80,6 @@ margin: 0;
 padding: 0;
 box-sizing: border-box;
 }
-
 .logo-container {
   position: absolute;
   top: 10px; /* Adjust as needed */
@@ -114,23 +110,9 @@ background-color: rgb(245, 205, 192);
 color: rgba(48, 45, 41, 0.932);
 }
 
-/* button:after {
-  border-top: 12px solid rgb(245, 205, 192);
-  border-left: 0px solid transparent;
-  border-right: 17px solid transparent;
-  border-bottom: 0px solid transparent;
-  content: "";
-  position: absolute;
-  top: 76px;
-  left: 43px;
-} */
-
 .chat-img {
 border: 1px solid #bb5454;
 padding: 2px;
-/* position: fixed; */
-/* right: 40px;
-bottom: 50px; */
 position: absolute;
 right: 4%;
 bottom: 5%;
@@ -143,11 +125,6 @@ cursor: pointer; /* 이미지 클릭을 위한 커서 설정 */
 
 }
 .chatbot-container {
-/* position: fixed; */
-/* right: 40px;
-bottom: 130px;
-width: 650px;
-height: 780px; */
 position: absolute;
 right: 3%;
 bottom: 14%;
@@ -159,16 +136,12 @@ box-shadow: rgb(0 0 0 / 30%) 0px 12px 60px 5px;
 overflow-y: auto;
 display: flex;
 flex-direction: column;
-/* justify-content: center; */
-/* overflow: hidden; */
 padding: 22px;
-/* height: 80%; */
 min-height: 250px;
 max-height: 780px;
 }
 
 .chatbot-message {
-/* margin-top: 30px; */
 margin-bottom: 30px;
 height: 100%;
 background-color: rgba(48, 45, 41, 0.164);
@@ -184,8 +157,6 @@ border-bottom-left-radius: 48px;
 border-width: thin;
 border: none;
 color: rgba(48, 45, 41, 0.932);
-
 }
-
 
 </style>
