@@ -129,6 +129,7 @@ const isLike = async () => {
   try {
     const response = await axios.get(`http://localhost:8080/video/${isVideoId.value}/isLike/${sessionId}`)
     likeCount.value = response.data // 0 이상이면 Like된 것, 0 이면 Like 안된 것
+    console.log(likeCount.value)
   } catch (err) {
     console.error("isLike 에러", err)
   }
@@ -139,8 +140,10 @@ onMounted(() => {
 });
 
 const toggleLike = async () => {
+  console.log(likeCount)
   try {
-    if(likeCount !== 0){
+    if(likeCount.value === 0){
+      console.log(likeCount)
       // isFavorite.value = !isFavorite.value;
 
 const updatedUser = {
@@ -160,11 +163,16 @@ console.log(response.data)
 // console.log("Like status updated successfully", newVideo);
 
 // console.log(JSON.parse(localStorage.getItem('user')));
-isLike();
+likeCount.value = 1;
+      isFavorite.value = true;
 
     }else{
-      unLike();
-      isLike();
+      console.log(likeCount)
+      await unLike();
+
+      // Update the like count and isFavorite status
+      likeCount.value = 0;
+      isFavorite.value = false;
     }
     
   } catch (error) {
