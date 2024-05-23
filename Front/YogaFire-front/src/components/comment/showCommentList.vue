@@ -267,4 +267,5 @@ textarea:focus {
   border-color: #ff5252; /* 포커스 시 테두리 색 변경 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 포커스 시 그림자 효과 변경 */
 }
+
 </style>
