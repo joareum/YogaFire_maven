@@ -80,21 +80,33 @@ const formatDate = (dateStr) => {
 };
 
 const saveEdit = async (videoId, vCommentId) => {
-  await store.reComment(videoId, vCommentId, editedCommentContent.value);
-  await store.getComment(routevideoId.value); // 댓글 목록 업데이트
+
+  console.log('saveEdit 수정 시작 내용 :' + editedCommentContent.value);
+  
+  await store.reComment(videoId, vCommentId, editedCommentContent);
+  console.log('reComment 완료')
   editingCommentId.value = null;
   editedCommentContent.value = '';
+  console.log('댓글 초기화 끝 ' + editedCommentContent.value);
+  console.log('getComment');
+
+  await store.getComment(routevideoId.value); // 댓글 목록 업데이트
+
 };
 
 const startEditing = (commentId, currentContent, commentUserId) => {
+
   if (loginUser === commentUserId) {
+
     editingCommentId.value = commentId;
     editedCommentContent.value = currentContent;
     originalCommentContent.value = currentContent; // 원래 댓글 내용 저장
   } else {
     alert('본인의 댓글만 수정할 수 있습니다.');
   }
+
 };
+
 
 const cancelEdit = () => {
   editedCommentContent.value = originalCommentContent.value; // 원래 댓글 내용으로 복원

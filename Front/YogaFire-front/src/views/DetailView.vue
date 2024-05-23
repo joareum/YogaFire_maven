@@ -16,40 +16,35 @@
     </div>
     <div class="video-content">
       <div class="video-detail">
-      <iframe
-        width="700"
-        height="393.75"
-        :src="videoURL"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-      </iframe>
-    </div>
+        <iframe width="700" height="393.75" :src="videoURL" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+        </iframe>
+      </div>
       <div class="text-container">
         <div>
           <h3 class="channel-title">{{ title }}</h3>
           <div class="profile-channel-container">
-          <span class="profile-empty"></span><span class="channel-name">{{ channelTitle }}</span>
-          
-          <!-- <div class="sub-like">Like</div> -->
-          <span class="heart" @click="toggleLike">
-            {{ likeCount === 0 ? '🤍' : '💗' }}
-          </span>
-        </div>
-        <div class="content-part">
-          <div class="channel-time">최초 공개: {{ formattedPublishTime }}</div>
-          <div>{{ description }}</div>
 
-        </div>
+            <span class="profile-empty"></span><span class="channel-name">{{ channelTitle }}</span>
+
+            <div class="sub-like">Like</div>
+            <span class="heart" @click="toggleLike">
+              {{ likeCount > 0 ? '💗' : '🤍' }}
+            </span>
+          </div>
+          <div class="content-part">
+            <div class="channel-time">최초 공개: {{ formattedPublishTime }}</div>
+            <div>{{ description }}</div>
+
+          </div>
         </div>
       </div>
     </div>
     <div class="total-comment-area">
-    <createComment />
-    <showCommentList />
-  </div>
+      <createComment />
+      <showCommentList />
+    </div>
   </div>
 </template>
 
@@ -140,33 +135,46 @@ onMounted(() => {
 });
 
 const toggleLike = async () => {
-  console.log(likeCount)
+  console.log(likeCount.value + '<- 이 값이 0 이상이면 Like된 것, 0 이면 Like 안된 것')
   try {
-    if(likeCount.value === 0){
-      console.log(likeCount)
+    if (likeCount.value === 0) {
+      console.log(likeCount.value + '<- 이 값이 0 이상이면 Like된 것, 0 이면 Like 안된 것')
       // isFavorite.value = !isFavorite.value;
 
-const updatedUser = {
-  loginUser: sessionId,
-  videoId: videoId.value,
-};
-localStorage.setItem('user', JSON.stringify(updatedUser));
+      const updatedUser = {
+        loginUser: sessionId,
+        videoId: videoId.value,
+      };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
 
-const newVideo = {
-  sessionId: sessionId,
-  videoId: videoId.value
-};
 
-// vLikeVideo
-const response = await axios.get(`http://localhost:8080/video/${newVideo.videoId}/like/${newVideo.sessionId}`);
-console.log(response.data)
-// console.log("Like status updated successfully", newVideo);
+      const newVideo = {
+        sessionId: sessionId,
+        videoId: videoId.value,
+      };
 
-// console.log(JSON.parse(localStorage.getItem('user')));
-likeCount.value = 1;
+      // vLikeVideo
+      const response = await axios.get(`http://localhost:8080/video/${newVideo.videoId}/like/${newVideo.sessionId}`)
+        .then(response => {
+          console.log('video_like 추가 완료' + response.data + '<- 1이면 추가 완료 아니면 아님'); // 이 값까지 갔는데 왜 갑자기 catch로 가지..? / 1이 되어버렸음
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 404) {
+            alert('비회원은 찜 기능을 사용할 수 없습니다. 로그인 해주세요.');
+          } else if (error.request) {
+            // 요청은 보냈지만 응답을 받지 못한 경우 (CORS 오류)
+            alert('비회원은 찜 기능을 사용할 수 없습니다. 로그인 해주세요.');
+          } else {
+            // 요청을 보내기 전에 오류 발생
+            console.error('An error occurred:', error);
+          }
+        });
+
+
+      likeCount.value = 1;
       isFavorite.value = true;
 
-    }else{
+    } else {
       console.log(likeCount)
       await unLike();
 
@@ -174,9 +182,18 @@ likeCount.value = 1;
       likeCount.value = 0;
       isFavorite.value = false;
     }
-    
+
   } catch (error) {
-    console.error("Error updating like status", error);
+    console.error('An error occurred:', error);
+    if (error.response && error.response.status === 404) {
+      alert('비회원은 찜 기능을 사용할 수 없습니다. 로그인 해주세요.');
+    } else if (error.request) {
+      // 요청은 보냈지만 응답을 받지 못한 경우 (CORS 오류)
+      alert('비회원은 찜 기능을 사용할 수 없습니다. 로그인 해주세요.');
+    } else {
+      // 요청을 보내기 전에 오류 발생
+      console.error('An error occurred:', error);
+    }
   }
 };
 
@@ -331,18 +348,16 @@ h3 {
 
 .total-comment-area {
   background: linear-gradient(to bottom,
-    rgba(245, 228, 222, 0) 12%,
-    rgba(245, 228, 222, 0.4) 30%,
-    rgba(245, 228, 222, 0.5) 75%,
-    rgba(245, 228, 222, 0.6) 100%,
-    rgba(245, 228, 222, 0.8) 100%,
-    rgba(245, 228, 222, 1) 100%
-    );
+      rgba(245, 228, 222, 0) 12%,
+      rgba(245, 228, 222, 0.4) 30%,
+      rgba(245, 228, 222, 0.5) 75%,
+      rgba(245, 228, 222, 0.6) 100%,
+      rgba(245, 228, 222, 0.8) 100%,
+      rgba(245, 228, 222, 1) 100%);
   border-radius: 14px;
   padding: 3%;
   width: 740px;
   min-height: 500px;
   margin: 0 auto;
 }
-
 </style>
