@@ -3,9 +3,6 @@
     <div class="img">
       <img src="@/assets/yogafire_pink.png" style="max-width: 300px; height: auto;">
     </div>
-    <!-- <div class="ibm-plex-sans-bold-italic">
-      <h2>YOGAFIRE</h2>
-    </div> -->
     
     <div class="base">
       <div class="recommend-container">
@@ -13,7 +10,6 @@
         <SearchVideo/>
         <br>
         <TheHeaderNav/>
-        <!-- <RecommendVideo /> -->
       </div>
     </div>
     
@@ -27,7 +23,6 @@
   <script setup>
     import SearchVideo from '@/components/video/searchVideo.vue'
     import TheHeaderNav from '@/components/common/TheHeaderNav.vue'
-    // import RecommendVideo from '@/components/video/recommendVideo.vue'
   
   </script>
   
@@ -36,27 +31,6 @@
     padding-top: 130px;
   }
 
-  /* .logo-font {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: Italic;
-  font-variation-settings: "wdth" 100;
-  text-align: center;
-  font-size: 26px;
-  color: rgb(173, 33, 33);
-  } */
-
-  /* .logo-font {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: Italic;
-  font-variation-settings: "wdth" 100;
-  text-align: center;
-  font-size: 26px;
-  color: rgb(173, 33, 33);
-} */
 
 .ibm-plex-sans-bold-italic {
   font-family: "IBM Plex Sans", sans-serif;

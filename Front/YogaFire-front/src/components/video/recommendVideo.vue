@@ -1,19 +1,14 @@
 <template>
     <div class="base">
-        <!-- <HomeView /> -->
         <div class="nav">
             <a href="http://localhost:5173">
                 <img src="@/assets/yogafire_pink.png" style="max-width: 85px; height: auto;">
             </a>
-            <!-- <AnotherNav /> -->
             <div class="sub-nav">
             <SubNav />
         </div>
         </div>
 
-        <!-- <div class="search">
-            <SearchVideo />
-        </div> -->
         <div>
             <h3>요가는 자신을 찾는 여정의 시작입니다.</h3>
             <h4>함께 시작해보세요.</h4>
@@ -32,7 +27,6 @@ import { useVideoStore } from '@/stores/video'
 import RecommendVideoItem from '@/components/video/recommendVideoItem.vue'
 import { onMounted } from 'vue';
 import SubNav from '@/components/common/SubNav.vue'
-import SearchVideo from '@/components/video/searchVideo.vue'
 
 const store = useVideoStore()
 

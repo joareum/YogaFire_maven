@@ -283,11 +283,6 @@ const toggleDescription = () => {
 .search {
   margin-top: 30px;
   text-align: center;
-  /* display: flex;
-  justify-content: end;
-  margin-right: 1%;
-  margin-top: 2px;
-  margin-bottom: 5%; */
 }
 
 .video-content {

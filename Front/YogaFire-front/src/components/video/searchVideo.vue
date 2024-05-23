@@ -4,7 +4,6 @@
     <div class="search-bar">
         <input class="search-bar__input" type="text" placeholder="YOGAFIRE" v-model="keyword" @keyup.enter="search">
         <span>     </span>
-        <!-- <button class="w-btn w-btn-gra2 w-btn-gra-anim" type="button" @click="search">Search</button> -->
     </div>
 </template>
 
@@ -72,7 +71,6 @@ button {
     position: relative;
     border: none;
     display: inline-block;
-    /* padding: 15px 30px; */
     border-radius: 15px;
     font-family: "paybooc-Light", sans-serif;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
@@ -85,8 +83,6 @@ button {
 .w-btn-gra2 {
     background: linear-gradient(-45deg, #f58969, #e45c90, #f27b66, #ff2c2c);
     color: white;
-    /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    color: white; */
 }
 
 .w-btn-gra-anim {
@@ -129,12 +125,6 @@ search-bar {
   font-size: 15px;
 }
 
-
-/* .search-bar__input:focus {
-  outline: none;
-  width: 300px;
-  text-align: left;
-} */
 
 .fa-search {
   font-size: 15px;

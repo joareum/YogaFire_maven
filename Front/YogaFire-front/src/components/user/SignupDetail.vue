@@ -194,9 +194,6 @@ const checkDuplicateUserNickname = async () => {
 }
 };
 
-
-
-
 </script>
 
 <style scoped>

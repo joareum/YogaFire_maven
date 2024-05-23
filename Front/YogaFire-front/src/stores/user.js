@@ -3,14 +3,11 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import router from '@/router'
 
-// axios.defaults.headers['Access-Control-Allow-Origin'] = 'http://localhost:8080';
-// axios.defaults.withCredentials = true;
-
 const REST_USER_API = `http://localhost:8080/user/signup`
 
 export const useUserStore = defineStore('user', () => {
-
     const calculatedKcal = ref(0);
+
     const createAccount = function (user) {
         axios({
             url: REST_USER_API,
@@ -44,11 +41,10 @@ export const useUserStore = defineStore('user', () => {
         .then((response) => {
             console.log(response.data)
             if (response.status === 200) {
+                alert('로그인에 성공했습니다.')
                 console.log('로그인 성공');
                 loginUser.value = credentials.userId
-                // console.log(credentials.userId)
                 sessionStorage.setItem("loggedInUser", JSON.stringify(loginUser.value))
-                // console.log(sessionStorage.getItem("loggedInUser"))
                 router.push({ name: 'home' })
             }
         })

@@ -64,7 +64,6 @@ const router = createRouter({
           },
         {
             path: '/search',
-            // path: '/search/:keyword',
             name: 'search',
             component: SearchView,
             children:[

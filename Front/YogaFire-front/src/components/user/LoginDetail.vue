@@ -42,10 +42,6 @@ const login = function() {
         store.login(user.value)
 }
 
-// const findId = function(){
-//     router.push({ name: 'findid'});
-// }
-
 const addFocusClass = function(event) {
     event.target.classList.add('focused');
 }

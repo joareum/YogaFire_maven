@@ -52,10 +52,6 @@ const clickVideo = function (video) {
 </script>
 
 <style scoped>
-/* img {
-    margin: 3.2px 0px 1px 0px;
-    width: 350px;
-} */
 
 img {
     width: 100%;
@@ -80,7 +76,6 @@ li {
 
 .text-container {
     word-break: break-word;
-    /* display: -webkit-box; */
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     width: 100%;
@@ -88,9 +83,7 @@ li {
     padding: 0.8%;
     margin-top: 2%;
     margin-bottom: 17%;
-    /* overflow: hidden; */
     text-overflow: ellipsis;
-    /* background-color: rgba(252, 182, 165, 0.2); */
 }
 
 .video-container {
