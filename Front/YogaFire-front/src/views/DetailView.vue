@@ -34,8 +34,8 @@
           <span class="profile-empty"></span><span class="channel-name">{{ channelTitle }}</span>
           
           <div class="sub-like">Like</div>
-          <span class="heart" @click="toggleLike" :class="{ 'like': isFavorite }">
-            {{ isFavorite ? '💗' : '🤍' }}
+          <span class="heart" @click="toggleLike">
+            {{ likeCount === 0 ? '🤍' : '💗' }}
           </span>
         </div>
         <div class="content-part">
@@ -142,37 +142,66 @@ const formattedPublishTime = computed(() => {
   return '';
 });
 
+const isVideoId = ref(route.params.videoId); // 좋아요할 때 쓸 것
+const likeCount = ref(0)
+
+const isLike = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/video/${isVideoId.value}/isLike/${sessionId}`)
+    likeCount.value = response.data // 0 이상이면 Like된 것, 0 이면 Like 안된 것
+  } catch (err) {
+    console.error("isLike 에러", err)
+  }
+}
+
+onMounted(() => {
+  isLike()
+});
+
 const toggleLike = async () => {
   try {
-    isFavorite.value = !isFavorite.value;
+    if(likeCount !== 0){
+      // isFavorite.value = !isFavorite.value;
 
-    const updatedUser = {
-      loginUser: sessionId,
-      videoId: videoId.value,
-      isFavorite: isFavorite.value
-    };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
+const updatedUser = {
+  loginUser: sessionId,
+  videoId: videoId.value,
+};
+localStorage.setItem('user', JSON.stringify(updatedUser));
 
-    const newVideo = {
-      sessionId: sessionId,
-      videoId: videoId.value,
-      videoTitle: title.value,
-      area: '전신',
-      channelName: channelTitle.value,
-      regDate: publishTime.value,
-      centerName: channelTitle.value,
-      likeYn: isFavorite.value
-    };
+const newVideo = {
+  sessionId: sessionId,
+  videoId: videoId.value,
+};
 
-    const response = await axios.put(`http://localhost:8080/video/${newVideo.videoId}/like/${newVideo.sessionId}`, newVideo);
-    console.log("Like status updated successfully", newVideo);
+// vLikeVideo
+const response = await axios.get(`http://localhost:8080/video/${newVideo.videoId}/like/${newVideo.sessionId}`);
+console.log(response.data)
+// console.log("Like status updated successfully", newVideo);
 
-    console.log(JSON.parse(localStorage.getItem('user')));
+// console.log(JSON.parse(localStorage.getItem('user')));
+isLike();
 
+    }else{
+      unLike();
+      isLike();
+    }
+    
   } catch (error) {
     console.error("Error updating like status", error);
   }
 };
+
+
+const unLike = async () => {
+  try {
+    await axios.delete(`http://localhost:8080/video/${isVideoId.value}/like/${sessionId}`)
+    console.log("좋아요 취소 성공")
+  } catch (err) {
+    console.error("좋아요 취소 실패")
+  }
+}
+
 
 const clickUpload = async (video) => {
   console.log("click Upload");
@@ -180,19 +209,6 @@ const clickUpload = async (video) => {
   console.log("click Upload complete");
 };
 
-onMounted(() => {
-  loadData();
-  clickUpload({
-    id: { videoId: videoId.value },
-    sessionId: sessionId.value,
-    snippet: {
-      title: title.value,
-      channelTitle: channelTitle.value,
-      publishTime: publishTime.value
-    },
-    isFavorite: isFavorite.value
-  });
-});
 
 const shortDescriptionLength = 100; // 간략한 설명의 길이
 const showFullDescription = ref(false); // 전체 설명을 보여줄지 여부

@@ -11,18 +11,10 @@
 		date_format(reg_date, '%Y-%m-%d') AS
 		reg_date FROM video;
 	</select>
-
 	<select id="selectOne" resultType="video" parameterType="String">
 		SELECT *
 		FROM video
 		WHERE video_id = #{videoId};
-	</select>
-	
-	<!-- 아이디나 비디오 중복 없이 upload, 등록하도록 하는 코드 -->
-	<select id="findVideo" resultType="int" parameterType="map">
-	SELECT COUNT(*) 
-	FROM video 
-	WHERE session_id = #{sessionId} OR video_id = #{videoId};
 	</select>
 	
 	<!-- DB에 비디오 등록하는 쿼리문 -->
@@ -31,12 +23,12 @@
 		(video_id, video_title, area, session_id, channel_name, center_name)
 		VALUES (#{videoId}, #{videoTitle}, #{area}, #{sessionId}, #{channelName}, #{centerName});
 	</insert>
-
+	
 	<delete id="deleteVideo" parameterType="int">
 		DELETE FROM video
 		WHERE video_key = #{videoKey};
 	</delete>
-
+	
 	<update id="updateVideo" parameterType="Video">
 		UPDATE video
 		SET
@@ -44,7 +36,7 @@
 		#{channelName}, reg_date = now()
 		WHERE video_key = #{videoKey}
 	</update>
-
+	
 	<select id="searchDetail" resultType="video"
 		parameterType="searchCondition">
 		SELECT video_key, video_id, video_title, area, channel_name, center_name, view_cnt,
@@ -57,7 +49,6 @@
 			ORDER BY ${orderBy} ${orderByDir}
 		</if>
 	</select>
-
 	<!-- 댓글 출력 mapper 수정 -->
 	<!-- video 테이블과 video_comment 테이블의 video_key로 join하고, v_comment의 컬럼들을 가져옴 -->
 	<select id="selectAllComment" resultType="videoComment" parameterType="String">
@@ -71,13 +62,12 @@
 		INSERT INTO video_comment (v_comment_content, video_id, user_id)
 		VALUES (#{vCommentContent}, #{videoId}, #{userId});
 	</insert>
-
 	<delete id="deleteVComment" parameterType="int">
 		DELETE FROM
 		video_comment
 		WHERE v_comment_id = #{vCommentId};
 	</delete>
-
+	
 	<!-- 댓글 업데이트까지 되어 있음 -->
 	<update id="updateVComment" parameterType="VideoComment">
 		UPDATE video_comment
@@ -88,9 +78,11 @@
 <!-- 	<update id="like" parameterType="String">
 		UPDATE video
 		SET like_yn = NOT like_yn
+		WHERE video_id = #{videoId};
+	</update>
 		WHERE video_id = #{videoId} AND session_id = #{sessionId};
 	</update> -->
-	
+
 <!-- 	<update id="like" parameterType="map">
 		WITH user_video AS (
         SELECT user.*, video.*
@@ -107,8 +99,8 @@
         SELECT video_id FROM user_video WHERE video_id = #{videoId} AND session_id = #{sessionId}
     	);	
     </update> -->
-    
-    	<update id="like" parameterType="map">
+
+<!--     <update id="like" parameterType="map">
 		WITH user_video AS (
         SELECT user.*, video.*
         FROM user
@@ -123,11 +115,24 @@
     	WHERE video_id IN (
         SELECT video_id FROM user_video WHERE video_id = #{videoId} AND session_id = #{sessionId}
     	);	
-    </update>
-	
+    </update> -->
+
 	<select id="getVideosBySessionId" resultType="Video">
         SELECT * FROM video WHERE session_id = #{sessionId} AND like_yn = TRUE
     </select>
+
+	<insert id="vLike" parameterType="Video">
+		INSERT INTO video_like (session_id, video_id)
+		VALUES (#{sessionId}, #{videoId})	
+	</insert>
+	
+	<select id="isLike" parameterType="Video">
+		SELECT COUNT(*) FROM video_like WHERE session_id = #{sessionId} AND video_id = #{videoId}
+	</select>
+
+	<delete id="unLike" parameterType="Video">
+		DELETE FROM video_like WHERE session_id = #{sessionId} AND video_id = #{videoId}
+	</delete>
 
 
 	<!-- <select id="selectLike" resultType="video" parameterType="String"> 
@@ -135,7 +140,4 @@
 		video.center_name, video.view_cnt, date_format(video.reg_date, '%Y-%m-%d') 
 		AS reg_date FROM video LEFT OUTER JOIN video_like ON video.video_key = video_like.video_key 
 		AND video_like.like_yn = 'Y' WHERE video_like.user_id = #{userId}; </select> -->
-
-
-
 </mapper>

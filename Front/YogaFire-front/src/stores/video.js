@@ -163,7 +163,7 @@ export const useVideoStore = defineStore('video', () => {
     };
 
     try {
-      await apiClient.put(`/video/${newVideo.videoId}/like/${newVideo.sessionId}`, newVideo)
+      await apiClient.get(`/video/${newVideo.videoId}/like/${newVideo.sessionId}`, newVideo)
       console.log("Like status updated successfully", newVideo)
       isFavorite.value = newVideo.likeYn;
       localStorage.setItem('isFavorite', JSON.stringify(newVideo.likeYn))
@@ -172,7 +172,7 @@ export const useVideoStore = defineStore('video', () => {
     }
   };
 
-  
+
   return {
     getVideosBySession,
     videoSearch,
