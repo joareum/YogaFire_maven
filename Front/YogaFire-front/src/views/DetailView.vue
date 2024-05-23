@@ -40,9 +40,6 @@
         </div>
         <div class="content-part">
           <div class="channel-time">최초 공개: {{ formattedPublishTime }}</div>
-          <!-- <div v-if="showFullDescription">{{ description }}</div>
-          <div v-else>{{ shortDescription }}</div>
-          <button @click="toggleDescription">{{ showFullDescription ? '간략히 보기' : '더보기' }}</button> -->
           <div>{{ description }}</div>
 
         </div>
@@ -107,23 +104,6 @@ const loadData = () => {
     }
   } catch (error) {
     console.error('Error loading data from localStorage:', error);
-  }
-};
-
-const fetchVideoDetails = async (videoId) => {
-  try {
-    const response = await axios.get(`http://localhost:8080/video/${videoId}/like/${sessionId}`);
-    if (response.data) {
-      const videoData = response.data;
-      videoId.value = videoData.videoId;
-      title.value = videoData.title;
-      channelTitle.value = videoData.channelName;
-      description.value = videoData.description;
-      publishTime.value = videoData.publishTime;
-      isFavorite.value = videoData.likeYn;
-    }
-  } catch (error) {
-    console.error('Error fetching video details:', error);
   }
 };
 
@@ -208,6 +188,7 @@ const clickUpload = async (video) => {
   await store.uploadVideo(video);
   console.log("click Upload complete");
 };
+
 
 
 const shortDescriptionLength = 100; // 간략한 설명의 길이
