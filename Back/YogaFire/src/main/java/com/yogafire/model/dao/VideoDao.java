@@ -2,13 +2,11 @@ package com.yogafire.model.dao;
 
 import java.util.List;
 import java.util.Map;
-
 import com.yogafire.model.dto.SearchCondition;
 import com.yogafire.model.dto.Video;
 import com.yogafire.model.dto.VideoComment;
 
 public interface VideoDao {
-
 	public List<Video> selectAll();
 
 	public Video selectOne(String videoKey);
@@ -22,7 +20,7 @@ public interface VideoDao {
 	public List<Video> searchDetail(SearchCondition searchCondition);
 
 	public List<VideoComment> selectAllComment(String videoId);
-	
+
 	public int insertVComment(VideoComment videoComment);
 
 	public void deleteVComment(int vCommentId);
@@ -37,6 +35,11 @@ public interface VideoDao {
 
 	public List<Video> getVideosBySessionId(String sessionId);
 
-	public int findVideo(Map<String, String> info);
+	// 여기부터 좋아요
+	public int vLike(Video video);
+
+	public int isLike(Video video);
+
+	public int unLike(Video video);
 
 }
