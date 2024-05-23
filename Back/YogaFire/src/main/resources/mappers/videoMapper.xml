@@ -118,7 +118,7 @@
     </update> -->
 
 	<select id="getVideosBySessionId" resultType="Video">
-        SELECT * FROM like_video WHERE session_id = #{sessionId}
+        SELECT video_id FROM video_like WHERE session_id = #{sessionId}
     </select>
 
 	<insert id="vLike" parameterType="Video">

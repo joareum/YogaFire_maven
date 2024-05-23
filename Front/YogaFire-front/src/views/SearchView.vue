@@ -1,16 +1,26 @@
 <template>
     <div class="searchBase">
-        <AnotherNav/>
-
-        <h2>searchView</h2>
+        <div class="nav">
+      <a href="http://localhost:5173">
+        <img src="@/assets/yogafire_pink.png" style="max-width: 85px; height: auto;">
+      </a>
+      <div class="sub-nav">
+        <SubNav />
+      </div>
+    </div>
+        <!-- <AnotherNav/> -->
+<br>
+<br>
+<div>
             <SearchListVideo />
+        </div>
         <!-- {{ store.videos }} -->
     </div>
 </template>
 
 <script setup>
 import SearchListVideo from '@/components/video/searchListVideo.vue'
-import AnotherNav from '@/components/common/AnotherNav.vue'
+import SubNav from '@/components/common/SubNav.vue'
 
 // import { onMounted } from 'vue'
 // import { useVideoStore } from '@/stores/video';
@@ -32,7 +42,22 @@ import AnotherNav from '@/components/common/AnotherNav.vue'
 </script>
 
 <style scoped>
-.searchBase{
+.nav {
+  display: flex;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.nav a {
+  margin-right: 20px;
+}
+
+.sub-nav {
+  margin-left: auto;
+}
+
+.searchBase {
     text-align: center;
 }
+
 </style>

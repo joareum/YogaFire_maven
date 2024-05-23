@@ -7,9 +7,9 @@
         </RouterLink>
         <input type="text" id="user_id" v-model="user_id" class="view" @input="checkDuplicateUserId" placeholder="ID" />
         <br>
-        <span v-if="duplicateUserId === true">이미 존재하는 사용자 ID입니다.</span>
-        <span v-if="duplicateUserId === null">아이디 중복체크가 필요합니다.</span>
-        <span v-if="duplicateUserId === false">사용할 수 있는 ID입니다.</span>
+        <span class="alert-text" v-if="duplicateUserId === true">이미 존재하는 사용자 ID입니다.</span>
+        <span class="alert-text" v-if="duplicateUserId === null">아이디 중복체크가 필요합니다.</span>
+        <span class="alert-text" v-if="duplicateUserId === false">사용할 수 있는 ID입니다.</span>
         <br />
 
         <input type="password" id="password" v-model="password" class="view" placeholder="PW" /><br />
@@ -18,9 +18,9 @@
 
         <input type="email" id="email" v-model="email" class="view"  @input="checkDuplicateUserEmail" placeholder="EMAIL" />
         <br>
-        <span v-if="duplicateUserEmail === true">이미 존재하는 사용자 EMAIL입니다.</span>
-        <span v-if="duplicateUserEmail === null">EMAIL 중복체크가 필요합니다.</span>
-        <span v-if="duplicateUserEmail === false">사용할 수 있는 EMAIL입니다.</span>
+        <span class="alert-text" v-if="duplicateUserEmail === true">이미 존재하는 사용자 EMAIL입니다.</span>
+        <span class="alert-text" v-if="duplicateUserEmail === null">EMAIL 중복체크가 필요합니다.</span>
+        <span class="alert-text" v-if="duplicateUserEmail === false">사용할 수 있는 EMAIL입니다.</span>
         <br />
 
         <select class="box" id="birth-year" v-model="selectedYear" @focus="generateYears" placeholder="YEAR">
@@ -50,9 +50,9 @@
 
         <input type="nickname" id="nickname" v-model="nickname" class="view" @input="checkDuplicateUserNickname" placeholder="NICKNAME" />
         <br>
-        <span v-if="duplicateUserNickname === true">이미 존재하는 사용자 닉네임입니다.</span>
-        <span v-if="duplicateUserNickname === null">닉네임 중복체크가 필요합니다.</span>
-        <span v-if="duplicateUserNickname === false">사용할 수 있는 닉네임입니다.</span>
+        <span class="alert-text" v-if="duplicateUserNickname === true">이미 존재하는 사용자 닉네임입니다.</span>
+        <span class="alert-text" v-if="duplicateUserNickname === null">닉네임 중복체크가 필요합니다.</span>
+        <span class="alert-text" v-if="duplicateUserNickname === false">사용할 수 있는 닉네임입니다.</span>
         <br />
 
         <input type="height" id="height" v-model="height" class="view" placeholder="HEIGHT" /><br />
@@ -60,7 +60,7 @@
         <input type="weight" id="weight" v-model="weight" class="view" placeholder="WEIGHT" /><br />
 
 
-        <button class="w-btn w-btn-gra2 w-btn-gra-anim" type="button" @click="createAccount">🔥</button>
+        <button class="w-btn w-btn-gra2 w-btn-gra-anim fire-icon" type="button" @click="createAccount">🔥</button>
       </div>
     </fieldset>
   </div>
@@ -261,6 +261,11 @@ fieldset {
   margin-right: 10px;
 }
 
+.alert-text {
+  display: block;
+  margin-top: 1%;
+}
+
 .box:focus {
   outline: none;
   /* 포커스 시 아웃라인 제거 */
@@ -419,4 +424,9 @@ input::placeholder {
   text-align: left;
   padding-left: 20px;
   /* 원하는 만큼의 왼쪽 간격 조정 */
-}</style>
+}
+
+.fire-icon {
+  margin-top: 10px;
+}
+</style>

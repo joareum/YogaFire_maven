@@ -1,29 +1,24 @@
 <template>
-    <div>
-        <!-- <AnotherNav/>
-        <br> -->
-    <div class="nav">
-      <a href="http://localhost:5173">
-        <img src="@/assets/yogafire_pink.png" style="max-width: 85px; height: auto;">
-      </a>
-      <div class="sub-nav">
-        <SubNav />
+  <div>
+      <div class="nav">
+          <a href="http://localhost:5173">
+              <img src="@/assets/yogafire_pink.png" style="max-width: 85px; height: auto;">
+          </a>
+          <div class="sub-nav">
+              <SubNav />
+          </div>
       </div>
-      
-      
-    </div>
-    <div>
-      <img src="@/assets/yoga_image1.jpg" style="width: 300px; height: auto;">
-      <img src="@/assets/yoga_image2.jpg" style="width: 300px; height: auto;">
-
+      <div class="image">
+          <img src="@/assets/yoga_image1.jpg" style="width: 1000px; height: auto;">
+          <!-- <img src="@/assets/yoga_image2.jpg" style="width: 300px; height: auto;"> -->
       </div>
-        <CenterList />
-    </div>
+      <CenterList />
+  </div>
 </template>
 
 <script setup>
-    import CenterList from '@/components/center/CenterList.vue'
-    import SubNav from '@/components/common/SubNav.vue'
+  import CenterList from '@/components/center/CenterList.vue'
+  import SubNav from '@/components/common/SubNav.vue'
 </script>
 
 <style scoped>
@@ -39,5 +34,12 @@
 
 .sub-nav {
   margin-left: auto;
+}
+
+.image {
+  display: flex;
+  justify-content: center; /* Center align horizontally */
+  margin-bottom: 60px;
+  margin-top: 8px;
 }
 </style>
