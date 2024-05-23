@@ -36,7 +36,10 @@ public class VideoRestController {
 	public VideoRestController(VideoService videoService) {
 		this.videoService = videoService;
 	}
-	// 세션 아이디로 DB에 연결해서 영상 리스트 가져오는 메서드
+
+
+	// 세션 아이디로 DB에 연결해서 영상 리스트 가져오는 메서드 --- 찜목록
+
 	@GetMapping("/session")
 	public ResponseEntity<List<Video>> getVideoBySession(@RequestParam String sessionId) {
 		System.out.println("Session ID: " + sessionId);

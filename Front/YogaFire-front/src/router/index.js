@@ -4,7 +4,7 @@ import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import LoginDetail from '@/components/user/LoginDetail.vue'
 import SignupDetail from '@/components/user/SignupDetail.vue'
-import VideoView from '../views/VideoView.vue'
+
 import SearchView from '../views/SearchView.vue'
 import SearchList from '@/components/video/searchListVideo.vue'
 import FindId from '@/components/user/FindId.vue'
@@ -55,11 +55,6 @@ const router = createRouter({
                     component: SignupDetail
                 }
             ]
-        },
-        {
-            path: '/video',
-            name: 'video',
-            component: VideoView
         },
         {
           path: '/detail/:videoId/:title/:channelTitle/:description/:publishTime',
