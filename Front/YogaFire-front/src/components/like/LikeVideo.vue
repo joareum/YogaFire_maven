@@ -2,17 +2,19 @@
     <div>
       <h1>{{ sessionId }} 회원님의 찜한 영상 리스트</h1>
       <div v-if="videos.length">
+        <div class="video-list">
         <div v-for="video in videos" :key="video.videoId" class="video-item-container">
           <div class="video-item">
             <iframe :src="`https://www.youtube.com/embed/${video.videoId}`" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
-            <div class="video-info">
+            <!-- <div class="video-info">
               <p class="video-title">{{ video.videoTitle }}</p>
               <p class="channel-name">{{ video.channelName }}</p>
-            </div>
+            </div> -->
           </div>
         </div>
+      </div>
       </div>
       <div v-else>
         <p>찜하신 영상이 없습니다.</p>
@@ -46,16 +48,34 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.video-list-container {
+  margin: 0 auto;
+  padding: 2%;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
 /* 컨테이너 스타일 */
 .video-item-container {
-  margin-bottom: 20px; /* 영상 사이 마진 */
+  margin-bottom: 20px;
+  flex: 1 1 calc(33.333% - 20px); /* 각 항목이 동일한 너비를 가지도록 설정 */
+  max-width: calc(33.333% - 20px); /* 최대 너비를 동일하게 설정 */
+  box-sizing: border-box;
 }
 
 /* 비디오 항목 스타일 */
 .video-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
   border: 1px solid #e0e0e0; /* 연한 테두리 색상 */
   border-radius: 8px; /* 모서리 둥글게 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
@@ -70,34 +90,10 @@ onMounted(async () => {
 
 /* iframe 스타일 */
 iframe {
-  width: 560px;
-  height: 315px;
+  width: 100%; /* iframe 너비를 100%로 설정 */
+  aspect-ratio: 16 / 9; /* 비율 고정 */
   border-radius: 8px; /* 모서리 둥글게 */
   border: 1px solid #e0e0e0; /* 연한 테두리 색상 */
-}
-
-/* 비디오 정보 스타일 */
-.video-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* 텍스트를 위쪽에 배치 */
-  margin-left: 20px; /* 왼쪽 간격 */
-  padding-top: 5px; /* 상단 패딩 추가 */
-  flex: 1; /* flex-grow */
-}
-
-/* 비디오 제목 스타일 */
-.video-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-/* 채널 이름 스타일 */
-.channel-name {
-  font-size: 14px;
-  color: #757575; /* 텍스트 색상 */
-  margin-top: 3px; /* 추가 간격 */
 }
 
 /* 기본 폰트 스타일 */
@@ -138,7 +134,6 @@ button:hover {
   background-color: #ff1493; /* 마우스 오버 시 배경색 변경 */
 }
 
-/* 기타 스타일 */
 * {
   box-sizing: border-box;
 }
