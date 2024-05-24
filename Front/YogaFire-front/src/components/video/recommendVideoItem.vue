@@ -58,12 +58,13 @@ img {
     height: 100%;
     object-fit: cover;
     cursor: pointer;
+    margin: 5px;
+    border-radius: 10px;
 }
 
 
 li {
     margin: 1%;
-
 }
 
 .list-all {

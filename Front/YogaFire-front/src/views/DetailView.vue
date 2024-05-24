@@ -132,6 +132,8 @@ const isLike = async () => {
 
 onMounted(() => {
   isLike()
+   // 페이지 로드 시 상단으로 스크롤
+   window.scrollTo(0, 0); // 여기서 상단으로 스크롤하게 설정
 });
 
 const toggleLike = async () => {
